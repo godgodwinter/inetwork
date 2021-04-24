@@ -11,20 +11,15 @@ use App\Models\paket as ModelsPaket;
 
 class Paket extends Component
 {
-
-    // protected $listeners=[
-    //     //update suplier
-
-    //     'removeItem'=>'updateKeranjang'
-    // ];
+    public $search;
+    public $name;
+    protected $updatequeryString = ['search'];
     public $data, $nama, $harga, $kecepatan, $selected_id;
     public $updateMode = false;
 
     public function render()
     {
 
-        // alert
-        Alert::success('pesan yang ingin disampaikan', 'Judul Pesan');
 
         //data
         $pakets=ModelsPaket::all();
@@ -35,30 +30,24 @@ class Paket extends Component
             ->layout('layouts.adminty');
     }
 
-    private function resetInput()
-    {
-        $this->nama = null;
-        $this->harga = null;
-        $this->kecepatan = null;
-    }
-    public function store()
-    {
-        $this->validate([
-            'nama' => 'required|min:1'
-        ]);
-        ModelsPaket::create([
-            'nama' => $this->nama,
-            'kecepatan' => $this->kecepatan,
-            'harga' => $this->harga
-        ]);
-        $this->resetInput();
-    }
-    public function destroy($id)
-    {
-        if ($id) {
-            $record = ModelsPaket::where('id', $id);
-            $record->delete();
-        }
-    }
+    /**
+* destroy function
+*/
+public function destroy($postId)
+{
+  $paket = ModelsPaket::find($postId);
+
+  if($paket) {
+     $paket->delete();
+  }
+
+  //flash message
+  session()->flash('message', 'Data Berhasil Dihapus.');
+
+  //redirect
+  return redirect()->route('paket.index');
+
+}
+
 
 }

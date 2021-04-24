@@ -35,6 +35,8 @@
     <script type="text/javascript" src="{{ asset("js/") }}/jquery-3.5.1.js"></script>
     {{-- sweet alert --}}
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
     @yield('csshere')
 
@@ -44,11 +46,9 @@
         <!-- Styles -->
         {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
 
-        @livewireStyles
-
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
-</head>
+        {{-- <livewire:styles /> --}}
+    </head>
 <body>
     {{-- <script>
         swal("Hello world!");
@@ -231,25 +231,21 @@
                                 </li>
                             </ul>
 
-                            {{-- @livewire('navbar') --}}
 
                         </div>
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <div class="main-body">
-                                <div class="page-wrapper">
 
-                                    @include('sweet::alert')
+
+                                    {{-- @include('sweet::alert') --}}
 
                                     <main>
                                       {{ $slot }}
                                   </main>
 
-                                {{-- @stack('modals')
 
-                                @livewireScripts --}}
-                                </div>
                                 {{-- <div id="styleSelector">
                                 </div> --}}
                             </div>
@@ -259,52 +255,17 @@
             </div>
         </div>
     </div>
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 10]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="{{ asset("admin-style/") }}/files/assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="{{ asset("admin-style/") }}/files/assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="{{ asset("admin-style/") }}/files/assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="{{ asset("admin-style/") }}/files/assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="{{ asset("admin-style/") }}/files/assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
+
     <!-- Warning Section Ends -->
     <!-- Javascript Here -->
+    <!-- Javascript Here -->
     <!-- Required Jquery -->
+
+
+    <script src="{{asset('js/app.js')}}"></script>
+
+    <!-- javascript -->
+
     <script type="text/javascript" src="{{ asset("admin-style/") }}/files/bower_components/jquery/js/jquery.min.js">
     </script>
     <script type="text/javascript"
@@ -387,6 +348,7 @@
         gtag('js', new Date());
         gtag('config', 'UA-23581568-13');
     </script>
+    <livewire:scripts />
 </body>
 <!-- Mirrored from colorlib.com//polygon/adminty/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 08 Jan 2019 06:21:14 GMT -->
 </html>

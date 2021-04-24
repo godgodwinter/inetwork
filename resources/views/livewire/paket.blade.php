@@ -1,4 +1,12 @@
-@section('title','Paket Internet')
+<div class="page-wrapper">
+
+    {{-- <div>
+        <input type="text" wire:model="name">
+
+        Hi! My name is {{ $name }}
+    </div> --}}
+
+        @section('title','Paket Internet')
 
 <div class="page-header">
     <div class="row align-items-end">
@@ -23,47 +31,6 @@
     </div>
 </div>
 
-
-@if (count($errors) > 0)
-<div class="alert alert-danger">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Sorry!</strong> invalid input.<br><br>
-    <ul style="list-style-type:none;">
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
-
-@if($updateMode)
-<div>
-    <input type="hidden" wire:model="selected_id">
-    <div class="form-group">
-        <label for="exampleInputPassword1">Enter Name</label>
-        <input type="text" wire:model="name" class="form-control input-sm"  placeholder="Name">
-    </div>
-    <div class="form-group">
-        <label>Enter Email</label>
-        <input type="email" class="form-control input-sm" placeholder="Enter email" wire:model="email">
-    </div>
-    <button wire:click="update()" class="btn btn-primary">Update</button>
-</div>
-
-@else
-<div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Enter Name</label>
-        <input type="text" wire:model="name" class="form-control input-sm"  placeholder="Name">
-    </div>
-    <div class="form-group">
-        <label>Enter Email</label>
-        <input type="email" class="form-control input-sm" placeholder="Enter email" wire:model="email">
-    </div>
-    <button wire:click="store()" class="btn btn-primary">Submit</button>
-</div>
-@endif
-
 <!-- Section start -->
 <div class="page-body">
     <!-- DOM/Jquery table start -->
@@ -71,6 +38,7 @@
         <div class="card-header">
             <h5>Data @yield('title')</h5>
         </div>
+
         <div class="card-block">
             <div class="table-responsive dt-responsive">
                 <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -190,3 +158,7 @@
 <!-- tambah end -->
 </div>
 <!-- Section end -->
+
+</div>
+<!-- wrapper end -->
+
