@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Paket;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+
+Route::get('/admin/paket', Paket::class)->name('paket'); //Tambahkan routing ini
 
 //halaman admin fixed
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
