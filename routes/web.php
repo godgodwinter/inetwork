@@ -27,3 +27,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 
 Route::get('/admin/paket', Paket::class)->name('paket'); //Tambahkan routing ini
+
+//halaman admin fixed
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
+
+    Route::resource('admin/paket','App\Http\Controllers\AdminpaketController');
+
+});
