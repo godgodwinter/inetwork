@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("admin-style/") }}/files/assets/css/style.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset("admin-style/") }}/files/assets/css/jquery.mCustomScrollbar.css">
-    <script type="text/javascript" src="{{ asset("js/") }}/jquery-3.5.1.js"></script>
+    {{-- <script type="text/javascript" src="{{ asset("js/") }}/jquery-3.5.1.js"></script> --}}
     {{-- sweet alert --}}
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
@@ -351,8 +351,8 @@
     <script src="{{ asset("admin-style/") }}/files/assets/pages/data-table/js/data-table-custom.js"></script>
     <!-- notification js -->
     <script type="text/javascript" src="{{ asset("admin-style/") }}/files/assets/js/bootstrap-growl.min.js"></script>
-    <script type="text/javascript" src="{{ asset("admin-style/") }}/files/assets/pages/notification/notification__.js">
-    </script>
+    {{-- <script type="text/javascript" src="{{ asset("admin-style/") }}/files/assets/pages/notification/notification__.js">
+    </script> --}}
     <script src="{{ asset("admin-style/") }}/files/assets/js/pcoded.min.js"></script>
     <script src="{{ asset("admin-style/") }}/files/assets/js/vartical-layout.min.js"></script>
     <script src="{{ asset("admin-style/") }}/files/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>

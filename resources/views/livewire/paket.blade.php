@@ -36,7 +36,9 @@
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="card-header">
-            <h5>Data @yield('title')</h5>
+            <a href="{{ route('paket.create') }}" class="btn btn-md btn-success mb-3"><i
+                class="feather icon-plus-square"></i>Tambah @yield('title')</a>
+
         </div>
 
         <div class="card-block">
@@ -62,23 +64,12 @@
                             <td>{{$data->kecepatan}} Mbps</td>
 
                             <td>
+                                <a href="{{ route('paket.edit', $data->id) }}" class="btn btn-sm btn-primary"><span class="pcoded-micon"> <i
+                                    class="feather icon-edit"></i></span></a>
+                                <button wire:click="destroy({{ $data->id }})" class="btn btn-sm btn-danger"><span class="pcoded-micon"> <i
+                                    class="feather icon-delete"></i></span></button>
 
-                                <a class="btn btn-warning btn-outline-warning"
-                                    href="/admin/data/{{$data->id}}/edit"><span class="pcoded-micon"> <i
-                                            class="feather icon-edit"></i></span></a>
 
-                                <button wire:click="hapusdata({{$data->id}}"
-                                class="btn btn-danger">Hapus ({{$data->id}})</button>
-                                <button wire:click="edit({{$data->id}})" class="btn btn-sm btn-outline-danger py-0">Edit</button> |
-                                <button wire:click="destroy({{$data->id}})" class="btn btn-sm btn-outline-danger py-0">Delete</button>
-
-                                <form action="/admin/data/{{$data->id}}" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button class="btn btn-danger btn-outline-warning"
-                                        onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><span
-                                            class="pcoded-micon"> <i class="feather icon-delete"></i></span></button>
-                                </form>
                             </td>
                         </tr>
                         @endforeach

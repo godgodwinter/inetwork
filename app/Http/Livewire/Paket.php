@@ -30,24 +30,6 @@ class Paket extends Component
             ->layout('layouts.adminty');
     }
 
-    /**
-* destroy function
-*/
-public function destroy($postId)
-{
-  $paket = ModelsPaket::find($postId);
-
-  if($paket) {
-     $paket->delete();
-  }
-
-  //flash message
-  session()->flash('message', 'Data Berhasil Dihapus.');
-
-  //redirect
-  return redirect()->route('paket.index');
-
-}
 
 
 }

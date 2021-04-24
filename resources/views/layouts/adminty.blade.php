@@ -67,7 +67,7 @@
       </script>
     <button>Check jQuery version</button> --}}
     <!-- Pre-loader start -->
-    <div class="theme-loader">
+    {{-- <div class="theme-loader">
         <div class="ball-scale">
             <div class='contain'>
                 <div class="ring">
@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
@@ -182,7 +182,7 @@
                                 </li>
 
                                 <li class="">
-                                    <a href="{{url('/')}}/admin/paket">
+                                    <a href="{{url('/')}}/admin/paket" data-turbolinks-action="replace">
                                         <span class="pcoded-micon"><i class="feather icon-monitor"></i></span>
                                         <span class="pcoded-mtext">Paket</span>
                                     </a>

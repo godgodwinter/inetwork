@@ -30,7 +30,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //halaman admin fixed
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
-    Route::get('/admin/paket', Paket::class)->name('paket'); //Tambahkan routing ini
+    Route::get('/admin/paket', 'App\Http\Livewire\Paket')->name('paket.index'); //Tambahkan routing ini
+    Route::get('/admin/paket/create','App\Http\Livewire\Paket\Create')->name('paket.create'); //Tambahkan routing ini
+    Route::get('/admin/paket/edit/{id}', 'App\Http\Livewire\Paket\Index')->name('paket.edit'); //Tambahkan routing ini
     // Route::resource('admin/paket','App\Http\Controllers\AdminpaketController');
 
 });
