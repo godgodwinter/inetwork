@@ -141,7 +141,7 @@ This is an example of how to list things you need to use the software and how to
    ```
 
    ```sh
-   php artisan db:seed --class=paketeeder  //untuk meload data paket, jenis alat, jenis pendapatan , jenis pengeluaran dll
+   php artisan db:seed --class=paketseeder  //untuk meload data paket, jenis alat, jenis pendapatan , jenis pengeluaran dll
    ```
    
 
@@ -178,7 +178,7 @@ Project Link: [https://github.com/godgodwinter/topsis_bantuancv](https://github.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/godgodwinter/inetwork.svg?style=for-the-badge
 [contributors-url]: https://github.com/godgodwinter/inetwork/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
 [forks-url]: https://github.com/godgodwinter/inetwork/network/members
