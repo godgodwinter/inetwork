@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\paket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class AdminPaketController extends Controller
 {
@@ -38,6 +40,21 @@ class AdminPaketController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nama'=>'required',
+            'harga'=>'required|numeric',
+            'kecepatan'=>'required|numeric'
+
+        ],
+        [
+            'nama.required'=>'nama harus diisi',
+            'harga.required'=>'harga harus diisi',
+            'kecepatan.required'=>'kecepatan harus diisi'
+
+        ]);
+            // dd($request);
+        paket::create($request->all());
+        return redirect(URL::to('/').'/admin/paket')->with('status','Data berhasil di tambahkan!');
     }
 
     /**
@@ -60,6 +77,8 @@ class AdminPaketController extends Controller
     public function edit($id)
     {
         //
+        $datas = DB::table('paket')->where('id',$id)->get();
+        return view('admin.paket.edit',compact('datas'));
     }
 
     /**
@@ -72,6 +91,27 @@ class AdminPaketController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'nama'=>'required',
+            'harga'=>'required|numeric',
+            'kecepatan'=>'required|numeric'
+
+        ],
+        [
+            'nama.required'=>'nama harus diisi',
+            'harga.required'=>'harga harus diisi',
+            'kecepatan.required'=>'kecepatan harus diisi'
+
+        ]);
+         //aksi update
+
+        paket::where('id',$id)
+            ->update([
+                'nama'=>$request->nama,
+                'harga'=>$request->harga,
+                'kecepatan'=>$request->kecepatan
+            ]);
+            return redirect('/admin/paket')->with('status','Data berhasil diupdate!');
     }
 
     /**
@@ -83,5 +123,7 @@ class AdminPaketController extends Controller
     public function destroy($id)
     {
         //
+        paket::destroy($id);
+        return redirect(URL::to('/').'/admin/paket')->with('status','Data berhasil dihapus!');
     }
 }
