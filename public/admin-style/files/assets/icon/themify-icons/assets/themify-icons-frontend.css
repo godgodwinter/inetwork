@@ -1,0 +1,266 @@
+/* ==================================================
+themify-icons
+================================================== */
+.ti_icon {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 100%;
+	white-space: nowrap;
+	margin-right: .3em;
+	margin-bottom: .3em;
+}
+.ti_icon a:hover {
+	opacity: .8;
+}
+.ti_icon a {
+	text-decoration: none !important;
+	border-bottom: 0 !important;
+}
+.ti_icon i {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	box-sizing: content-box;
+}
+
+/* ==================================================
+SIZE
+================================================== */
+.ti_icon.size-default {
+	font-size: 17px;
+}
+.ti_icon.size-medium {
+	font-size: 34px;
+}
+.ti_icon.size-medium .icon-text {
+	font-size: 60%
+}
+.ti_icon.size-large {
+	font-size: 48px;
+}
+.ti_icon.size-large .icon-text {
+	font-size: 70%
+}
+
+/* ==================================================
+STYLE
+================================================== */
+.ti_icon.icon-left i {
+	margin-right: .15em;
+}
+.ti_icon.icon-left .icon-text {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* ============== icon-top */
+.ti_icon.icon-top i {
+	width: 1.250em;
+	height: 1.250em;
+	margin-bottom: .25em;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.ti_icon.icon-top .icon-text {
+	display: block;
+}
+
+/* ============== icon-boxed */ 
+.ti_icon.icon-boxed i {
+	display: inline-block;
+	margin-right: .2em;
+	padding: .3em;
+	width: 1.250em;
+	height: 1.250em;
+}
+.ti_icon.icon-boxed .icon-text {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* ============== icon-boxed-top */
+.ti_icon.icon-boxed-top i {
+	display: block;
+	padding: .5em;
+	width: 1.250em;
+	height: 1.250em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0.550em;
+}
+.icon-boxed-top .icon-text {
+	display: block;
+}
+
+/* ============== icon-wrapped */
+.ti_icon.icon-wrapped .icon-text {
+	display: inline-block;
+	vertical-align: middle;
+}
+.ti_icon.icon-wrapped {
+	padding: 0.4em 0.6em 0.5em;
+}
+.ti_icon.icon-wrapped i {
+	margin-right: .2em;
+}
+
+/* ============== icon-wrapped-top */
+.ti_icon.icon-wrapped-top i {
+	display: block;
+	padding: 0.5em  0 .25em 0;
+	width: 1.250em;
+	height: 1.250em;
+	margin-left: auto;
+	margin-right: auto;
+}
+.ti_icon.icon-wrapped-top .icon-text {
+	display: block;
+}
+.ti_icon.icon-wrapped-top {
+	padding: .1em 1.250em 0.750em;
+}
+
+/* ==================================================
+BG COLOR
+================================================== */
+.ti_icon.bg-color-default {
+	background-color: transparent;
+} 
+.ti_icon.icon-wrapped.bg-color-white, 
+.ti_icon.icon-wrapped-top.bg-color-white, 
+.ti_icon.icon-boxed.bg-color-white i, 
+.ti_icon.icon-boxed-top.bg-color-white i 
+{ 
+	background-color: #fff; 
+}
+.ti_icon.icon-wrapped.bg-color-blue, 
+.ti_icon.icon-wrapped-top.bg-color-blue, 
+.ti_icon.icon-boxed.bg-color-blue i, 
+.ti_icon.icon-boxed-top.bg-color-blue i 
+{ 
+	background-color: #6dcff6; 
+}
+.ti_icon.icon-wrapped.bg-color-pink, 
+.ti_icon.icon-wrapped-top.bg-color-pink, 
+.ti_icon.icon-boxed.bg-color-pink i, 
+.ti_icon.icon-boxed-top.bg-color-pink i 
+{ 
+	background-color: #FF1493; 
+}
+.ti_icon.icon-wrapped.bg-color-purple, 
+.ti_icon.icon-wrapped-top.bg-color-purple, 
+.ti_icon.icon-boxed.bg-color-purple i, 
+.ti_icon.icon-boxed-top.bg-color-purple i 
+{ 
+	background-color: purple; 
+}
+.ti_icon.icon-wrapped.bg-color-yellow, 
+.ti_icon.icon-wrapped-top.bg-color-yellow, 
+.ti_icon.icon-boxed.bg-color-yellow i, 
+.ti_icon.icon-boxed-top.bg-color-yellow i 
+{ 
+	background-color: yellow; 
+}
+.ti_icon.icon-wrapped.bg-color-orange, 
+.ti_icon.icon-wrapped-top.bg-color-orange, 
+.ti_icon.icon-boxed.bg-color-orange i, 
+.ti_icon.icon-boxed-top.bg-color-orange i 
+{ 
+	background-color: orange; 
+}
+.ti_icon.icon-wrapped.bg-color-brown, 
+.ti_icon.icon-wrapped-top.bg-color-brown, 
+.ti_icon.icon-boxed.bg-color-brown i, 
+.ti_icon.icon-boxed-top.bg-color-brown i 
+{ 
+	background-color: #8B4513; 
+}
+.ti_icon.icon-wrapped.bg-color-black, 
+.ti_icon.icon-wrapped-top.bg-color-black, 
+.ti_icon.icon-boxed.bg-color-black i, 
+.ti_icon.icon-boxed-top.bg-color-black i 
+{ 
+	background-color: #000; 
+}
+
+
+/* ==================================================
+TEXT COLOR
+================================================== */
+.ti_icon.text-color-default .icon-text {
+	color: inherit;
+}
+.ti_icon.text-color-white .icon-text {
+	color: #fff;
+}
+.ti_icon.text-color-blue .icon-text {
+	color: #6dcff6;
+}
+.ti_icon.text-color-pink .icon-text {
+	color: #FF1493;
+}
+.ti_icon.text-color-purple .icon-text {
+	color: purple;
+}
+.ti_icon.text-color-yellow .icon-text {
+	color: yellow;
+}
+.ti_icon.text-color-orange .icon-text {
+	color: orange;
+}
+.ti_icon.text-color-brown .icon-text {
+	color: #8B4513;
+}
+.ti_icon.text-color-black .icon-text {
+	color: #000;
+}
+
+/* ==================================================
+ICON FONT COLOR
+================================================== */
+.ti_icon.icon-color-default i:before {
+	color: inherit;
+} 
+.ti_icon.icon-color-white i:before {
+	color: #fff;
+}
+.ti_icon.icon-color-blue i:before {
+	color: #6dcff6;
+}
+.ti_icon.icon-color-pink i:before {
+	color: #FF1493;
+}
+.ti_icon.icon-color-purple i:before {
+	color: purple;
+}
+.ti_icon.icon-color-yellow i:before {
+	color: yellow;
+}
+.ti_icon.icon-color-orange i:before {
+	color: orange;
+}
+.ti_icon.icon-color-brown i:before {
+	color: #8B4513;
+}
+.ti_icon.icon-color-black i:before {
+	color: #000;
+}
+
+/* ==================================================
+CORNERS
+================================================== */
+.ti_icon.corner-default i {
+	border-radius: 0;
+}
+
+/* ============== corner-rounded */
+.ti_icon.corner-rounded i {
+	border-radius: 0.250em;
+}
+
+/* ============== corner-circle */
+.ti_icon.corner-circle,
+.ti_icon.corner-circle i {
+	border-radius: 100%;
+}
