@@ -29,5 +29,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::resource('admin/paket','App\Http\Controllers\AdminpaketController');
+    //menu inventaris
+    Route::resource('admin/inventaris','App\Http\Controllers\AdminInventarisController');
+    Route::resource('admin/jenisalat','App\Http\Controllers\AdminjenisalatController');
 
 });

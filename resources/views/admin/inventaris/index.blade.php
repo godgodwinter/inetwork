@@ -1,6 +1,6 @@
 @extends('admin.main')
 
-@section('title','Paket Internet')
+@section('title','Inventaris')
 
 @section('csshere')
 <style>
@@ -87,7 +87,8 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Harga</th>
-                            <th>Kecepatan</th>
+                            <th>Letak Barang</th>
+                            <th>Jenis Alat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -103,13 +104,14 @@
                             <td>{{ ($loop->index)+1 }} </td>
                             <td>{{$data->nama}}</td>
                             <td>@currency($harga)</td>
-                            <td>{{$data->kecepatan}} Mbps</td>
+                            <td>{{$data->letak}}</td>
+                            <td>{{$data->jenisalat_id}}</td>
 
                             <td>
                                 <a class="btn btn-warning btn-sm btn-outline-warning"
-                                    href="/admin/paket/{{$data->id}}/edit"><span class="pcoded-micon"> <i
+                                    href="/admin/inventaris/{{$data->id}}/edit"><span class="pcoded-micon"> <i
                                             class="feather icon-edit"></i></span></a>
-                                <form action="/admin/paket/{{$data->id}}" method="post" class="d-inline">
+                                <form action="/admin/inventaris/{{$data->id}}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm  btn-outline-warning"
@@ -119,15 +121,16 @@
                             </td>
                         </tr>
                         @endforeach
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Harga</th>
-                            <th>Kecepatan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Harga</th>
+                                <th>Letak Barang</th>
+                                <th>Jenis Alat</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </tfoot>
                 </table>
             </div>
         </div>
