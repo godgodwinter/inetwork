@@ -5,6 +5,8 @@ namespace App\Providers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,11 +32,12 @@ class AppServiceProvider extends ServiceProvider
             return "Rp. <?php echo number_format($expression, 0, ',', '.'); ?>";
         });
 
-          //Tanggal Indo
-          Blade::directive('tanggalindo', function ($expression) {
+        //Tanggal Indo
+        Blade::directive('tanggalindo', function ($expression) {
 
-            //   return dd(Carbon::parse($expression)->translatedFormat('d F Y'));
-            return Carbon::parse($expression)->translatedFormat('d F Y');
+        //   return dd(Carbon::parse($expression)->translatedFormat('d F Y'));
+        return Carbon::parse($expression)->translatedFormat('d F Y');
+
         });
 
         //local Carbon
