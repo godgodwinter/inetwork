@@ -73,18 +73,16 @@
 <div class="page-body"id="datatable" >
     <!-- DOM/Jquery table start -->
     <div class="card">
-        <div class="card-header"><div class="row">
+        <div class="row">
             <div class="col-xl-6 col-md-12">
-                <a href="#add" class="btn btn-sm btn-success">TAMBAH</a>
-                <a href="#jenisalat" class="btn btn-sm btn-success">JENIS ALAT</a>
-            </div>
-            <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                 <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
-
-        </div>
+            <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                <a href="#jenisalat" class="btn btn-sm btn-secondary">JENIS ALAT</a>&nbsp;
+                <a href="#add" class="btn btn-sm btn-secondary">TAMBAH INVENTARIS</a>&nbsp;
+            </div>
         </div>
         <div class="card-block">
             <div class="table-responsive dt-responsive">
@@ -158,14 +156,19 @@
     <!-- tambah -->
     <div class="card" id="add" >
         <div class="card-header">
-            <a href="#datatable" class="btn btn-sm btn-success">DATATABLE</a>
+            <div class="row">
+                <div class="col-xl-6 col-md-12">
+                    <h5 class="label label-success">TAMBAH INVENTARIS</h5>
+                </div>
+                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                    <a href="#datatable" class="btn btn-sm btn-secondary">INVENTARIS</a>
+                </div>
+            </div>
         </div>
         <div class="card-block">
             <div class="card-body">
                 <form action="/admin/inventaris " method="post">
                     @csrf
-                    <h5>Tambah @yield('title')</h5>
-                    <span>&nbsp; </span>
                     <div class="pl-lg-4">
                         <div class="row">
                             <div class="col-lg-6">
@@ -285,17 +288,13 @@
  <div class="col-xl-6 col-md-12" id="jenisalat">
     <div class="card table-card">
         <div class="card-header">
-            <h5>JENIS ALAT</h5>
-            <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+            <div class="row">
+                <div class="col-xl-6 col-md-12">
+                    <h5 class="label label-success">JENIS ALAT</h5>
+                </div>
             </div>
         </div>
+
         <div class="card-block">
             <div class="table-responsive">
                 <table class="table table-hover table-borderless">
@@ -377,7 +376,16 @@
 <div class="col-xl-6 col-md-12">
     <div class="card latest-update-card">
         <div class="card-header">
-            <h5>Tambah</h5>
+            <div class="row">
+
+                <div class="col-xl-6 col-md-12">
+                    <h5 class="label label-success">TAMBAH JENIS ALAT</h5>
+                </div>
+
+                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                    <a href="#datatable" class="btn btn-sm btn-secondary">INVENTARIS</a
+                </div>
+            </div>
         </div>
         <div class="card-block">
 

@@ -74,10 +74,16 @@
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="card-header">
-            <a href="#add" class="btn btn-sm btn-primary">TAMBAH</a>
-            <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-            <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
-            <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
+            <div class="row">
+                <div class="col-xl-6 col-md-12">
+                    <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
+                    <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
+                    <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
+                </div>
+                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                    <a href="#add" class="btn btn-sm btn-secondary">TAMBAH</a>
+                </div>
+            </div>
         </div>
         <div class="card-block">
             <div class="table-responsive dt-responsive">
@@ -136,13 +142,23 @@
     <!-- tambah -->
     <div class="card" id="add" >
         <div class="card-header">
-            <a href="#datatable" class="btn btn-success">DATATABLE</a>
+            <div class="row">
+
+                <div class="col-xl-6 col-md-12">
+
+                    <h5 class="label label-success">TAMBAH</h5>
+                </div>
+
+                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                    <a href="#datatable" class="btn btn-sm btn-secondary">DATATABLE</a>
+
+                </div>
+            </div>
         </div>
         <div class="card-block">
             <div class="card-body">
                 <form action="/admin/paket " method="post">
                     @csrf
-                    <h5>Tambah @yield('title')</h5>
                     <span>&nbsp; </span>
                     <div class="pl-lg-4">
                         <div class="row">
