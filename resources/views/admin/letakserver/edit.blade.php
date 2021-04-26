@@ -80,68 +80,17 @@
     @endif
 @endsection
 
+@foreach ($datas as $data)
+@endforeach
+@php
+    //jika koordinat null -8.129902243245665, 112.4867915739301
+if(($data->koordinat)==''){
+    $koordinat='-8.129902243245665, 112.4867915739301';
+}else{
+    $koordinat=$data->koordinat;
+}
+@endphp
 @section('container')
-<!-- Section start -->
-<div class="page-body"id="datatable" >
-    <!-- DOM/Jquery table start -->
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-xl-6 col-md-12">
-                    <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-                    <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
-                    <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
-                </div>
-                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                    <a href="#add" class="btn btn-sm btn-secondary">TAMBAH</a>
-                </div>
-            </div>
-        </div>
-        <div class="card-block">
-            <div class="table-responsive dt-responsive">
-                <table id="dom-jqry" class="table table-striped table-bordered nowrap">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($datas as $data)
-                      <tr>
-                            <td>{{ ($loop->index)+1 }} </td>
-                            <td>{{$data->nama}}</td>
-                            <td>{{$data->penanggungjawab}}</td>
-
-                            <td>
-                                <a class="btn btn-warning btn-sm btn-outline-warning"
-                                    href="/admin/letakserver/{{$data->id}}/edit"><span class="pcoded-micon"> <i
-                                            class="feather icon-edit"></i></span></a>
-                                <form action="/admin/letakserver/{{$data->id}}" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm  btn-outline-warning"
-                                        onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><span
-                                            class="pcoded-micon"> <i class="feather icon-delete"></i></span></button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- DOM/Jquery table end -->
     <!-- tambah -->
     <div class="card" id="add" >
         <div class="card-header">
@@ -160,7 +109,8 @@
         </div>
         <div class="card-block">
             <div class="card-body">
-                <form action="/admin/letakserver " method="post">
+                <form action="/admin/letakserver/{{$data->id}}" method="post">
+                    @method('put')
                     @csrf
                     <span>&nbsp; </span>
                     <div class="pl-lg-4">
@@ -170,7 +120,7 @@
                                     <label class="form-control-label" for="input-nama">Nama @yield('title')  (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
-                                        placeholder="" value="{{old('nama')}}" required>
+                                        placeholder="" value="{{$data->nama}}" required>
                                     @error('nama')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
@@ -182,7 +132,7 @@
                                     <label class="form-control-label" for="input-penanggungjawab">Penanggung Jawab  (*</label>
                                     <input type="text" name="penanggungjawab" id="input-penanggungjawab"
                                         class="form-control form-control-alternative  @error('penanggungjawab') is-invalid @enderror"
-                                        placeholder="" value="{{old('penanggungjawab')}}" required>
+                                        placeholder="" value="{{$data->penanggungjawab}}" required>
 
                                     @error('penanggungjawab')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
@@ -193,7 +143,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-koordinat">Koordinat  (*</label>
                                      <input type="text" name="koordinat" id="input-koordinat"  class="form-control form-control-alternative  @error('koordinat') is-invalid @enderror"
-                              placeholder="" value="{{old('koordinat')}}" required>
+                              placeholder="" value="{{$data->koordinat}}" required>
                               @error('koordinat')<div class="invalid-feedback"> {{$message}}</div>
                               @enderror
                                 </div>
@@ -250,7 +200,7 @@
                                 }
 
                                 function initialize() {
-                                var latLng = new google.maps.LatLng(-8.129902243245665, 112.4867915739301);
+                                var latLng = new google.maps.LatLng({{$koordinat}});
                                 var map = new google.maps.Map(document.getElementById('mapCanvas'), {
                                     zoom: 15,
                                     center: latLng,

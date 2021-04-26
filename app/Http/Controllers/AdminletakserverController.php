@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\letakserver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class AdminletakserverController extends Controller
 {
@@ -37,7 +39,25 @@ class AdminletakserverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama'=>'required',
+            'penanggungjawab'=>'required',
+            'koordinat'=>'required'
+        ],
+        [
+            'nama.required'=>'nama harus diisi'
+        ]);
+       // simpan
+       DB::table('letakserver')->insert(
+        array(
+               'nama'     =>   $request->nama,
+               'penanggungjawab'     =>   $request->penanggungjawab,
+               'koordinat'     =>   $request->koordinat,
+               'created_at'=>date("Y-m-d H:i:s"),
+               'updated_at'=>date("Y-m-d H:i:s")
+        )
+   );
+    return redirect(URL::to('/').'/admin/letakserver')->with('status','Data berhasil di tambahkan!');
     }
 
     /**
@@ -59,7 +79,8 @@ class AdminletakserverController extends Controller
      */
     public function edit($id)
     {
-        //
+        $datas = DB::table('letakserver')->where('id',$id)->get();
+        return view('admin.letakserver.edit',compact('datas'));
     }
 
     /**
@@ -71,7 +92,21 @@ class AdminletakserverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama'=>'required',
+            'penanggungjawab'=>'required',
+            'koordinat'=>'required'
+        ],
+        [
+            'nama.required'=>'nama harus diisi'
+        ]);
+        letakserver::where('id',$id)
+        ->update([
+            'nama'=>$request->nama,
+            'penanggungjawab'=>$request->penanggungjawab,
+            'koordinat'=>$request->koordinat
+        ]);
+        return redirect('/admin/letakserver')->with('status','Data berhasil diupdate!');
     }
 
     /**
@@ -82,6 +117,7 @@ class AdminletakserverController extends Controller
      */
     public function destroy($id)
     {
-        //
+         letakserver::destroy($id);
+         return redirect(URL::to('/').'/admin/letakserver')->with('status','Data berhasil dihapus!');
     }
 }
