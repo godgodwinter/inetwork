@@ -190,4 +190,4 @@ Project Link: [https://github.com/godgodwinter/inetwork](https://github.com/godg
 [license-url]: https://github.com/godgodwinter/inetwork/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.instagram.com/kukuh.sn/
-[product-screenshot]: images/menu1.png
+[product-screenshot]: images/menu1.PNG
