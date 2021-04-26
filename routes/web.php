@@ -32,5 +32,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu inventaris
     Route::resource('admin/inventaris','App\Http\Controllers\AdminInventarisController');
     Route::resource('admin/jenisalat','App\Http\Controllers\AdminjenisalatController');
+    //menu letakserver
+    Route::resource('admin/letakserver','App\Http\Controllers\AdminletakserverController');
 
 });
