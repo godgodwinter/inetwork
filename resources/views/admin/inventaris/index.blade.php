@@ -73,11 +73,18 @@
 <div class="page-body"id="datatable" >
     <!-- DOM/Jquery table start -->
     <div class="card">
-        <div class="card-header">
-            <a href="#add" class="btn btn-sm btn-primary">TAMBAH</a>
-            <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-            <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
-            <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
+        <div class="card-header"><div class="row">
+            <div class="col-xl-6 col-md-12">
+                <a href="#add" class="btn btn-sm btn-success">TAMBAH</a>
+                <a href="#jenisalat" class="btn btn-sm btn-success">JENIS ALAT</a>
+            </div>
+            <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
+                <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
+                <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
+            </div>
+
+        </div>
         </div>
         <div class="card-block">
             <div class="table-responsive dt-responsive">
@@ -151,7 +158,7 @@
     <!-- tambah -->
     <div class="card" id="add" >
         <div class="card-header">
-            <a href="#datatable" class="btn btn-success">DATATABLE</a>
+            <a href="#datatable" class="btn btn-sm btn-success">DATATABLE</a>
         </div>
         <div class="card-block">
             <div class="card-body">
@@ -275,10 +282,10 @@
 
  <!-- ticket and update start -->
  <div class="row">
- <div class="col-xl-6 col-md-12">
+ <div class="col-xl-6 col-md-12" id="jenisalat">
     <div class="card table-card">
         <div class="card-header">
-            <h5>Recent Tickets</h5>
+            <h5>Jenis Alat</h5>
             <div class="card-header-right">
                 <ul class="list-unstyled card-option">
                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -294,72 +301,56 @@
                 <table class="table table-hover table-borderless">
                     <thead>
                         <tr>
-                            <th>Status</th>
-                            <th>Subject</th>
-                            <th>Department</th>
-                            <th>Date</th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><label class="label label-success">open</label></td>
-                            <td>Website down for one week</td>
-                            <td>Support</td>
-                            <td>Today 2:00</td>
+                        @foreach ($datadetails as $dd)
+                         <tr>
+                            <td><label class="label label-success">{{ ($loop->index)+1 }} </label></td>
+                            <td>{{$dd->nama}}</td>
+
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modaleditdetail{{$dd->id}}">
+                                    <span class="pcoded-micon"> <i class="feather icon-edit"></i></span>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modaleditdetail{{$dd->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit {{$dd->nama}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        ...
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+
+                                <form action="/admin/jenisalat/{{$dd->id}}" method="post" class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm  btn-outline-warning"
+                                        onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><span
+                                            class="pcoded-micon"> <i class="feather icon-delete"></i></span></button>
+                                </form>
+                            </td>
                         </tr>
-                        <tr>
-                            <td><label class="label label-primary">progress</label></td>
-                            <td>Loosing control on server</td>
-                            <td>Support</td>
-                            <td>Yesterday</td>
-                        </tr>
-                        <tr>
-                            <td><label class="label label-danger">closed</label></td>
-                            <td>Authorizations keys</td>
-                            <td>Support</td>
-                            <td>27, Aug</td>
-                        </tr>
-                        <tr>
-                            <td><label class="label label-success">open</label></td>
-                            <td>Restoring default settings</td>
-                            <td>Support</td>
-                            <td>Today 9:00</td>
-                        </tr>
-                        <tr>
-                            <td><label class="label label-primary">progress</label></td>
-                            <td>Loosing control on server</td>
-                            <td>Support</td>
-                            <td>Yesterday</td>
-                        </tr>
-                        <tr>
-                            <td><label class="label label-success">open</label></td>
-                            <td>Restoring default settings</td>
-                            <td>Support</td>
-                            <td>Today 9:00</td>
-                        </tr>
-                        <tr>
-                            <td><label class="label label-danger">closed</label></td>
-                            <td>Authorizations keys</td>
-                            <td>Support</td>
-                            <td>27, Aug</td>
-                        </tr>
-                        <tr>
-                            <td><label class="label label-success">open</label></td>
-                            <td>Restoring default settings</td>
-                            <td>Support</td>
-                            <td>Today 9:00</td>
-                        </tr>
-                        <tr>
-                            <td><label class="label label-primary">progress</label></td>
-                            <td>Loosing control on server</td>
-                            <td>Support</td>
-                            <td>Yesterday</td>
-                        </tr>
-                    </tbody>
+                        @endforeach
                 </table>
-                <div class="text-right m-r-20">
-                    <a href="#!" class=" b-b-primary text-primary">View all Projects</a>
-                </div>
             </div>
         </div>
     </div>

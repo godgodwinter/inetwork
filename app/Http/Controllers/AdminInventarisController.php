@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\inventaris;
+use App\Models\jenisalat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -17,8 +18,9 @@ class AdminInventarisController extends Controller
     public function index()
     {
         $datas=inventaris::all();
+        $datadetails=jenisalat::all();
 
-        return view('admin.inventaris.index',compact('datas'));
+        return view('admin.inventaris.index',compact('datas','datadetails'));
     }
 
     /**
@@ -53,8 +55,24 @@ class AdminInventarisController extends Controller
             'letak.required'=>'letak harus diisi'
 
         ]);
-            // dd($request);
-        inventaris::create($request->all());
+        //ambil nama jenisalat
+        $ambilnamajeniss = DB::table('jenisalat')->where('id',$request->jenisalat_id)->get();
+        foreach($ambilnamajeniss as $ambilnamajenis){
+            $namaja=$ambilnamajenis->nama;
+        }
+        // dd($namaja);
+        // simpan
+        DB::table('inventaris')->insert(
+            array(
+                   'nama'     =>   $request->nama,
+                   'harga'=>$request->harga,
+                   'letak'=>$request->letak,
+                   'jenisalat_id'=>$request->jenisalat_id,
+                   'jenisalat_nama'=>$namaja,
+                   'created_at'=>date("Y-m-d H:i:s"),
+                   'updated_at'=>date("Y-m-d H:i:s")
+            )
+       );
         return redirect(URL::to('/').'/admin/inventaris')->with('status','Data berhasil di tambahkan!');
     }
 
