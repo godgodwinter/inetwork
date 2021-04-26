@@ -164,7 +164,7 @@
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{{ url('/')}}/dashboard">
-                                        <span class="pcoded-micon"><i class="feather icon-watch"></i></span>
+                                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
 
@@ -218,6 +218,16 @@
                                         <span class="pcoded-mtext">Rekap
                                     </a>
                                 </li>
+                            </ul>
+                            <div class="pcoded-navigatio-lavel">Developer</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{{ url('/')}}/task">
+                                        <span class="pcoded-micon"><i class="feather icon-watch"></i></span>
+                                        <span class="pcoded-mtext">Task</span>
+                                    </a>
+
+                            </li>
                             </ul>
 
                         </div>
