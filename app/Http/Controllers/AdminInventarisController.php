@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\inventaris;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class AdminInventarisController extends Controller
 {
@@ -37,7 +39,23 @@ class AdminInventarisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $request->validate([
+            'nama'=>'required',
+            'harga'=>'required|numeric',
+            'letak'=>'required',
+            'jenisalat_id'=>'required'
+
+        ],
+        [
+            'nama.required'=>'nama harus diisi',
+            'harga.required'=>'harga harus diisi',
+            'letak.required'=>'letak harus diisi'
+
+        ]);
+            // dd($request);
+        inventaris::create($request->all());
+        return redirect(URL::to('/').'/admin/inventaris')->with('status','Data berhasil di tambahkan!');
     }
 
     /**
@@ -59,7 +77,8 @@ class AdminInventarisController extends Controller
      */
     public function edit($id)
     {
-        //
+        $datas = DB::table('inventaris')->where('id',$id)->get();
+        return view('admin.inventaris.edit',compact('datas'));
     }
 
     /**
@@ -71,7 +90,28 @@ class AdminInventarisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama'=>'required',
+            'harga'=>'required|numeric',
+            'letak'=>'required',
+            'jenisalat_id'=>'required'
+
+        ],
+        [
+            'nama.required'=>'nama harus diisi',
+            'harga.required'=>'harga harus diisi',
+            'letak.required'=>'letak harus diisi'
+
+        ]);
+         //aksi update
+        inventaris::where('id',$id)
+            ->update([
+                'nama'=>$request->nama,
+                'harga'=>$request->harga,
+                'letak'=>$request->letak,
+                'jenisalat_id'=>$request->jenisalat_id
+            ]);
+            return redirect('/admin/inventaris')->with('status','Data berhasil diupdate!');
     }
 
     /**
@@ -82,6 +122,7 @@ class AdminInventarisController extends Controller
      */
     public function destroy($id)
     {
-        //
+        inventaris::destroy($id);
+        return redirect(URL::to('/').'/admin/inventaris')->with('status','Data berhasil dihapus!');
     }
 }

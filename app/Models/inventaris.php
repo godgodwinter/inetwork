@@ -14,6 +14,6 @@ class inventaris extends Model
         'nama',
         'harga',
         'letak',
-        'jenis_alat_id'
+        'jenisalat_id'
     ];
 }

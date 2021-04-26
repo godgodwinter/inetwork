@@ -360,13 +360,13 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script> --}}
-        window.dataLayer = window.dataLayer || [];
+        {{-- window.dataLayer = window.dataLayer || [];
         function gtag() {
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
         gtag('config', 'UA-23581568-13');
-    </script>
+    </script> --}}
 </body>
 <!-- Mirrored from colorlib.com//polygon/adminty/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 08 Jan 2019 06:21:14 GMT -->
 </html>

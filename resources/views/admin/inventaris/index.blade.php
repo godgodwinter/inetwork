@@ -105,7 +105,19 @@
                             <td>{{$data->nama}}</td>
                             <td>@currency($harga)</td>
                             <td>{{$data->letak}}</td>
-                            <td>{{$data->jenisalat_id}}</td>
+                            <td>
+                                <?php
+                                $nama_jenisalat="-";
+                                $data2s = DB::table('jenisalat')->where('id',$data->jenisalat_id)->get();
+                            ?>
+                                @foreach($data2s as $d2)
+                                    @php
+                                         $nama_jenisalat=$d2->nama;
+                                    @endphp
+                                @endforeach
+
+                                {{$nama_jenisalat}}
+                            </td>
 
                             <td>
                                 <a class="btn btn-warning btn-sm btn-outline-warning"
@@ -143,7 +155,7 @@
         </div>
         <div class="card-block">
             <div class="card-body">
-                <form action="/admin/paket " method="post">
+                <form action="/admin/inventaris " method="post">
                     @csrf
                     <h5>Tambah @yield('title')</h5>
                     <span>&nbsp; </span>
@@ -151,10 +163,10 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-nama">Nama @yield('title')  (*</label>
+                                    <label class="form-control-label" for="input-nama">Nama Barang  (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
-                                        placeholder="Contoh : Paket A " value="{{old('nama')}}" required>
+                                        placeholder="" value="{{old('nama')}}" required>
                                     @error('nama')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
@@ -203,14 +215,30 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-kecepatan">Kecepatan  (*</label>
-                                    <input type="number" name="kecepatan" id="input-kecepatan"
-                                        class="form-control form-control-alternative  @error('kecepatan') is-invalid @enderror"
-                                        placeholder="Contoh : 5 " value="{{old('kecepatan')}}" required>
+                                    <label class="form-control-label" for="input-letak">Letak Barang  (*</label>
+                                    <input type="text" name="letak" id="input-letak"
+                                        class="form-control form-control-alternative  @error('letak') is-invalid @enderror"
+                                        placeholder="" value="{{old('letak')}}" required>
 
-                                    @error('kecepatan')<div class="invalid-feedback"> {{$message}}</div>
+                                    @error('letak')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6 col-xl-6 m-b-30">
+                                <label class="form-control-label" for="input-jk">Pilih Jenis Barang  (*</label>
+                                <select name="jenisalat_id" id="input-jenisalat_id"
+                                    class="form-control form-control-info  @error('jenisalat_id') is-invalid @enderror"
+                                    required>
+                            <?php
+                                $data2s = DB::table('jenisalat')->get();
+                            ?>
+                                @foreach($data2s as $d2)
+                                        <option value="{{ $d2->id }}">{{ $d2->nama }}</option>
+                                @endforeach
+                                        </select> @error('jenisalat_id')<div class="invalid-feedback"> {{$message}}
+                                        </div>
+                                @enderror
                             </div>
 
 
@@ -237,8 +265,196 @@
 </div>
 </div>
 <!-- tambah end -->
+
 </div>
 <!-- Section end -->
+
+
+
+
+
+ <!-- ticket and update start -->
+ <div class="row">
+ <div class="col-xl-6 col-md-12">
+    <div class="card table-card">
+        <div class="card-header">
+            <h5>Recent Tickets</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                    <li><i class="fa fa-window-maximize full-card"></i></li>
+                    <li><i class="fa fa-minus minimize-card"></i></li>
+                    <li><i class="fa fa-refresh reload-card"></i></li>
+                    <li><i class="fa fa-trash close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="table-responsive">
+                <table class="table table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Subject</th>
+                            <th>Department</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label class="label label-success">open</label></td>
+                            <td>Website down for one week</td>
+                            <td>Support</td>
+                            <td>Today 2:00</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-primary">progress</label></td>
+                            <td>Loosing control on server</td>
+                            <td>Support</td>
+                            <td>Yesterday</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-danger">closed</label></td>
+                            <td>Authorizations keys</td>
+                            <td>Support</td>
+                            <td>27, Aug</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-success">open</label></td>
+                            <td>Restoring default settings</td>
+                            <td>Support</td>
+                            <td>Today 9:00</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-primary">progress</label></td>
+                            <td>Loosing control on server</td>
+                            <td>Support</td>
+                            <td>Yesterday</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-success">open</label></td>
+                            <td>Restoring default settings</td>
+                            <td>Support</td>
+                            <td>Today 9:00</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-danger">closed</label></td>
+                            <td>Authorizations keys</td>
+                            <td>Support</td>
+                            <td>27, Aug</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-success">open</label></td>
+                            <td>Restoring default settings</td>
+                            <td>Support</td>
+                            <td>Today 9:00</td>
+                        </tr>
+                        <tr>
+                            <td><label class="label label-primary">progress</label></td>
+                            <td>Loosing control on server</td>
+                            <td>Support</td>
+                            <td>Yesterday</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-right m-r-20">
+                    <a href="#!" class=" b-b-primary text-primary">View all Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6 col-md-12">
+    <div class="card latest-update-card">
+        <div class="card-header">
+            <h5>Latest Updates</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                    <li><i class="fa fa-window-maximize full-card"></i></li>
+                    <li><i class="fa fa-minus minimize-card"></i></li>
+                    <li><i class="fa fa-refresh reload-card"></i></li>
+                    <li><i class="fa fa-trash close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="latest-update-box">
+                <div class="row p-t-20 p-b-30">
+                    <div class="col-auto text-right update-meta">
+                        <p class="text-muted m-b-0 d-inline">2 hrs ago</p>
+                        <i class="feather icon-twitter bg-info update-icon"></i>
+                    </div>
+                    <div class="col">
+                        <h6>+ 1652 Followers</h6>
+                        <p class="text-muted m-b-0">You’re getting more and more followers, keep it up!</p>
+                    </div>
+                </div>
+                <div class="row p-b-30">
+                    <div class="col-auto text-right update-meta">
+                        <p class="text-muted m-b-0 d-inline">4 hrs ago</p>
+                        <i class="feather icon-briefcase bg-simple-c-pink update-icon"></i>
+                    </div>
+                    <div class="col">
+                        <h6>+ 5 New Products were added!</h6>
+                        <p class="text-muted m-b-0">Congratulations!</p>
+                    </div>
+                </div>
+                <div class="row p-b-30">
+                    <div class="col-auto text-right update-meta">
+                        <p class="text-muted m-b-0 d-inline">1 day ago</p>
+                        <i class="feather icon-check bg-simple-c-yellow  update-icon"></i>
+                    </div>
+                    <div class="col">
+                        <h6>Database backup completed!</h6>
+                        <p class="text-muted m-b-0">Download the <span class="text-c-blue">latest backup</span>.</p>
+                    </div>
+                </div>
+                <div class="row p-b-0">
+                    <div class="col-auto text-right update-meta">
+                        <p class="text-muted m-b-0 d-inline">2 day ago</p>
+                        <i class="feather icon-facebook bg-simple-c-green update-icon"></i>
+                    </div>
+                    <div class="col">
+                        <h6>+2 Friend Requests</h6>
+                        <p class="text-muted m-b-10">This is great, keep it up!</p>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td class="b-none">
+                                        <a href="#!" class="align-middle">
+                                       <img src="../files/assets/images/avatar-2.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
+                                       <div class="d-inline-block">
+                                           <h6>Jeny William</h6>
+                                           <p class="text-muted m-b-0">Graphic Designer</p>
+                                       </div>
+                                   </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="b-none">
+                                        <a href="#!" class="align-middle">
+                                       <img src="../files/assets/images/avatar-1.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
+                                       <div class="d-inline-block">
+                                           <h6>John Deo</h6>
+                                           <p class="text-muted m-b-0">Web Designer</p>
+                                       </div>
+                                   </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="#!" class="b-b-primary text-primary">View all Projects</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- ticket and update end -->
 
 <!-- page body -->
 @endsection
