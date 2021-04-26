@@ -1,6 +1,6 @@
 @extends('admin.main')
 
-@section('title','Inventaris')
+@section('title','Pemasukan')
 
 @section('csshere')
 <style>
@@ -81,7 +81,7 @@
             </div>
             <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
                 <a href="#jenisalat" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
-                <a href="#add" class="btn btn-sm btn-secondary">TAMBAH INVENTARIS</a>&nbsp;
+                <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PEMASUKAN</a>&nbsp;
             </div>
         </div>
         <div class="card-block">
@@ -91,9 +91,9 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>Harga</th>
-                            <th>Letak Barang</th>
-                            <th>Jenis Alat</th>
+                            <th>Nominal</th>
+                            <th>Tanggal</th>
+                            <th>Kategori</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -101,34 +101,41 @@
                         @foreach ($datas as $data)
                             @php
 
-                                    $harga=$data->harga;
+                                    $nominal=$data->nominal;
+
+                                    // $newDate = date("d-m-Y", strtotime($data->tgl));
+                                    $tgl=$data->tgl;
+// dd($tgl);
+// {{ \Carbon\Carbon::parse($user->from_date)->format('d/m/Y')}}
 
                             @endphp
 
                         <tr>
                             <td>{{ ($loop->index)+1 }} </td>
                             <td>{{$data->nama}}</td>
-                            <td>@currency($harga)</td>
-                            <td>{{$data->letak}}</td>
+                            <td>@currency($nominal)</td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($tgl)->translatedFormat('d F Y')}}
+                            </td>
                             <td>
                                 <?php
-                                $nama_jenisalat=$data->jenisalat_nama;
-                                $data2s = DB::table('jenisalat')->where('id',$data->jenisalat_id)->get();
+                                $namakategori=$data->jenispendapatan_nama;
+                                $data2s = DB::table('jenispendapatan')->where('id',$data->jenispendapatan_id)->get();
                             ?>
                                 @foreach($data2s as $d2)
                                     @php
-                                         $nama_jenisalat=$d2->nama;
+                                         $namakategori=$d2->nama;
                                     @endphp
                                 @endforeach
 
-                                {{$nama_jenisalat}}
+                                {{$namakategori}}
                             </td>
 
                             <td>
                                 <a class="btn btn-warning btn-sm btn-outline-warning"
-                                    href="/admin/inventaris/{{$data->id}}/edit"><span class="pcoded-micon"> <i
+                                    href="/admin/pendapatan/{{$data->id}}/edit"><span class="pcoded-micon"> <i
                                             class="feather icon-edit"></i></span></a>
-                                <form action="/admin/inventaris/{{$data->id}}" method="post" class="d-inline">
+                                <form action="/admin/pendapatan/{{$data->id}}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm  btn-outline-warning"
@@ -142,9 +149,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Harga</th>
-                                <th>Letak Barang</th>
-                                <th>Jenis Alat</th>
+                                <th>Nominal</th>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -158,23 +165,23 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-xl-6 col-md-12">
-                    <h5 class="label label-success">TAMBAH INVENTARIS</h5>
+                    <h5 class="label label-success">TAMBAH PEMASUKAN</h5>
                 </div>
                 <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
                     <a href="#jenisalat" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
-                    <a href="#datatable" class="btn btn-sm btn-secondary">INVENTARIS</a>
+                    <a href="#datatable" class="btn btn-sm btn-secondary">PEMASUKAN</a>
                 </div>
             </div>
         </div>
         <div class="card-block">
             <div class="card-body">
-                <form action="/admin/inventaris " method="post">
+                <form action="/admin/pendapatan" method="post">
                     @csrf
                     <div class="pl-lg-4">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-nama">Nama Barang  (*</label>
+                                    <label class="form-control-label" for="input-nama">Nama Pemasukan  (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
                                         placeholder="" value="{{old('nama')}}" required>
@@ -185,12 +192,12 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-harga2">Harga  (*</label> -
-                                    <b><label class="form-control-label" for="input-kecepatan" id="input-harga-label">Rp. 0 ,00</label></b>
-                                    <input type="number" name="harga" id="input-harga"
-                                        class="form-control form-control-alternative  @error('harga') is-invalid @enderror"
-                                        placeholder="Contoh : 150000" value="{{old('harga')}}" required>
-                                    @error('harga')<div class="invalid-feedback"> {{$message}}</div>
+                                    <label class="form-control-label" for="input-nominal">Nominal  (*</label> -
+                                    <b><label class="form-control-label" for="input-nominal" id="input-harga-label">Rp. 0 ,00</label></b>
+                                    <input type="number" name="nominal" id="input-nominal"
+                                        class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
+                                        placeholder="Contoh : 150000" value="{{old('nominal')}}" required>
+                                    @error('nominal')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -215,7 +222,7 @@
                                 return("Rp" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ",-"));
                             };
                                 $(document).ready(function() {
-                                $("#input-harga").on('keyup', function() {
+                                $("#input-nominal").on('keyup', function() {
                                     // alert("oops!");
                                     $('#input-harga-label:last').text(format($(this).val()));
                                 });
@@ -226,28 +233,28 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-letak">Letak Barang  (*</label>
-                                    <input type="text" name="letak" id="input-letak"
-                                        class="form-control form-control-alternative  @error('letak') is-invalid @enderror"
-                                        placeholder="" value="{{old('letak')}}" required>
+                                    <label class="form-control-label" for="input-tgl">Tanggal (*</label>
+                                    <input type="date" name="tgl" id="input-tgl"
+                                        class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
+                                        placeholder="" value="{{old('tgl')}}" required>
 
-                                    @error('letak')<div class="invalid-feedback"> {{$message}}</div>
+                                    @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-sm-6 col-xl-6 m-b-30">
-                                <label class="form-control-label" for="input-jk">Pilih Jenis Barang  (*</label>
-                                <select name="jenisalat_id" id="input-jenisalat_id"
-                                    class="form-control form-control-info  @error('jenisalat_id') is-invalid @enderror"
+                                <label class="form-control-label" for="input-jk">Pilih Kategori  (*</label>
+                                <select name="jenispendapatan_id" id="input-jenispendapatan_id"
+                                    class="form-control form-control-info  @error('jenispendapatan_id') is-invalid @enderror"
                                     required>
                             <?php
-                                $data2s = DB::table('jenisalat')->get();
+                                $data2s = DB::table('jenispendapatan')->get();
                             ?>
                                 @foreach($data2s as $d2)
                                         <option value="{{ $d2->id }}">{{ $d2->nama }}</option>
                                 @endforeach
-                                        </select> @error('jenisalat_id')<div class="invalid-feedback"> {{$message}}
+                                        </select> @error('jenispendapatan_id')<div class="invalid-feedback"> {{$message}}
                                         </div>
                                 @enderror
                             </div>
@@ -291,7 +298,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-xl-6 col-md-12">
-                    <h5 class="label label-success">JENIS ALAT</h5>
+                    <h5 class="label label-success">KATEGORI</h5>
                 </div>
             </div>
         </div>
@@ -319,7 +326,7 @@
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="modaleditdetail{{$dd->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                {{-- <div class="modal fade" id="modaleditdetail{{$dd->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -356,7 +363,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <form action="/admin/jenisalat/{{$dd->id}}" method="post" class="d-inline">
@@ -380,11 +387,11 @@
             <div class="row">
 
                 <div class="col-xl-6 col-md-12">
-                    <h5 class="label label-success">TAMBAH JENIS ALAT</h5>
+                    <h5 class="label label-success">TAMBAH KATEGORI</h5>
                 </div>
 
                 <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                    <a href="#datatable" class="btn btn-sm btn-secondary">INVENTARIS</a
+                    <a href="#datatable" class="btn btn-sm btn-secondary">PEMASUKAN</a
                 </div>
             </div>
         </div>
@@ -396,7 +403,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <label class="form-control-label " for="input-nama">Nama Jenis Alat(*</label>
+                            <label class="form-control-label " for="input-nama">Nama Kategori(*</label>
                             <input type="text" name="nama" id="input-nama"
                                 class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
                                 placeholder="" value="{{old('nama')}}" required>

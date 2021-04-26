@@ -203,7 +203,7 @@
                                 <li class="">
                                     <a href="{{url('/')}}/admin/pendapatan">
                                         <span class="pcoded-micon"><i class="feather icon-log-in"></i></span>
-                                        <span class="pcoded-mtext">Pendapatan
+                                        <span class="pcoded-mtext">Pemasukan
                                     </a>
                                 </li>
                                 <li class="">
