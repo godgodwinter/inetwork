@@ -114,7 +114,7 @@
                             <td>{{$data->letak}}</td>
                             <td>
                                 <?php
-                                $nama_jenisalat="-";
+                                $nama_jenisalat=$data->jenisalat_nama;
                                 $data2s = DB::table('jenisalat')->where('id',$data->jenisalat_id)->get();
                             ?>
                                 @foreach($data2s as $d2)
@@ -285,7 +285,7 @@
  <div class="col-xl-6 col-md-12" id="jenisalat">
     <div class="card table-card">
         <div class="card-header">
-            <h5>Jenis Alat</h5>
+            <h5>JENIS ALAT</h5>
             <div class="card-header-right">
                 <ul class="list-unstyled card-option">
                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -329,11 +329,30 @@
                                         </button>
                                         </div>
                                         <div class="modal-body">
-                                        ...
+                                            <form action="/admin/jenisalat/{{$data->id}}" method="post">
+                                                @method('put')
+                                                @csrf
+
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label " for="input-nama">Nama Jenis Alat(*</label>
+                                                            <input type="text" name="nama" id="input-nama"
+                                                                class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
+                                                                placeholder="" value="{{{ $dd->nama }}}" required>
+                                                            @error('nama')<div class="invalid-feedback"> {{$message}}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="Simpan" class="btn btn-success">Simpan</button>
+                                    </form>
                                         </div>
                                     </div>
                                     </div>
@@ -358,92 +377,34 @@
 <div class="col-xl-6 col-md-12">
     <div class="card latest-update-card">
         <div class="card-header">
-            <h5>Latest Updates</h5>
-            <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
-            </div>
+            <h5>Tambah</h5>
         </div>
         <div class="card-block">
-            <div class="latest-update-box">
-                <div class="row p-t-20 p-b-30">
-                    <div class="col-auto text-right update-meta">
-                        <p class="text-muted m-b-0 d-inline">2 hrs ago</p>
-                        <i class="feather icon-twitter bg-info update-icon"></i>
-                    </div>
-                    <div class="col">
-                        <h6>+ 1652 Followers</h6>
-                        <p class="text-muted m-b-0">You’re getting more and more followers, keep it up!</p>
-                    </div>
-                </div>
-                <div class="row p-b-30">
-                    <div class="col-auto text-right update-meta">
-                        <p class="text-muted m-b-0 d-inline">4 hrs ago</p>
-                        <i class="feather icon-briefcase bg-simple-c-pink update-icon"></i>
-                    </div>
-                    <div class="col">
-                        <h6>+ 5 New Products were added!</h6>
-                        <p class="text-muted m-b-0">Congratulations!</p>
-                    </div>
-                </div>
-                <div class="row p-b-30">
-                    <div class="col-auto text-right update-meta">
-                        <p class="text-muted m-b-0 d-inline">1 day ago</p>
-                        <i class="feather icon-check bg-simple-c-yellow  update-icon"></i>
-                    </div>
-                    <div class="col">
-                        <h6>Database backup completed!</h6>
-                        <p class="text-muted m-b-0">Download the <span class="text-c-blue">latest backup</span>.</p>
-                    </div>
-                </div>
-                <div class="row p-b-0">
-                    <div class="col-auto text-right update-meta">
-                        <p class="text-muted m-b-0 d-inline">2 day ago</p>
-                        <i class="feather icon-facebook bg-simple-c-green update-icon"></i>
-                    </div>
-                    <div class="col">
-                        <h6>+2 Friend Requests</h6>
-                        <p class="text-muted m-b-10">This is great, keep it up!</p>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <tr>
-                                    <td class="b-none">
-                                        <a href="#!" class="align-middle">
-                                       <img src="../files/assets/images/avatar-2.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                       <div class="d-inline-block">
-                                           <h6>Jeny William</h6>
-                                           <p class="text-muted m-b-0">Graphic Designer</p>
-                                       </div>
-                                   </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="b-none">
-                                        <a href="#!" class="align-middle">
-                                       <img src="../files/assets/images/avatar-1.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                       <div class="d-inline-block">
-                                           <h6>John Deo</h6>
-                                           <p class="text-muted m-b-0">Web Designer</p>
-                                       </div>
-                                   </a>
-                                    </td>
-                                </tr>
-                            </table>
+
+            <form action="/admin/jenisalat" method="post">
+                @csrf
+            <div class="pl-lg-4">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-control-label " for="input-nama">Nama Jenis Alat(*</label>
+                            <input type="text" name="nama" id="input-nama"
+                                class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
+                                placeholder="" value="{{old('nama')}}" required>
+                            @error('nama')<div class="invalid-feedback"> {{$message}}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center">
-                <a href="#!" class="b-b-primary text-primary">View all Projects</a>
+                                <button type="Simpan" class="btn btn-success">Simpan</button>
             </div>
+
+            </form>
+
         </div>
     </div>
-</div>
 </div>
 <!-- ticket and update end -->
 

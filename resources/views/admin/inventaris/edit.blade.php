@@ -158,7 +158,7 @@
                                     class="form-control form-control-info  @error('jenisalat_id') is-invalid @enderror"
                                     required>
 
-                                    <option value="{{ $data->jenisalat_id }}">{{ $d2->nama }}</option>
+                                    <option value="{{ $data->jenisalat_id }}">{{ $data->jenisalat_nama   }}</option>
                             <?php
                                 $data2s = DB::table('jenisalat')->get();
                             ?>
