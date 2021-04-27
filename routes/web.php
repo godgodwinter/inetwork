@@ -37,5 +37,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pendapatan
     Route::resource('admin/pendapatan','App\Http\Controllers\AdminpendapatanController');
     Route::resource('admin/jenispendapatan','App\Http\Controllers\AdminjenispendapatanController');
+    //menu pengeluaran
+    Route::resource('admin/pengeluaran','App\Http\Controllers\AdminpengeluaranController');
+    Route::resource('admin/jenispengeluaran','App\Http\Controllers\AdminjenispengeluaranController');
 
 });
