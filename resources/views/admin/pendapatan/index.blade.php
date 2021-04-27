@@ -80,7 +80,7 @@
                 <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                <a href="#jenisalat" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
+                <a href="#jenispendapatan" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PEMASUKAN</a>&nbsp;
             </div>
         </div>
@@ -168,7 +168,7 @@
                     <h5 class="label label-success">TAMBAH PEMASUKAN</h5>
                 </div>
                 <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                    <a href="#jenisalat" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
+                    <a href="#jenispendapatan" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                     <a href="#datatable" class="btn btn-sm btn-secondary">PEMASUKAN</a>
                 </div>
             </div>
@@ -293,7 +293,7 @@
 
  <!-- ticket and update start -->
  <div class="row">
- <div class="col-xl-6 col-md-12" id="jenisalat">
+ <div class="col-xl-6 col-md-12" id="jenispendapatan">
     <div class="card table-card">
         <div class="card-header">
             <div class="row">
@@ -326,7 +326,7 @@
                                 </button>
 
                                 <!-- Modal -->
-                                {{-- <div class="modal fade" id="modaleditdetail{{$dd->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modaleditdetail{{$dd->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -336,7 +336,7 @@
                                         </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/admin/jenisalat/{{$data->id}}" method="post">
+                                            <form action="/admin/jenispendapatan/{{$dd->id}}" method="post">
                                                 @method('put')
                                                 @csrf
 
@@ -363,10 +363,10 @@
                                         </div>
                                     </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
 
-                                <form action="/admin/jenisalat/{{$dd->id}}" method="post" class="d-inline">
+                                <form action="/admin/jenispendapatan/{{$dd->id}}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm  btn-outline-warning"
@@ -397,7 +397,7 @@
         </div>
         <div class="card-block">
 
-            <form action="/admin/jenisalat" method="post">
+            <form action="/admin/jenispendapatan" method="post">
                 @csrf
             <div class="pl-lg-4">
                 <div class="row">

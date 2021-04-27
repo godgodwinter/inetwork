@@ -36,5 +36,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('admin/letakserver','App\Http\Controllers\AdminletakserverController');
     //menu pendapatan
     Route::resource('admin/pendapatan','App\Http\Controllers\AdminpendapatanController');
+    Route::resource('admin/jenispendapatan','App\Http\Controllers\AdminjenispendapatanController');
 
 });
