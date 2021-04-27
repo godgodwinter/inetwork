@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CetakController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('admin/letakserver','App\Http\Controllers\AdminletakserverController');
     //menu pendapatan
     Route::resource('admin/pendapatan','App\Http\Controllers\AdminpendapatanController');
+    //Route::get('admin/cetak_pdf', 'CetakController@cetak_pdf');
+    Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
+    Route::get('admin/cetak/cetak_letakserver', 'App\Http\Controllers\CetakController@cetak_letakserver');
 
 });
