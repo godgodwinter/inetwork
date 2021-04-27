@@ -80,7 +80,7 @@
                 <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                <a href="#jenispendapatan" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
+                <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PEMASUKAN</a>&nbsp;
             </div>
         </div>
@@ -168,7 +168,7 @@
                     <h5 class="label label-success">TAMBAH PEMASUKAN</h5>
                 </div>
                 <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                    <a href="#jenispendapatan" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
+                    <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                     <a href="#datatable" class="btn btn-sm btn-secondary">PEMASUKAN</a>
                 </div>
             </div>
@@ -293,7 +293,7 @@
 
  <!-- ticket and update start -->
  <div class="row">
- <div class="col-xl-6 col-md-12" id="jenispendapatan">
+ <div class="col-xl-6 col-md-12" id="kategori">
     <div class="card table-card">
         <div class="card-header">
             <div class="row">
