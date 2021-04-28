@@ -329,7 +329,7 @@
                                         </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/admin/jenisalat/{{$data->id}}" method="post">
+                                            <form action="/admin/jenisalat/{{$dd->id}}" method="post">
                                                 @method('put')
                                                 @csrf
 

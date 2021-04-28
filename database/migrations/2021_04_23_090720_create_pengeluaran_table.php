@@ -18,7 +18,7 @@ class CreatePengeluaranTable extends Migration
             $table->string('nama')->nullable();
             $table->string('nominal')->nullable();
             $table->string('tgl')->nullable();
-            $table->string('jenispengeluaran')->nullable();
+            $table->string('jenispengeluaran_id')->nullable();
             $table->timestamps();
         });
     }

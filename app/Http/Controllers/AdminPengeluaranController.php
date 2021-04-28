@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\jenispendapatan;
-use App\Models\pendapatan;
-use Carbon\Carbon;
+use App\Models\jenispengeluaran;
+use App\Models\pengeluaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
-class AdminPendapatanController extends Controller
+class AdminPengeluaranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +17,11 @@ class AdminPendapatanController extends Controller
      */
     public function index()
     {
-        $datas=pendapatan::all();
-        $datadetails=jenispendapatan::all();
+        $datas=pengeluaran::all();
+        $datadetails=jenispengeluaran::all();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.pendapatan.index',compact('datas','datadetails'));
+        return view('admin.pengeluaran.index',compact('datas','datadetails'));
     }
 
     /**
@@ -47,30 +46,30 @@ class AdminPendapatanController extends Controller
             'nama'=>'required',
             'nominal'=>'required',
             'tgl'=>'required|date',
-            'jenispendapatan_id'=>'required'
+            'jenispengeluaran_id'=>'required'
         ],
         [
             'nama.required'=>'nama harus diisi',
-            'jenispendapatan_id.required'=>'Buat dan pilih Kategori dahulu'
+            'jenispengeluaran_id.required'=>'Buat dan pilih Kategori dahulu'
         ]);
         //ambil nama jenisalat
-        $ambilnamakategori = DB::table('jenispendapatan')->where('id',$request->jenispendapatan_id)->get();
+        $ambilnamakategori = DB::table('jenispengeluaran')->where('id',$request->jenispengeluaran_id)->get();
         foreach($ambilnamakategori as $ambil){
             $namaja=$ambil->nama;
         }
        // simpan
-       DB::table('pendapatan')->insert(
+       DB::table('pengeluaran')->insert(
         array(
                'nama'     =>   $request->nama,
                'nominal'     =>   $request->nominal,
                'tgl'     =>   $request->tgl,
-               'jenispendapatan_id'     =>   $request->jenispendapatan_id,
-               'jenispendapatan_nama'     =>   $namaja,
+               'jenispengeluaran_id'     =>   $request->jenispengeluaran_id,
+               'jenispengeluaran_nama'     =>   $namaja,
                'created_at'=>date("Y-m-d H:i:s"),
                'updated_at'=>date("Y-m-d H:i:s")
         )
    );
-    return redirect(URL::to('/').'/admin/pendapatan')->with('status','Data berhasil di tambahkan!');
+    return redirect(URL::to('/').'/admin/pengeluaran')->with('status','Data berhasil di tambahkan!');
     }
 
     /**
@@ -92,8 +91,8 @@ class AdminPendapatanController extends Controller
      */
     public function edit($id)
     {
-        $datas = DB::table('pendapatan')->where('id',$id)->get();
-        return view('admin.pendapatan.edit',compact('datas'));
+        $datas = DB::table('pengeluaran')->where('id',$id)->get();
+        return view('admin.pengeluaran.edit',compact('datas'));
     }
 
     /**
@@ -109,27 +108,29 @@ class AdminPendapatanController extends Controller
             'nama'=>'required',
             'nominal'=>'required',
             'tgl'=>'required|date',
-            'jenispendapatan_id'=>'required'
+            'jenispengeluaran_id'=>'required'
         ],
         [
             'nama.required'=>'nama harus diisi',
-            'jenispendapatan_id.required'=>'Buat dan pilih Kategori dahulu'
+            'jenispengeluaran_id.required'=>'Buat dan pilih Kategori dahulu'
         ]);
         //ambil nama jenisalat
-        $ambilnamakategori = DB::table('jenispendapatan')->where('id',$request->jenispendapatan_id)->get();
+        $ambilnamakategori = DB::table('jenispengeluaran')->where('id',$request->jenispengeluaran_id)->get();
         foreach($ambilnamakategori as $ambil){
             $namaja=$ambil->nama;
         }
-         //aksi update
-         pendapatan::where('id',$id)
-         ->update([
-             'nama'=>$request->nama,
-             'nominal'=>$request->nominal,
-             'tgl'=>$request->tgl,
-             'jenispendapatan_id'=>$request->jenispendapatan_id,
-             'jenispendapatan_nama'=>$request->namaja
-         ]);
-         return redirect('/admin/pendapatan')->with('status','Data berhasil diupdate!');
+        // dd($namaja);
+        //aksi update
+        pengeluaran::where('id',$id)
+        ->update([
+            'nama'=>$request->nama,
+            'nominal'=>$request->nominal,
+            'tgl'=>$request->tgl,
+            'jenispengeluaran_id'=>$request->jenispengeluaran_id,
+            'jenispengeluaran_nama'=>$namaja
+        ]);
+        return redirect('/admin/pengeluaran')->with('status','Data berhasil diupdate!');
+
     }
 
     /**
@@ -140,7 +141,7 @@ class AdminPendapatanController extends Controller
      */
     public function destroy($id)
     {
-        pendapatan::destroy($id);
-        return redirect(URL::to('/').'/admin/pendapatan')->with('status','Data berhasil dihapus!');
+        pengeluaran::destroy($id);
+        return redirect(URL::to('/').'/admin/pengeluaran')->with('status','Data berhasil dihapus!');
     }
 }
