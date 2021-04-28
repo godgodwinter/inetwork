@@ -312,7 +312,7 @@
                             <td><label class="label label-success">{{ ($loop->index)+1 }} </label></td>
                             <td>{{$dd->nama}}</td>
 
-                            <td>
+                            {{-- <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modaleditdetail{{$dd->id}}">
                                     <span class="pcoded-micon"> <i class="feather icon-edit"></i></span>
@@ -366,7 +366,7 @@
                                         onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><span
                                             class="pcoded-micon"> <i class="feather icon-delete"></i></span></button>
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                 </table>
