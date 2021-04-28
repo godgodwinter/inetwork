@@ -134,7 +134,7 @@
                             <td>
                                 {{-- {{ ($loop->index)+1 }} --}}
                                 <a class="btn btn-success btn-sm btn-outline-success"
-                                href="/admin/tagihan/{{$data->id}}/bayar"><span class="pcoded-micon"> <i
+                                href="/admin/tagihan/{{$data->nik}}/bayar"><span class="pcoded-micon"> <i
                                         class="feather icon-shopping-cart"></i></span></a>
                             </td>
                             <td>{{$data->nik}} - {{$data->nama}}</td>

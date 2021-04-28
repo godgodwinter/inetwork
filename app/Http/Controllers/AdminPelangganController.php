@@ -41,7 +41,7 @@ class AdminPelangganController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nik'=>'required',
+            'nik'=>'required|unique:pelanggan',
             'nama'=>'required',
             'alamat'=>'required',
             'hp'=>'required',
@@ -53,13 +53,14 @@ class AdminPelangganController extends Controller
         ],
         [
             'nik.required'=>'nik harus diisi',
+            'nik.unique'=>'nik sudah digunakan'
         ]);
         //ambil nama PAKET
         $ambilpaket = DB::table('paket')->where('id',$request->paket_id)->get();
         foreach($ambilpaket as $ambil){
             $paket_nama=$ambil->nama;
         }
-        
+
         //ambil nama letakserver
         $ambilnamas4rver = DB::table('letakserver')->where('id',$request->letakserver_id)->get();
         foreach($ambilnamas4rver as $ambil2){
@@ -120,9 +121,9 @@ class AdminPelangganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $request->validate([
-            'nik'=>'required',
+            'nik'=>'required|unique:pelanggan,nik,'. $id,
             'nama'=>'required',
             'alamat'=>'required',
             'hp'=>'required',
@@ -134,15 +135,16 @@ class AdminPelangganController extends Controller
         ],
         [
             'nik.required'=>'nik harus diisi',
+            'nik.unique'=>'nik telah digunakan',
         ]);
-        
+
         $paket_nama="Paket Tidak ditemukan atau terhapus";
         //ambil nama PAKET
         $ambilpaket = DB::table('paket')->where('id',$request->paket_id)->get();
         foreach($ambilpaket as $ambil){
             $paket_nama=$ambil->nama;
         }
-        
+
         $letakserver_nama="Server Tidak ditemukan atau terhapus";
         $letakserver_koordinat="Koordinat Server Tidak ditemukan atau terhapus";
         //ambil nama letakserver
