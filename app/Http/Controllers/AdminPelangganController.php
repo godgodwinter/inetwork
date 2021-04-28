@@ -107,7 +107,8 @@ class AdminPelangganController extends Controller
      */
     public function edit($id)
     {
-        //
+        $datas = DB::table('pelanggan')->where('id',$id)->get();
+        return view('admin.pelanggan.edit',compact('datas'));
     }
 
     /**
@@ -119,7 +120,58 @@ class AdminPelangganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $request->validate([
+            'nik'=>'required',
+            'nama'=>'required',
+            'alamat'=>'required',
+            'hp'=>'required',
+            'paket_id'=>'required',
+            'tgl_gabung'=>'required',
+            'status_langganan'=>'required',
+            'kordinat_rumah'=>'required',
+            'letakserver_id'=>'required'
+        ],
+        [
+            'nik.required'=>'nik harus diisi',
+        ]);
+        
+        $paket_nama="Paket Tidak ditemukan atau terhapus";
+        //ambil nama PAKET
+        $ambilpaket = DB::table('paket')->where('id',$request->paket_id)->get();
+        foreach($ambilpaket as $ambil){
+            $paket_nama=$ambil->nama;
+        }
+        
+        $letakserver_nama="Server Tidak ditemukan atau terhapus";
+        $letakserver_koordinat="Koordinat Server Tidak ditemukan atau terhapus";
+        //ambil nama letakserver
+        $ambilnamas4rver = DB::table('letakserver')->where('id',$request->letakserver_id)->get();
+        foreach($ambilnamas4rver as $ambil2){
+            $letakserver_nama=$ambil2->nama;
+            $letakserver_koordinat=$ambil2->koordinat;
+        }
+         //aksi update
+         pelanggan::where('id',$id)
+         ->update([
+             'nik'=>$request->nik,
+             'nama'=>$request->nama,
+             'alamat'=>$request->alamat,
+             'hp'=>$request->hp,
+             'status_langganan'=>$request->status_langganan,
+             'tgl_gabung'=>$request->tgl_gabung,
+             'paket_id'=>$request->paket_id,
+             'paket_nama'=>$paket_nama,
+             'paket_id'=>$request->paket_id,
+             'paket_id'=>$request->paket_id,
+             'kordinat_rumah'     =>   $request->kordinat_rumah,
+             'letakserver_id'     =>   $request->letakserver_id,
+             'status_langganan'     =>   $request->status_langganan,
+             'letakserver_nama'     =>   $letakserver_nama,
+             'letakserver_koordinat'     =>   $letakserver_koordinat,
+             'updated_at'=>date("Y-m-d H:i:s")
+         ]);
+         return redirect('/admin/pelanggan')->with('status','Data berhasil diupdate!');
     }
 
     /**
@@ -130,6 +182,7 @@ class AdminPelangganController extends Controller
      */
     public function destroy($id)
     {
-        //
+        pelanggan::destroy($id);
+        return redirect(URL::to('/').'/admin/pelanggan')->with('status','Data berhasil dihapus!');
     }
 }

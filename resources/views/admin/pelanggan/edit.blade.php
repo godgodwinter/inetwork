@@ -61,7 +61,7 @@
                     <li class="breadcrumb-item">
                         <a href="{{url('/dashboard')}}"> <i class="feather icon-home"></i> </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!">@yield('title')</a> </li>
+                    <li class="breadcrumb-item"><a href="..">@yield('title')</a> </li>
                 </ul>
             </div>
         </div>
@@ -82,113 +82,40 @@
 @endsection
 
 @section('container')
-<!-- Section start -->
-<div class="page-body"id="datatable" >
-    <!-- DOM/Jquery table start -->
-    <div class="card">
-        <div class="row">
-            <div class="col-xl-6 col-md-12">
-                <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-                <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
-                <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
-            </div>
-            <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                <a href="{{url('/')}}/admin/paket" class="btn btn-sm btn-secondary">PAKET INTERNET</a>&nbsp;
-                <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
-                <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PELANGGAN</a>&nbsp;
-            </div>
-        </div>
-        <div class="card-block">
-            <div class="table-responsive dt-responsive">
-                <table id="dom-jqry" class="table table-striped table-bordered nowrap">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>NIK - Nama</th>
-                            <th>No WA</th>
-                            <th>Tanggal Gabung</th>
-                            <th>Status Langganan</th>
-                            <th>Paket</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @php
-                    $status_langganan='Non-Aktif';
-                    @endphp
-                        @foreach ($datas as $data)
-                            @php
+@foreach ($datas as $data)
+@endforeach
+@php
+    //jika koordinat null -8.129902243245665, 112.4867915739301
+    if(($data->kordinat_rumah)==''){
+        $koordinat='-8.129902243245665, 112.4867915739301';
+    }else{
+        $koordinat=$data->kordinat_rumah;
+    }
 
-                                    if($data->status_langganan=='Aktif'){
-                                        $status_langganan='Aktif';
-                                    }else{
-                                        $status_langganan='Non-Aktif';
-                                    }
+    if($data->status_langganan=='Aktif'){
+        $status_langganan='Aktif';
+    }else{
+        $status_langganan='Non-Aktif';
+    }
+@endphp
 
-// dd($tgl);
-// {{ \Carbon\Carbon::parse($user->from_date)->format('d/m/Y')}}
-
-                            @endphp
-
-                        <tr>
-                            <td>{{ ($loop->index)+1 }} </td>
-                            <td>{{$data->nik}} - {{$data->nama}}</td>
-                            <td>{{$data->hp}}</td>
-                            <td>
-                                {{ \Carbon\Carbon::parse($data->tgl_gabung)->translatedFormat('d F Y')}}
-                            </td>
-                            <td>{{$status_langganan}}</td>
-                            <td>
-                               {{$data->paket_nama}}
-                            </td>
-
-                            <td>
-                                <a class="btn btn-warning btn-sm btn-outline-warning"
-                                    href="/admin/pelanggan/{{$data->id}}/edit"><span class="pcoded-micon"> <i
-                                            class="feather icon-edit"></i></span></a>
-                                <form action="/admin/pelanggan/{{$data->id}}" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm  btn-outline-warning"
-                                        onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><span
-                                            class="pcoded-micon"> <i class="feather icon-delete"></i></span></button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>NIK - Nama</th>
-                                <th>No WA</th>
-                                <th>Tanggal Gabung</th>
-                                <th>Status Langganan</th>
-                                <th>Paket</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- DOM/Jquery table end -->
     <!-- tambah -->
     <div class="card" id="add" >
         <div class="card-header">
             <div class="row">
                 <div class="col-xl-6 col-md-12">
-                    <h5 class="label label-success">TAMBAH PELANGGAN</h5>
+                    <h5 class="label label-success">EDIT PELANGGAN</h5>
                 </div>
                 <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
                 <a href="{{url('/')}}/admin/paket" class="btn btn-sm btn-secondary">PAKET INTERNET</a>&nbsp;
                 <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
-                    <a href="#datatable" class="btn btn-sm btn-secondary">PELANGGAN</a>
                 </div>
             </div>
         </div>
         <div class="card-block">
             <div class="card-body">
-                <form action="/admin/pelanggan" method="post">
+                <form action="/admin/pelanggan/{{$data->id}}" method="post">
+                    @method('put')
                     @csrf
                     <div class="pl-lg-4">
                         <div class="row">
@@ -197,7 +124,7 @@
                                     <label class="form-control-label" for="input-nik">NIK (*</label>
                                     <input type="text" name="nik" id="input-nik"
                                         class="form-control form-control-alternative  @error('nik') is-invalid @enderror"
-                                        placeholder="" value="{{old('nik')}}" required>
+                                        placeholder="" value="{{$data->nik}}" required>
                                     @error('nik')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
@@ -207,7 +134,7 @@
                                     <label class="form-control-label" for="input-nama">Nama (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
-                                        placeholder="" value="{{old('nama')}}" required>
+                                        placeholder="" value="{{$data->nama}}" required>
                                     @error('nama')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
@@ -217,7 +144,7 @@
                                     <label class="form-control-label" for="input-alamat">Alamat (*</label>
                                     <input type="text" name="alamat" id="input-alamat"
                                         class="form-control form-control-alternative  @error('alamat') is-invalid @enderror"
-                                        placeholder="" value="{{old('alamat')}}" required>
+                                        placeholder="" value="{{$data->alamat}}" required>
                                     @error('alamat')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
@@ -228,7 +155,7 @@
                                     <label class="form-control-label" for="input-hp">No WA (*</label>
                                     <input type="text" name="hp" id="input-hp"
                                         class="form-control form-control-alternative  @error('hp') is-invalid @enderror"
-                                        placeholder="" value="{{old('hp')}}" required>
+                                        placeholder="" value="{{$data->hp}}" required>
                                     @error('hp')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
@@ -238,7 +165,7 @@
                                     <label class="form-control-label" for="input-tgl_gabung">Tanggal Gabung(*</label>
                                     <input type="date" name="tgl_gabung" id="input-tgl_gabung"
                                         class="form-control form-control-alternative  @error('tgl_gabung') is-invalid @enderror"
-                                        placeholder="" value="{{old('tgl_gabung')}}" required>
+                                        placeholder="" value="{{$data->tgl_gabung}}" required>
 
                                     @error('tgl_gabung')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
@@ -251,6 +178,7 @@
                                 <select name="paket_id" id="input-paket_id"
                                     class="form-control form-control-info  @error('paket_id') is-invalid @enderror"
                                     required>
+                                        <option value="{{ $data->paket_id }}">{{ $data->paket_nama }}</option>
                             <?php
                                 $data2s = DB::table('paket')->orderBy('kecepatan', 'asc')->get();
                             ?>
@@ -268,6 +196,7 @@
                                 <select name="letakserver_id" id="input-letakserver_id"
                                     class="form-control form-control-info  @error('letakserver_id') is-invalid @enderror"
                                     required>
+                                        <option value="{{ $data->letakserver_id }}">{{ $data->letakserver_nama }}</option>
                             <?php
                                 $data3s = DB::table('letakserver')->orderBy('nama', 'asc')->get();
                             ?>
@@ -285,6 +214,7 @@
                                     class="form-control form-control-info  @error('status_langganan') is-invalid @enderror"
                                     required>
                                     
+                                        <option>{{$status_langganan}}</option>
                                         <option>Aktif</option>
                                         <option>Non-Aktif</option>
                         
@@ -298,7 +228,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-koordinat">Kordinat Rumah (*</label>
                                      <input type="text" name="kordinat_rumah" id="input-koordinat"  class="form-control form-control-alternative  @error('kordinat_rumah') is-invalid @enderror"
-                              placeholder="" value="{{old('kordinat_rumah')}}" required>
+                              placeholder="" value="{{$koordinat}}" required>
                               @error('kordinat_rumah')<div class="invalid-feedback"> {{$message}}</div>
                               @enderror
                                 </div>
@@ -357,7 +287,7 @@
                                 }
 
                                 function initialize() {
-                                var latLng = new google.maps.LatLng(-8.129902243245665, 112.4867915739301);
+                                var latLng = new google.maps.LatLng({{$koordinat}});
                                 var map = new google.maps.Map(document.getElementById('mapCanvas'), {
                                     zoom: 15,
                                     center: latLng,
