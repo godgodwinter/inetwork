@@ -94,6 +94,7 @@
                             <th>No WA</th>
                             <th>Tanggal Gabung</th>
                             <th>Status Langganan</th>
+                            <th>Paket</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -112,30 +113,31 @@
 
                         <tr>
                             <td>{{ ($loop->index)+1 }} </td>
-                            <td>{{$data->nama}}</td>
-                            <td>@currency($nominal)</td>
+                            <td>{{$data->nik}} - {{$data->nama}}</td>
+                            <td>{{$data->hp}}</td>
                             <td>
-                                {{ \Carbon\Carbon::parse($tgl)->translatedFormat('d F Y')}}
+                                {{ \Carbon\Carbon::parse($data->tgl_gabung)->translatedFormat('d F Y')}}
                             </td>
+                            <td>{{$data->status_langganan}}</td>
                             <td>
                                 <?php
-                                $namakategori=$data->jenispendapatan_nama;
-                                $data2s = DB::table('jenispendapatan')->where('id',$data->jenispendapatan_id)->get();
+                                $datapaket=$data->paket_id;
+                                $data2s = DB::table('paket')->where('id',$data->paket_id)->get();
                             ?>
                                 @foreach($data2s as $d2)
                                     @php
-                                         $namakategori=$d2->nama;
+                                         $datapaket=$d2->nama;
                                     @endphp
                                 @endforeach
 
-                                {{$namakategori}}
+                                {{$datapaket}}
                             </td>
 
                             <td>
                                 <a class="btn btn-warning btn-sm btn-outline-warning"
-                                    href="/admin/pendapatan/{{$data->id}}/edit"><span class="pcoded-micon"> <i
+                                    href="/admin/pelanggan/{{$data->id}}/edit"><span class="pcoded-micon"> <i
                                             class="feather icon-edit"></i></span></a>
-                                <form action="/admin/pendapatan/{{$data->id}}" method="post" class="d-inline">
+                                <form action="/admin/pelanggan/{{$data->id}}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm  btn-outline-warning"
@@ -152,6 +154,7 @@
                                 <th>No WA</th>
                                 <th>Tanggal Gabung</th>
                                 <th>Status Langganan</th>
+                                <th>Paket</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -175,13 +178,23 @@
         </div>
         <div class="card-block">
             <div class="card-body">
-                <form action="/admin/pendapatan" method="post">
+                <form action="/admin/pelanggan" method="post">
                     @csrf
                     <div class="pl-lg-4">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-nama">Nama PELANGGAN  (*</label>
+                                    <label class="form-control-label" for="input-nik">NIK (*</label>
+                                    <input type="text" name="nik" id="input-nik"
+                                        class="form-control form-control-alternative  @error('nik') is-invalid @enderror"
+                                        placeholder="" value="{{old('nik')}}" required>
+                                    @error('nik')<div class="invalid-feedback"> {{$message}}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-nama">Nama (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
                                         placeholder="" value="{{old('nama')}}" required>
