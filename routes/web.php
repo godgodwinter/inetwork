@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/cetak/cetak_letakserver', 'App\Http\Controllers\CetakController@cetak_letakserver');
 
     Route::resource('admin/jenispendapatan','App\Http\Controllers\AdminjenispendapatanController');
+
     //menu pengeluaran
     Route::resource('admin/pengeluaran','App\Http\Controllers\AdminpengeluaranController');
     Route::resource('admin/jenispengeluaran','App\Http\Controllers\AdminjenispengeluaranController');
@@ -50,6 +51,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pengeluaran
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminpelangganController');
 
+
+    //menu tagihan
+    Route::resource('admin/tagihan','App\Http\Controllers\AdmintagihanController');
 
 
 });
