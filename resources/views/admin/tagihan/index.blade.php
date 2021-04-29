@@ -1,6 +1,6 @@
 @extends('admin.main')
 
-@section('title','TAGIHAN')
+@section('title','TAGIHAN LUNAS')
 
 @section('csshere')
 <style>

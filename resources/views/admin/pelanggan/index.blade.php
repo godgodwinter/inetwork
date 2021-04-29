@@ -88,11 +88,13 @@
     <div class="card">
         <div class="row">
             <div class="col-xl-6 col-md-12">
+                <a href="#add" class="btn btn-sm btn-success">BAYAR</a>
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                 <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                <a href="#add" class="btn btn-sm btn-secondary">BELUM BAYAR</a>&nbsp;
                 <a href="{{url('/')}}/admin/paket" class="btn btn-sm btn-secondary">PAKET INTERNET</a>&nbsp;
                 <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PELANGGAN</a>&nbsp;
@@ -103,7 +105,7 @@
                 <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                     <thead>
                         <tr>
-                            <th>Bayar</th>
+                            <th>Bayar Cepat</th>
                             <th>NIK - Nama</th>
                             <th>No WA</th>
                             <th>Tanggal Gabung</th>
