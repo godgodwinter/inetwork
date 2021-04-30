@@ -57,4 +57,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/tagihan/{id}/bayar', 'App\Http\Controllers\AdmintagihanController@bayar');
 
 
+    //menu rekap
+    Route::resource('admin/rekap','App\Http\Controllers\AdminrekapController');
+
+
+
+
+
 });

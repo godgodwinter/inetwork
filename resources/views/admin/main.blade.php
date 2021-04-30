@@ -213,7 +213,7 @@
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="{{url('/')}}/admin/Rekap">
+                                    <a href="{{url('/')}}/admin/rekap">
                                         <span class="pcoded-micon"><i class="feather icon-printer"></i></span>
                                         <span class="pcoded-mtext">Rekap
                                     </a>
