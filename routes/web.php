@@ -38,9 +38,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pendapatan
     Route::resource('admin/pendapatan','App\Http\Controllers\AdminpendapatanController');
 
-    //Route::get('admin/cetak_pdf', 'CetakController@cetak_pdf');
+    //Print PDF
     Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
     Route::get('admin/cetak/cetak_letakserver', 'App\Http\Controllers\CetakController@cetak_letakserver');
+    Route::get('admin/cetak/cetak_inventaris', 'App\Http\Controllers\CetakController@cetak_inventaris');
+    Route::get('admin/cetak/cetak_pelanggan', 'App\Http\Controllers\CetakController@cetak_pelanggan');
+    Route::get('admin/cetak/cetak_tagihan', 'App\Http\Controllers\CetakController@cetak_tagihan');
+    Route::get('admin/cetak/cetak_pemasukan', 'App\Http\Controllers\CetakController@cetak_pemasukan');
+    Route::get('admin/cetak/cetak_pengeluaran', 'App\Http\Controllers\CetakController@cetak_pengeluaran');
 
     Route::resource('admin/jenispendapatan','App\Http\Controllers\AdminjenispendapatanController');
 
@@ -55,6 +60,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu tagihan
     Route::resource('admin/tagihan','App\Http\Controllers\AdmintagihanController');
     Route::get('admin/tagihan/{id}/bayar', 'App\Http\Controllers\AdmintagihanController@bayar');
+
+    // Route for export/download tabledata to .csv, .xls or .xlsx
+    Route::get('exportExcel/{type}', [ExcelController::class, 'exportExcel'])->name('exportExcel');
+    // Route for import excel data to database.
+    Route::post('importExcel', [ExcelController::class, 'importExcel'])->name('importExcel');
 
 
 });
