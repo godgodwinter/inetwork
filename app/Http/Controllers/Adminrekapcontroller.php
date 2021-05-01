@@ -6,6 +6,8 @@ use App\Models\pendapatan;
 use App\Models\pengeluaran;
 use App\Models\tagihan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class Adminrekapcontroller extends Controller
 {
@@ -16,12 +18,40 @@ class Adminrekapcontroller extends Controller
      */
     public function index()
     {
-        $dpengeluarans=pengeluaran::all();
-        $dpendapatans=pendapatan::all();
-        $dtagihans=tagihan::all();
+        // $lastName  = Input::get('blnthn') ;
+        // dd($lastName);
+        $blnthn=date("Y-m");
+
+        $dpendapatans = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m"))
+        ->whereYear('tgl', '=', date("Y"))
+        ->get();
+            $totaldapat = DB::table('pendapatan')
+            ->whereMonth('tgl', '=', date("m"))
+            ->whereYear('tgl', '=', date("Y"))
+            ->sum('nominal');
+
+        $dpengeluarans = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m"))
+        ->whereYear('tgl', '=', date("Y"))
+        ->get();
+            $totalkeluar = DB::table('pengeluaran')
+            ->whereMonth('tgl', '=', date("m"))
+            ->whereYear('tgl', '=', date("Y"))
+            ->sum('nominal');
+
+        $dtagihans = DB::table('tagihan')
+        ->whereMonth('tgl_bayar', '=', date("m"))
+        ->whereYear('tgl_bayar', '=', date("Y"))
+        ->get();
+
+            $totaltagihans = DB::table('tagihan')
+            ->whereMonth('tgl_bayar', '=', date("m"))
+            ->whereYear('tgl_bayar', '=', date("Y"))
+            ->sum('total_bayar');
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.rekap.index',compact('dpengeluarans','dpendapatans','dtagihans'));
+        return view('admin.rekap.index',compact('dpengeluarans','dpendapatans','dtagihans','totaltagihans','totaldapat','totalkeluar','blnthn'));
     }
 
     /**
@@ -88,5 +118,43 @@ class Adminrekapcontroller extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function bln(Request $request)
+    {
+        // $lastName  = Input::get('blnthn') ;
+        // dd($request);
+        $blnthn=$request->blnthn;
+
+        $dpendapatans = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->get();
+            $totaldapat = DB::table('pendapatan')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->sum('nominal');
+
+        $dpengeluarans = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->get();
+            $totalkeluar = DB::table('pengeluaran')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->sum('nominal');
+
+        $dtagihans = DB::table('tagihan')
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+        ->get();
+
+            $totaltagihans = DB::table('tagihan')
+            ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+            ->sum('total_bayar');
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.rekap.index',compact('dpengeluarans','dpendapatans','dtagihans','totaltagihans','totaldapat','totalkeluar','blnthn'));
     }
 }

@@ -1,6 +1,6 @@
 @extends('admin.main')
 
-@section('title','PENGELUARAN')
+@section('title','PENDAPATAN BERSIH')
 
 @section('csshere')
 <style>
@@ -28,7 +28,17 @@
 
 @section('jshere')
 <!-- jquerymin-->
+{{-- <!-- Bootstrap date-time-picker js -->
+<script type="text/javascript" src="{{ asset("admin-style/") }}\files\assets\pages\advance-elements\moment-with-locales.min.js"></script>
+<script type="text/javascript" src="{{ asset("admin-style/") }}\files\bower_components\bootstrap-datepicker\js\bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="{{ asset("admin-style/") }}\files\assets\pages\advance-elements\bootstrap-datetimepicker.min.js"></script>
 
+<script type="text/javascript" src="{{ asset("admin-style/") }}\files\bower_components\bootstrap-daterangepicker\js\daterangepicker.js"></script>
+<!-- Date-dropper js -->
+<script type="text/javascript" src="{{ asset("admin-style/") }}\files\bower_components\datedropper\js\datedropper.min.js"></script>
+<!-- Color picker js -->
+<script type="text/javascript" src="{{ asset("admin-style/") }}\files\bower_components\spectrum\js\spectrum.js"></script>
+<script type="text/javascript" src="{{ asset("admin-style/") }}\files\bower_components\jscolor\js\jscolor.js"></script> --}}
 
 @endsection
 @section('headernav')
@@ -74,61 +84,85 @@
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="row">
-            <div class="col-xl-6 col-md-12">
+            <div class="col-xl-6 col-md-6">
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                 <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
-            <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
-                <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
-                <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PENGELUARAN</a>&nbsp;
+            <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
+                <form action="/admin/rekapbln/" method="get" class="d-inline">
+
+                <input class="form-control" type="month" name="blnthn" value="{{ $blnthn }}" required><button type="Simpan" class="btn btn-success">PILIH</button>
+                </form>
+
+
             </div>
         </div>
         <div class="card-block">
             <div class="table-responsive dt-responsive">
-                <table id="dom-jqry" class="table table-striped table-bordered nowrap">
+                <table class="table table-striped table-bordered nowrap">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Nominal</th>
-                            <th>Tanggal</th>
-                            <th>Kategori</th>
-                            <th>Aksi</th>
+                            <th class="text-center">NO</th>
+                            <th>NAMA</th>
+                            <th>NOMINAL</th>
+                            <th>TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($datas as $data)
-                            @php
-
-                                    $nominal=$data->nominal;
-
-                                    // $newDate = date("d-m-Y", strtotime($data->tgl));
-                                    $tgl=$data->tgl;
-// dd($tgl);
-// {{ \Carbon\Carbon::parse($user->from_date)->format('d/m/Y')}}
-
-                            @endphp
-
                         <tr>
-                            <td>{{ ($loop->index)+1 }} </td>
-                            <td>{{$data->nama}}</td>
-                            <td>@currency($nominal)</td>
-                            <td>
-                                {{ \Carbon\Carbon::parse($tgl)->translatedFormat('d F Y')}}
-                            </td>
-
+                            <td class="text-center">1</td>
+                            <td colspan="2"><b>PEMASUKAN</b></td>
+                            <td><b>@currency($totaldapat)</b></td>
                         </tr>
-                        @endforeach
-                        <tfoot>
+                            @foreach ($dpendapatans as $ddapat)
                             <tr>
-                                <th>No</th>
+                                <td class="text-center">-</td>
+                                <td>{{ $ddapat->nama }}</td>
+                                <td>@currency($ddapat->nominal)</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td colspan="2"><B>PEMASUKAN INTERNET</B></td>
+                            <td><b>@currency($totaltagihans)</b></td>
+                        </tr>
+                            @foreach ($dtagihans as $dtagih)
+                            <tr>
+                                <td class="text-center">-</td>
+                                <td>{{ $dtagih->nama }}</td>
+                                <td>@currency($dtagih->total_bayar)</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td colspan="2"><b>PENGELUARAN</b></td>
+                            <td><b>@currency($totalkeluar)</b></td>
+                        </tr>
+                            @foreach ($dpengeluarans as $dkeluar)
+                            <tr>
+                                <td class="text-center">-</td>
+                                <td>{{ $dkeluar->nama }}</td>
+                                <td>@currency($dkeluar->nominal)</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td colspan="2"><b>PEMASUKAN BERSIH</b></td>
+                            <td><b>@currency($totaldapat+$totaltagihans-$totalkeluar)</b></td>
+                        </tr>
+                    </tbody>
+
+                        <tfoot>
+                            {{-- <tr>
+                                <th>-</th>
                                 <th>Nama</th>
                                 <th>Nominal</th>
-                                <th>Tanggal</th>
-                                <th>Kategori</th>
-                                <th>Aksi</th>
-                            </tr>
+                                <th>Total Pemasukan</th>
+                            </tr> --}}
                         </tfoot>
                 </table>
             </div>

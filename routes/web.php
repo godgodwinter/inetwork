@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     //menu rekap
     Route::resource('admin/rekap','App\Http\Controllers\Adminrekapcontroller');
+    Route::get('admin/rekapbln', 'App\Http\Controllers\Adminrekapcontroller@bln');
 
 
 
