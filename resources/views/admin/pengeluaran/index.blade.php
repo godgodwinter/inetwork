@@ -74,12 +74,12 @@
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="row">
-            <div class="col-xl-6 col-md-12">
+            <div class="col-xl-6 col-md-6">
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                 <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
-            <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+            <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PENGELUARAN</a>&nbsp;
             </div>
@@ -89,12 +89,12 @@
                 <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th width="5%" class="text-center">No</th>
                             <th>Nama</th>
                             <th>Nominal</th>
                             <th>Tanggal</th>
                             <th>Kategori</th>
-                            <th>Aksi</th>
+                            <th width="5%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,7 +111,7 @@
                             @endphp
 
                         <tr>
-                            <td>{{ ($loop->index)+1 }} </td>
+                            <td class="text-center">{{ ($loop->index)+1 }} </td>
                             <td>{{$data->nama}}</td>
                             <td>@currency($nominal)</td>
                             <td>
@@ -147,7 +147,7 @@
                         @endforeach
                         <tfoot>
                             <tr>
-                                <th>No</th>
+                                <th class="text-center">No</th>
                                 <th>Nama</th>
                                 <th>Nominal</th>
                                 <th>Tanggal</th>
@@ -164,10 +164,10 @@
     <div class="card" id="add" >
         <div class="card-header">
             <div class="row">
-                <div class="col-xl-6 col-md-12">
+                <div class="col-xl-6 col-md-6">
                     <h5 class="label label-success">TAMBAH PENGELUARAN</h5>
                 </div>
-                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                     <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                     <a href="#datatable" class="btn btn-sm btn-secondary">PENGELUARAN</a>
                 </div>
@@ -293,11 +293,11 @@
 
  <!-- ticket and update start -->
  <div class="row">
- <div class="col-xl-6 col-md-12" id="kategori">
+ <div class="col-xl-6 col-md-6" id="kategori">
     <div class="card table-card">
         <div class="card-header">
             <div class="row">
-                <div class="col-xl-6 col-md-12">
+                <div class="col-xl-6 col-md-6">
                     <h5 class="label label-success">KATEGORI</h5>
                 </div>
             </div>
@@ -308,9 +308,9 @@
                 <table class="table table-hover table-borderless">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th width="5%">No</th>
                             <th>Nama</th>
-                            <th>Aksi</th>
+                            <th width="5%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -381,16 +381,16 @@
         </div>
     </div>
 </div>
-<div class="col-xl-6 col-md-12">
+<div class="col-xl-6 col-md-6">
     <div class="card latest-update-card">
         <div class="card-header">
             <div class="row">
 
-                <div class="col-xl-6 col-md-12">
+                <div class="col-xl-6 col-md-6">
                     <h5 class="label label-success">TAMBAH KATEGORI</h5>
                 </div>
 
-                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                     <a href="#datatable" class="btn btn-sm btn-secondary">PENGELUARAN</a
                 </div>
             </div>

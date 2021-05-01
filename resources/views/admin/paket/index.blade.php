@@ -75,12 +75,12 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-xl-6 col-md-12">
+                <div class="col-xl-6 col-md-6">
                     <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                     <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                     <a href="cetak/cetak_paket" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
                 </div>
-                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                     <a href="#add" class="btn btn-sm btn-secondary">TAMBAH</a>
                 </div>
             </div>
@@ -90,11 +90,11 @@
                 <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th class="text-center" width="5%">No</th>
                             <th>Nama</th>
                             <th>Harga</th>
-                            <th>Kecepatan</th>
-                            <th>Aksi</th>
+                            <th class="text-center">Kecepatan</th>
+                            <th width="5%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,10 +106,10 @@
                             @endphp
 
                         <tr>
-                            <td>{{ ($loop->index)+1 }} </td>
+                            <td class="text-center">{{ ($loop->index)+1 }} </td>
                             <td>{{$data->nama}}</td>
                             <td>@currency($harga)</td>
-                            <td>{{$data->kecepatan}} Mbps</td>
+                            <td class="text-center">{{$data->kecepatan}} Mbps</td>
 
                             <td>
                                 <a class="btn btn-warning btn-sm btn-outline-warning"
@@ -144,18 +144,17 @@
         <div class="card-header">
             <div class="row">
 
-                <div class="col-xl-6 col-md-12">
+                <div class="col-xl-6 col-md-6">
 
                     <h5 class="label label-success">TAMBAH</h5>
                 </div>
 
-                <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+                <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                     <a href="#datatable" class="btn btn-sm btn-secondary">DATATABLE</a>
 
                 </div>
             </div>
-        </div>
-        <div class="card-block">
+
             <div class="card-body">
                 <form action="/admin/paket " method="post">
                     @csrf

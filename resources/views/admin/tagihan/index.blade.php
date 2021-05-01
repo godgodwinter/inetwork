@@ -87,12 +87,12 @@
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="row">
-            <div class="col-xl-6 col-md-12">
+            <div class="col-xl-6 col-md-6">
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                 <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
-            <div class="col-xl-6 col-md-12 d-flex flex-row-reverse">
+            <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="{{url('/')}}/admin/pelanggan" class="btn btn-sm btn-secondary">PELANGGAN</a>&nbsp;
             </div>
         </div>
@@ -101,13 +101,13 @@
                 <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th width="5%" class="text-center">No</th>
                             <th>NIK - Nama</th>
                             <th>Paket</th>
                             <th>Total Bayar</th>
                             <th>No WA</th>
                             <th>Tanggal Bayar</th>
-                            <th>Aksi</th>
+                            <th width="5%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,7 +129,7 @@
                             @endphp
 
                         <tr>
-                            <td>
+                            <td class="text-center">
                                 {{ ($loop->index)+1 }}
 
                             </td>
@@ -196,7 +196,7 @@
                         @endforeach
                         <tfoot>
                             <tr>
-                                <th>No</th>
+                                <th class="text-center">No</th>
                                 <th>NIK - Nama</th>
                                 <th>Paket</th>
                                 <th>Total Bayar</th>
