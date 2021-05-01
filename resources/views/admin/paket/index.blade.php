@@ -70,7 +70,8 @@
 
 @section('container')
 <!-- Section start -->
-<div class="page-body"id="datatable" >
+ <div class="row">
+    <div class="col-xl-8 col-md-12 page-body" id="datatable" >
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="card-header">
@@ -138,9 +139,10 @@
             </div>
         </div>
     </div>
+</div>
     <!-- DOM/Jquery table end -->
     <!-- tambah -->
-    <div class="card" id="add" >
+    <div class="card col-xl-4 col-md-12 " id="add" >
         <div class="card-header">
             <div class="row">
 
@@ -224,28 +226,19 @@
                                     @enderror
                                 </div>
                             </div>
-
-
-                        </div>
-                    </div>
-                    <hr class="my-4" />
-                    <!-- Address -->
-                    <h6 class="heading-small text-muted mb-4">Aksi</h6>
-                    <div class="pl-lg-4">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-xl-6 col-md-6 d-flex flex-row-reverse mt-4">
                                 <div class="form-group">
                                     <button type="Simpan" class="btn btn-success">Simpan</button>
                                 </div>
                             </div>
-                </form>
-            </div>
-        </div>
+
+                        </div>
+                    </div>
+
+
+    </form>
     </div>
+</div>
 </div>
 </div>
 <!-- tambah end -->
