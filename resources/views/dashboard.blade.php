@@ -4,6 +4,21 @@
 @section('title','Dashboard')
 
 @section('csshere')
+<style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous"></script>
+
 
 
 @endsection
@@ -25,16 +40,40 @@ $tglskrg = date("d");
 // echo "</pre>";
     // dd($blnthn)
 
-    //basic selec where
-    $ambildata = DB::table('pendapatan')
-                ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
-                ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
-                ->get();
-    //selek pemasukan jumlahkan per tanggal
-    $ambildata2 = DB::table('pendapatan')
-                ->where('tgl', '=', $year."-".$month."-".$tglskrg)
-                ->sum('nominal');
+    // //basic selec where
+    // $ambildata = DB::table('pendapatan')
+    //             ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+    //             ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+    //             ->get();
+    // //selek pemasukan jumlahkan per tanggal
+    // $ambildata2 = DB::table('pendapatan')
+    //             ->where('tgl', '=', $year."-".$month."-".$tglskrg)
+    //             ->sum('nominal');
 
+
+    //jumlah pemasukan
+    $ambiljmlhpendapatan = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->count();
+
+    //Total pemasukan dari  pendapatan
+    $ambiltotalpendapatan = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->sum('nominal');
+
+    //jumlah pengeluaran
+    $ambiljmlhpengeluaran = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->count();
+
+    //Total pengeluaran dari  pengeluaran
+    $ambiltotalpengeluaran = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->sum('nominal');
 
     //jumlah pelanggan yang telah membayar
     $ambiljmlhpembayar = DB::table('tagihan')
@@ -264,9 +303,6 @@ $nol=0;
 
 @endphp
 
-// @foreach ( $ambildata as $ad)
-
-// @endforeach
 
 
      ]
@@ -406,7 +442,7 @@ $nol=0;
             <div class="page-header-title">
                 <div class="d-inline">
                     <h4>Dashboard</h4>
-                    <span>Selamat datang di Halaman Beranda Administrator.</span>
+                    {{-- <span>Selamat datang di Halaman Beranda Administrator.</span> --}}
                 </div>
             </div>
         </div>
@@ -464,6 +500,204 @@ $nol=0;
             </div>
         </div>
         <!-- visitor end -->
+
+        <!-- menubaris2 start -->
+        <div class="col-xl-4 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Pembayaran Internet</h5>
+                    {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="feather icon-maximize full-card"></i></li>
+                            <li><i class="feather icon-minus minimize-card"></i></li>
+                            <li><i class="feather icon-trash-2 close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div id="visitor" style="height:300px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-12">
+            <div class="card table-card">
+                <div class="card-header">
+                    <h5>Tambah Pemasukan</h5>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="card-body">
+                        <form action="/admin/pendapatan" method="post">
+                            @csrf
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-nama">Nama (*</label>
+                                            <input type="text" name="nama" id="input-nama"
+                                                class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
+                                                placeholder="" value="{{old('nama')}}" required>
+                                            @error('nama')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <b><label class="form-control-label" for="input-nominal" id="input-harga-label">Rp. 0 ,00</label></b>
+                                            <input type="number" name="nominal" id="input-nominal"
+                                                class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
+                                                placeholder="Contoh : 150000" value="{{old('nominal')}}" required>
+                                            @error('nominal')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <script>
+                                        var format = function(num){
+                                        var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+                                        if(str.indexOf(".") > 0) {
+                                            parts = str.split(".");
+                                            str = parts[0];
+                                        }
+                                        str = str.split("").reverse();
+                                        for(var j = 0, len = str.length; j < len; j++) {
+                                            if(str[j] != ",") {
+                                                output.push(str[j]);
+                                                if(i%3 == 0 && j < (len - 1)) {
+                                                    output.push(".");
+                                                }
+                                                i++;
+                                            }
+                                        }
+                                        formatted = output.reverse().join("");
+                                        return("Rp" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ",-"));
+                                    };
+                                        $(document).ready(function() {
+                                        $("#input-nominal").on('keyup', function() {
+                                            // alert("oops!");
+                                            $('#input-harga-label:last').text(format($(this).val()));
+                                        });
+
+                                    });
+                                    </script>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-tgl">Tanggal (*</label>
+                                            <input type="date" name="tgl" id="input-tgl"
+                                                class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
+                                                placeholder="" value="{{$blnthn}}-{{ $tglskrg }}" required>
+
+                                            @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-sm-6 col-xl-6 m-b-30">
+                                        <label class="form-control-label" for="input-jk">Pilih Kategori  (*</label>
+                                        <select name="jenispendapatan_id" id="input-jenispendapatan_id"
+                                            class="form-control form-control-info  @error('jenispendapatan_id') is-invalid @enderror"
+                                            required>
+                                    <?php
+                                        $data2s = DB::table('jenispendapatan')->get();
+                                    ?>
+                                        @foreach($data2s as $d2)
+                                                <option value="{{ $d2->id }}">{{ $d2->nama }}</option>
+                                        @endforeach
+                                                </select> @error('jenispendapatan_id')<div class="invalid-feedback"> {{$message}}
+                                                </div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <button type="Simpan" class="btn btn-success">Simpan</button>
+                                        </div>
+                                    </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+            </div>
+        </div>
+
+    <div class="col-xl-4 col-md-12">
+        <div class="card table-card">
+            <div class="card-header">
+                <h5>Pendapatan Bersih</h5>
+                <div class="card-header-right">
+                    <ul class="list-unstyled card-option">
+                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                        <li><i class="fa fa-minus minimize-card"></i></li>
+                        <li><i class="fa fa-refresh reload-card"></i></li>
+                        <li><i class="fa fa-trash close-card"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-block">
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nama </th>
+                                <th>Nominal</th>
+                                <th>Jumlah Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><label class="label label-success">01</label></td>
+                                <td>Pemasukan</td>
+                                <td>@currency($ambiltotalpendapatan)</td>
+                                <td>{{ $ambiljmlhpendapatan }} Data</td>
+                            </tr>
+                            <tr>
+                                <td><label class="label label-primary">02</label></td>
+                                <td>Pengeluaran</td>
+                                <td>@currency($ambiltotalpengeluaran)</td>
+                                <td>{{ $ambiljmlhpengeluaran }} Data</td>
+                            </tr>
+                            <tr>
+                                <td><label class="label label-danger">03</label></td>
+                                <td>Pemasukan dari Internet</td>
+                                <td><b>@currency($ambiltotalinternetbulanini)</b></td>
+                                <td>{{ $ambiljmlhpembayar }} Pembayaran</td>
+                            </tr>
+                            <tr>
+                                <td><label class="label label-secondary">04</label></td>
+                                <td>Pendapatan Bersih</td>
+                                <td><b>@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</b></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right m-r-20">
+                        <a href="#!" class=" b-b-primary text-primary">Laporan Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- menubaris2 end -->
 
     </div>
 </div>
