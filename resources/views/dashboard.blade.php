@@ -7,7 +7,49 @@
 
 
 @endsection
+@php
+    $blnthn=date("Y-m");
+    $list=array();
+$month = date("m");
+$year = date("Y");
+$tglskrg = date("d");
 
+// for($d=1; $d<=31; $d++)
+// {
+//     $time=mktime(12, 0, 0, $month, $d, $year);
+//     if (date('m', $time)==$month)
+//         $list[]=date('Y-m-d-D', $time);
+// }
+// echo "<pre>";
+// print_r($list);
+// echo "</pre>";
+    // dd($blnthn)
+
+    //basic selec where
+    $ambildata = DB::table('pendapatan')
+                ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+                ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+                ->get();
+    //selek pemasukan jumlahkan per tanggal
+    $ambildata2 = DB::table('pendapatan')
+                ->where('tgl', '=', $year."-".$month."-".$tglskrg)
+                ->sum('nominal');
+
+
+    //jumlah pelanggan yang telah membayar
+    $ambiljmlhpembayar = DB::table('tagihan')
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+        ->count();
+
+    //Total pemasukan dari  internet
+    $ambiltotalinternetbulanini = DB::table('tagihan')
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+        ->sum('total_bayar');
+
+                // dd($ambiljmlhpembayar)
+@endphp
 @section('jshere')
 <!-- js-->
 
@@ -100,7 +142,7 @@ $(document).ready(function () {
             layout: {
                 padding: {
                     left: 10,
-                    right: 10,
+                    right: 100,
                     top: 25,
                     bottom: 25
                 }
@@ -115,15 +157,15 @@ $(document).ready(function () {
         precision: 2,
         valueAxes: [{
             id: "v1",
-            title: "Visitors",
+            title: "Pemasukan",
             position: "left",
             autoGridCount: !1,
             labelFunction: function (e) {
-                return "$" + Math.round(e) + "M"
+                return "Rp" + Math.round(e) + ",00"
             }
         }, {
             id: "v2",
-            title: "New Visitors",
+            title: "Pengeluaran",
             gridAlpha: 0,
             position: "right",
             autoGridCount: !1
@@ -135,54 +177,24 @@ $(document).ready(function () {
             fillColors: "#feb798",
             fillAlphas: 1,
             type: "column",
-            title: "old Visitor",
+            title: "Pengeluaran",
             valueField: "sales2",
             clustered: !1,
             columnWidth: .5,
-            legendValueText: "$[[value]]M",
-            balloonText: "[[title]]<br /><b style='font-size: 130%'>$[[value]]M</b>"
+            legendValueText: "[[value]]",
+            balloonText: "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
         }, {
             id: "g4",
             valueAxis: "v1",
-            lineColor: "#fe9365",
-            fillColors: "#fe9365",
+            lineColor: "#65d0fe",
+            fillColors: "#65d0fe",
             fillAlphas: 1,
             type: "column",
-            title: "New visitor",
+            title: "Pemasukan",
             valueField: "sales1",
             clustered: !1,
             columnWidth: .3,
-            legendValueText: "$[[value]]M",
-            balloonText: "[[title]]<br /><b style='font-size: 130%'>$[[value]]M</b>"
-        }, {
-            id: "g1",
-            valueAxis: "v2",
-            bullet: "round",
-            bulletBorderAlpha: 1,
-            bulletColor: "#FFFFFF",
-            bulletSize: 5,
-            hideBulletsCount: 50,
-            lineThickness: 2,
-            lineColor: "#0df3a3",
-            type: "smoothedLine",
-            title: "Last Month Visitor",
-            useLineColorForBulletBorder: !0,
-            valueField: "market1",
-            balloonText: "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
-        }, {
-            id: "g2",
-            valueAxis: "v2",
-            bullet: "round",
-            bulletBorderAlpha: 1,
-            bulletColor: "#FFFFFF",
-            bulletSize: 5,
-            hideBulletsCount: 50,
-            lineThickness: 2,
-            lineColor: "#fe5d70",
-            dashLength: 5,
-            title: "Average Visitor",
-            useLineColorForBulletBorder: !0,
-            valueField: "market2",
+            legendValueText: "[[value]]",
             balloonText: "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
         }],
         chartCursor: {
@@ -207,117 +219,101 @@ $(document).ready(function () {
             cornerRadius: 5,
             shadowAlpha: 0
         },
-        dataProvider: [{
-            date: "2013-01-16",
-            market1: 71,
-            market2: 75,
-            sales1: 5,
-            sales2: 8
-        }, {
-            date: "2013-01-17",
-            market1: 74,
-            market2: 78,
-            sales1: 4,
-            sales2: 6
-        }, {
-            date: "2013-01-18",
-            market1: 78,
-            market2: 88,
-            sales1: 5,
-            sales2: 2
-        }, {
-            date: "2013-01-19",
-            market1: 85,
-            market2: 89,
-            sales1: 8,
-            sales2: 9
-        }, {
-            date: "2013-01-20",
-            market1: 82,
-            market2: 89,
-            sales1: 9,
-            sales2: 6
-        }, {
-            date: "2013-01-21",
-            market1: 83,
-            market2: 85,
-            sales1: 3,
-            sales2: 5
-        }, {
-            date: "2013-01-22",
-            market1: 88,
-            market2: 92,
-            sales1: 5,
-            sales2: 7
-        }, {
-            date: "2013-01-23",
-            market1: 85,
-            market2: 90,
-            sales1: 7,
-            sales2: 6
-        }, {
-            date: "2013-01-24",
-            market1: 85,
-            market2: 91,
-            sales1: 9,
-            sales2: 5
-        }, {
-            date: "2013-01-25",
-            market1: 80,
-            market2: 84,
-            sales1: 5,
-            sales2: 8
-        }, {
-            date: "2013-01-26",
-            market1: 87,
-            market2: 92,
-            sales1: 4,
-            sales2: 8
-        }, {
-            date: "2013-01-27",
-            market1: 84,
-            market2: 87,
-            sales1: 3,
-            sales2: 4
-        }, {
-            date: "2013-01-28",
-            market1: 83,
-            market2: 88,
-            sales1: 5,
-            sales2: 7
-        }, {
-            date: "2013-01-29",
-            market1: 84,
-            market2: 87,
-            sales1: 5,
-            sales2: 8
-        }, {
-            date: "2013-01-30",
-            market1: 81,
-            market2: 85,
-            sales1: 4,
-            sales2: 7
-        }]
+        dataProvider: [
+
+@php
+$nol=0;
+            for($d=1; $d<=31; $d++)
+            {
+            $time=mktime(12, 0, 0, $month, $d, $year);
+            if (date('m', $time)==$month)
+                    $tgl=date('Y-m-').$d;
+
+            //tambahkan 0 jika d dibawah10
+            $d <10 ? $nol='0' : $nol='';
+
+        $acak=rand(10000,100000);
+        $acak2=rand(10000,100000);
+        $acak3=rand(10000,100000);
+                //ambil pemasukan
+        $ambilpemasukan = DB::table('pendapatan')
+                ->where('tgl', '=', $year."-".$month."-".$nol.$d)
+                ->sum('nominal');
+
+                //ambil pengeluaran
+        $ambilpengeluaran = DB::table('pengeluaran')
+                ->where('tgl', '=', $year."-".$month."-".$nol.$d)
+                ->sum('nominal');
+
+                // dd($ambilpengeluaran);
+
+
+@endphp
+
+        {
+            date: "{{ $tgl }}",
+            market1: 0,
+            market2: 0,
+            sales1:  {{ $ambilpemasukan }},
+            sales2: {{ $ambilpengeluaran }}
+        },
+@php
+// $nomor++;
+}
+    // $tgl='2021-05-'.$loop->index;
+
+@endphp
+
+// @foreach ( $ambildata as $ad)
+
+// @endforeach
+
+
+     ]
     }), AmCharts.makeChart("proj-earning", {
         type: "serial",
         hideCredits: !0,
         theme: "light",
-        dataProvider: [{
-            type: "UI",
-            visits: 10
-        }, {
-            type: "UX",
-            visits: 15
-        }, {
-            type: "Web",
-            visits: 12
-        }, {
-            type: "App",
-            visits: 16
-        }, {
-            type: "SEO",
-            visits: 8
-        }],
+        dataProvider: [
+
+@php
+            for($d=1; $d<=31; $d++)
+            {
+            $time=mktime(12, 0, 0, $month, $d, $year);
+            if (date('m', $time)==$month)
+                    $tgl=date('Y-m-').$d;
+
+            //tambahkan 0 jika d dibawah10
+            $d <10 ? $nol='0' : $nol='';
+
+                    $tglsaja=$d;
+
+                       //ambil tagihan
+        $ambiltagihan = DB::table('tagihan')
+        ->whereDay('tgl_bayar', '=', $d)
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+                ->sum('total_bayar');
+
+                // dd($ambiltagihan);
+
+
+        $acak=rand(10000,100000);
+        $acak2=rand(10000,100000);
+        $acak3=rand(10000,100000);
+@endphp
+{
+            type: "{{ $tglsaja }}",
+            visits: {{ $ambiltagihan }}
+        },
+@php
+
+}
+    // $tgl='2021-05-'.$loop->index;
+
+@endphp
+
+    ],
         valueAxes: [{
             gridAlpha: .3,
             gridColor: "#fff",
@@ -328,10 +324,10 @@ $(document).ready(function () {
         gridAboveGraphs: !0,
         startDuration: 1,
         graphs: [{
-            balloonText: "Active User: <b>[[value]]</b>",
+            balloonText: "Rp <b>[[value]]</b> ,00",
             fillAlphas: 1,
             lineAlpha: 1,
-            lineColor: "#fff",
+            lineColor: "#65fe93",
             type: "column",
             valueField: "visits",
             columnWidth: .5
@@ -426,7 +422,7 @@ $(document).ready(function () {
         </div>
 
           <!-- visitor start -->
-          <div class="col-xl-8 col-md-12">
+          <div class="col-xl-6 col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h5>Pemasukan dan Pengeluaran Bulan ini</h5>
@@ -444,21 +440,24 @@ $(document).ready(function () {
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-12">
+        <div class="col-xl-6 col-md-12">
             <div class="card">
+                <div class="card-header">
+                    <h5>Pemasukan dari Pembayaran Internet</h5>
+                </div>
                 <div class="card-block bg-c-green">
                     <div id="proj-earning" style="height: 230px"></div>
                 </div>
                 <div class="card-footer">
-                    <h6 class="text-muted m-b-30 m-t-15">Total Pembayaran Tagihan Internet</h6>
+                    {{-- <h6 class="text-muted m-b-30 m-t-15">Total Pembayaran Tagihan Internet</h6> --}}
                     <div class="row text-center">
                         <div class="col-6 b-r-default">
-                            <h6 class="text-muted m-b-10">Jumlah Pelanggan</h6>
-                            <h4 class="m-b-0 f-w-600 ">175</h4>
+                            <h6 class="text-muted m-b-10">Jumlah Pelanggan Telah Membayar</h6>
+                            <h4 class="m-b-0 f-w-600 ">{{ $ambiljmlhpembayar }} Pelanggan</h4>
                         </div>
                         <div class="col-6">
                             <h6 class="text-muted m-b-10">Total Pembayaran</h6>
-                            <h4 class="m-b-0 f-w-600 ">76.6M</h4>
+                            <h4 class="m-b-0 f-w-600 ">@currency($ambiltotalinternetbulanini)</h4>
                         </div>
                     </div>
                 </div>
