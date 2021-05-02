@@ -16,7 +16,8 @@ class AdminTagihanController extends Controller
      */
     public function index()
     {
-        $datas=tagihan::all();
+
+        $datas = DB::table('tagihan')->orderBy('updated_at', 'desc')->get();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
         return view('admin.tagihan.index',compact('datas'));
@@ -133,15 +134,161 @@ class AdminTagihanController extends Controller
                 //jika data sudah ada/sudah bayar tagihan
                 if($cariapakahsudahbayar>0){
                     //update
-                    // dd('update');
-                return redirect('/admin/pelanggan')->with('status','Pembayaran gagal, Pelanggan sudah membayar pada bulan ini!');
+                     // ambil data total pembayaran per thbln dipilih
+                     $ambiltotalterbayar= DB::table('tagihan')
+                     ->where('nik', '=', $data->nik)
+                     ->where('thbln', '=',date("Y-m"))
+                     ->sum('total_bayar');
+                     // dd($ambiltotalterbayar);
+
+                     //cek jika ditambahkan nominal bayar saat ini melebihi atau tidak
+                     if(($ambiltotalterbayar+$paket_harga)>$paket_harga){
+                         //jika melebihi alihkan kehalaman tambah
+
+                         return redirect('/admin/pelanggan')->with('status','Pembayaran Tagihan Gagal ditambahkan!');
+                     }else{
+                             //simpan jika tidak melebihi
+                              //simpan
+                 DB::table('tagihan')->insert(
+                     array(
+                            'nik'     =>   $data->nik,
+                            'paket_id'     =>   $data->paket_id,
+                            'total_bayar'     =>   $paket_harga,
+                            'thbln'     =>   date("Y-m"),
+                            'tgl_bayar'     =>   date("Y-m-d H:i:s"),
+                            'nama'     =>   $data->nama,
+                            'paket_nama'     =>   $paket_nama,
+                            'paket_kecepatan'     =>   $paket_kecepatan,
+                            'paket_harga'     =>   $paket_harga,
+                            'created_at'=>date("Y-m-d H:i:s"),
+                            'updated_at'=>date("Y-m-d H:i:s")
+                     )
+                );
+                return redirect('/admin/tagihan')->with('status','Pembayaran Tagihan Berhasil ditambahkan!');
+
+             }
                 }else{
+
                     //simpan
                     DB::table('tagihan')->insert(
                         array(
                                'nik'     =>   $data->nik,
                                'paket_id'     =>   $data->paket_id,
                                'total_bayar'     =>   $paket_harga,
+                               'tgl_bayar'     =>   date("Y-m-d H:i:s"),
+                               'nama'     =>   $data->nama,
+                               'paket_nama'     =>   $paket_nama,
+                               'paket_kecepatan'     =>   $paket_kecepatan,
+                               'paket_harga'     =>   $paket_harga,
+                               'thbln'     =>   date("Y-m"),
+                               'created_at'=>date("Y-m-d H:i:s"),
+                               'updated_at'=>date("Y-m-d H:i:s")
+                        )
+                   );
+                }
+                return redirect('/admin/tagihan')->with('status','Pembayaran Tagihan Berhasil ditambahkan!');
+//penutup data pelanggan
+            }
+
+        //jika tidak ada maka kembali
+
+        // jika ada lanjut
+        // simpan tagihan
+
+    }
+
+
+    public function bayarinternet(Request $request)
+    {
+        // dd($request);
+        // ambil data pelanggan
+            $datas = DB::table('pelanggan')->where('nik',$request->nik)->get();
+
+
+            foreach ($datas as $data){
+
+                //cek apakah paket id ada di tabel paket
+                $jmldata = DB::table('paket')
+                ->where('id', '=', $data->paket_id)
+                ->count();
+
+                //jika paket internet tidak ada
+                if($jmldata==0){
+
+                    return redirect('/admin/pelanggan')->with('status','Paket Internet tidak ditemukan, Periksa dan ubah dahulu!');
+                }
+
+                //jika status langganan tidak aktif
+                if(($data->status_langganan)!="Aktif"){
+
+                    return redirect('/admin/pelanggan')->with('status','Status Langganan <b>Tidak Aktif, Periksa dan ubah dahulu!');
+                }
+
+                //ambil harga paket
+            $dataspaket = DB::table('paket')->where('id',$data->paket_id)->get();
+            foreach ($dataspaket as $dp){
+                    $paket_nama=$dp->nama;
+                    $paket_kecepatan=$dp->kecepatan;
+                    $paket_harga=$dp->harga;
+            }
+
+                //periksa apakah nik sudah bayar
+                $cariapakahsudahbayar = DB::table('tagihan')
+                ->where('nik', '=', $data->nik)
+                ->whereYear('tgl_bayar', '=', date("Y"))
+                ->whereMonth('tgl_bayar', '=', date("m"))
+                ->count();
+
+
+
+                //jika data sudah ada/sudah bayar tagihan
+                if($cariapakahsudahbayar>0){
+                    //update
+                    // ambil data total pembayaran per thbln dipilih
+                    $ambiltotalterbayar= DB::table('tagihan')
+                        ->where('nik', '=', $data->nik)
+                        ->where('thbln', '=',$request->thbln)
+                        ->sum('total_bayar');
+                        // dd($ambiltotalterbayar);
+
+                        //cek jika ditambahkan nominal bayar saat ini melebihi atau tidak
+                        if(($ambiltotalterbayar+$request->nominal)>$paket_harga){
+                            //jika melebihi alihkan kehalaman tambah
+
+                            return redirect('/dashboard')->with('status','Pembayaran Tagihan Gagal ditambahkan!');
+                        }else{
+                                //simpan jika tidak melebihi
+                                 //simpan
+                    DB::table('tagihan')->insert(
+                        array(
+                               'nik'     =>   $data->nik,
+                               'paket_id'     =>   $data->paket_id,
+                               'total_bayar'     =>   $request->nominal,
+                               'thbln'     =>   $request->thbln,
+                               'tgl_bayar'     =>   date("Y-m-d H:i:s"),
+                               'nama'     =>   $data->nama,
+                               'paket_nama'     =>   $paket_nama,
+                               'paket_kecepatan'     =>   $paket_kecepatan,
+                               'paket_harga'     =>   $paket_harga,
+                               'created_at'=>date("Y-m-d H:i:s"),
+                               'updated_at'=>date("Y-m-d H:i:s")
+                        )
+                   );
+                   return redirect('/admin/tagihan')->with('status','Pembayaran Tagihan Berhasil ditambahkan!');
+
+                }
+
+                // return redirect('/admin/pelanggan')->with('status','Pembayaran gagal, Pelanggan sudah membayar pada bulan ini!');
+                }else{
+
+                    // dd($request->nominal);
+                    //simpan
+                    DB::table('tagihan')->insert(
+                        array(
+                               'nik'     =>   $data->nik,
+                               'paket_id'     =>   $data->paket_id,
+                               'total_bayar'     =>   $request->nominal,
+                               'thbln'     =>   $request->thbln,
                                'tgl_bayar'     =>   date("Y-m-d H:i:s"),
                                'nama'     =>   $data->nama,
                                'paket_nama'     =>   $paket_nama,

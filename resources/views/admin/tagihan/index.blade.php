@@ -117,11 +117,11 @@
                         @foreach ($datas as $data)
                             @php
 
-                                    if($data->status_langganan=='Aktif'){
-                                        $status_langganan='Aktif';
-                                    }else{
-                                        $status_langganan='Non-Aktif';
-                                    }
+                                    // if($data->status_langganan=='Aktif'){
+                                    //     $status_langganan='Aktif';
+                                    // }else{
+                                    //     $status_langganan='Non-Aktif';
+                                    // }
 
 // dd($tgl);
 // {{ \Carbon\Carbon::parse($user->from_date)->format('d/m/Y')}}

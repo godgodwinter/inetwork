@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu tagihan
     Route::resource('admin/tagihan','App\Http\Controllers\AdminTagihanController');
     Route::get('admin/tagihan/{id}/bayar', 'App\Http\Controllers\AdminTagihanController@bayar');
+    Route::post('admin/tagihan/bayarinternet', 'App\Http\Controllers\AdminTagihanController@bayarinternet');
 
 
     //menu rekap

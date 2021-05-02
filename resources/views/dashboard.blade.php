@@ -28,7 +28,41 @@
 $month = date("m");
 $year = date("Y");
 $tglskrg = date("d");
+$pelanggan_lunas=0;
 
+
+//ambil data pelanggan status langgan aktif
+$ambildatapelangganaktif = DB::table('pelanggan')
+        ->where('status_langganan', '=', 'Aktif')
+        ->count();
+
+//ambil data pelanggan di tagihan
+    $ambildatapelanggantagihan = DB::table('tagihan')
+        ->where('thbln', '=', $blnthn)
+        ->get();
+
+        foreach ($ambildatapelanggantagihan as $ambildata1) {
+            $nik=$ambildata1->nik;
+            $paket_id=$ambildata1->paket_id;
+            $paket_harga=$ambildata1->paket_harga;
+            //ambiltotalbayar
+            $ambiltotalbayar= DB::table('tagihan')
+                ->where('thbln', '=', $blnthn)
+                ->where('nik', '=', $nik)
+                ->sum('total_bayar');
+
+            //periksa jika data sama dengan paketharga maka tambahkan $pelanggan_lunas
+            if($ambiltotalbayar==$paket_harga){
+                    $pelanggan_lunas+=1;
+            }
+
+        }
+
+
+    //Total pemasukan kotor
+    // $ambiltotalpendapatankotor = DB::table('tagihan')
+    //     ->whereMonth('thbln', '=', $blnthn)
+    //     ->sum('nominal');
 // for($d=1; $d<=31; $d++)
 // {
 //     $time=mktime(12, 0, 0, $month, $d, $year);
@@ -458,10 +492,10 @@ $nol=0;
         </div>
 
           <!-- visitor start -->
-          <div class="col-xl-6 col-md-12">
+          <div class="col-xl-12 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Pemasukan dan Pengeluaran Bulan ini</h5>
+                    <h5 class="label label-info">Pemasukan dan Pengeluaran Bulan ini</h5>
                     {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
@@ -476,10 +510,10 @@ $nol=0;
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-md-12">
+        <div class="col-xl-12 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Pemasukan dari Pembayaran Internet</h5>
+                    <h5 class="label label-info">Pemasukan dari Pembayaran Internet</h5>
                 </div>
                 <div class="card-block bg-c-green">
                     <div id="proj-earning" style="height: 230px"></div>
@@ -487,13 +521,21 @@ $nol=0;
                 <div class="card-footer">
                     {{-- <h6 class="text-muted m-b-30 m-t-15">Total Pembayaran Tagihan Internet</h6> --}}
                     <div class="row text-center">
-                        <div class="col-6 b-r-default">
-                            <h6 class="text-muted m-b-10">Jumlah Pelanggan Telah Membayar</h6>
-                            <h4 class="m-b-0 f-w-600 ">{{ $ambiljmlhpembayar }} Pelanggan</h4>
+                        <div class="col-3 b-r-default">
+                            <h6 class="text-muted m-b-10">Lunas</h6>
+                            <h4 class="m-b-0 f-w-100 ">{{ $pelanggan_lunas }} Pelanggan</h4>
                         </div>
-                        <div class="col-6">
+                        <div class="col-3">
+                            <h6 class="text-muted m-b-10">Belum lunas</h6>
+                            <h4 class="m-b-0 f-w-100 ">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan</h4>
+                        </div>
+                        <div class="col-3">
                             <h6 class="text-muted m-b-10">Total Pembayaran</h6>
-                            <h4 class="m-b-0 f-w-600 ">@currency($ambiltotalinternetbulanini)</h4>
+                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalinternetbulanini)</h4>
+                        </div>
+                        <div class="col-3">
+                            <h6 class="text-muted m-b-10">Total Belum dibayar</h6>
+                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalinternetbulanini)</h4>
                         </div>
                     </div>
                 </div>
@@ -502,28 +544,190 @@ $nol=0;
         <!-- visitor end -->
 
         <!-- menubaris2 start -->
-        <div class="col-xl-4 col-md-6">
-            <div class="card">
+        <div class="col-xl-6 col-md-12">
+            <div class="card table-card">
                 <div class="card-header">
-                    <h5>Pembayaran Internet</h5>
-                    {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
+                    <h5 class="label label-info">Pendapatan Bersih</h5>
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
-                            <li><i class="feather icon-maximize full-card"></i></li>
-                            <li><i class="feather icon-minus minimize-card"></i></li>
-                            <li><i class="feather icon-trash-2 close-card"></i></li>
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-block">
-                    <div id="visitor" style="height:300px"></div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nama </th>
+                                    <th>Nominal</th>
+                                    <th>Jumlah Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><label class="label label-success">01</label></td>
+                                    <td>Pemasukan</td>
+                                    <td>@currency($ambiltotalpendapatan)</td>
+                                    <td>{{ $ambiljmlhpendapatan }} Data</td>
+                                </tr>
+                                <tr>
+                                    <td><label class="label label-primary">02</label></td>
+                                    <td>Pengeluaran</td>
+                                    <td>@currency($ambiltotalpengeluaran)</td>
+                                    <td>{{ $ambiljmlhpengeluaran }} Data</td>
+                                </tr>
+                                <tr>
+                                    <td><label class="label label-danger">03</label></td>
+                                    <td>Pemasukan dari Internet</td>
+                                    <td><b>@currency($ambiltotalinternetbulanini)</b></td>
+                                    <td>{{ $ambiljmlhpembayar }} Pembayaran</td>
+                                </tr>
+                                <tr>
+                                    <td><label class="label label-secondary">04</label></td>
+                                    <td>Pendapatan Bersih</td>
+                                    <td><b>@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</b></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right m-r-20">
+                            <a href="#!" class=" b-b-primary text-primary">Laporan Selengkapnya</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-12">
+
+        <div class="col-xl-6 col-md-12">
             <div class="card table-card">
                 <div class="card-header">
-                    <h5>Tambah Pemasukan</h5>
+                    <h5 class="label label-success">Bayar Internet</h5>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="card-body">
+                        <form action="/admin/tagihan/bayarinternet" method="post">
+                            @csrf
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-tgl">Tanggal (*</label>
+                                            <input type="date" name="tgl" id="input-tgl"
+                                                class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
+                                                placeholder="" value="{{$blnthn}}-{{ $tglskrg }}" required>
+
+                                            @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-tgl">Tagihan Bulan</label>
+                                            <input type="month" name="thbln" id="input-tgl"
+                                                class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
+                                                placeholder="" value="{{$blnthn}}" required>
+
+                                            @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-sm-6 col-xl-6 m-b-30">
+                                        <label class="form-control-label" for="input-jk">Pelanggan  </label>
+                                        <select name="nik" id="input-jenispendapatan_id"
+                                            class="form-control form-control-info  @error('jenispendapatan_id') is-invalid @enderror"
+                                            required>
+                                    <?php
+                                        $data2p = DB::table('pelanggan')
+                                                ->where('status_langganan', '=', "Aktif")
+                                                ->get();
+                                    ?>
+                                        @foreach($data2p as $d2p)
+                                                <option value="{{ $d2p->nik }}">{{ $d2p->nama }}</option>
+                                        @endforeach
+                                                </select> @error('jenispendapatan_id')<div class="invalid-feedback"> {{$message}}
+                                                </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <b><label class="form-control-label" for="input-nominal" id="inputnominalinternetlabel">Rp. 0 ,00</label></b>
+                                            <input type="number" name="nominal" id="inputnominalinternet"
+                                                class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
+                                                placeholder="Contoh : 150000" value="{{old('nominal')}}" required>
+                                            @error('nominal')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="form-group ">
+                                            <button type="Simpan" class="btn btn-success">Simpan</button>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        var format = function(num){
+                                        var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+                                        if(str.indexOf(".") > 0) {
+                                            parts = str.split(".");
+                                            str = parts[0];
+                                        }
+                                        str = str.split("").reverse();
+                                        for(var j = 0, len = str.length; j < len; j++) {
+                                            if(str[j] != ",") {
+                                                output.push(str[j]);
+                                                if(i%3 == 0 && j < (len - 1)) {
+                                                    output.push(".");
+                                                }
+                                                i++;
+                                            }
+                                        }
+                                        formatted = output.reverse().join("");
+                                        return("Rp" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ",-"));
+                                    };
+                                        $(document).ready(function() {
+                                        $("#inputnominalinternet").on('keyup', function() {
+                                            // alert("oops!");
+                                            $('#inputnominalinternetlabel:last').text(format($(this).val()));
+                                        });
+
+                                    });
+                                    </script>
+
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+            <div class="card table-card">
+                <div class="card-header">
+                    <h5 class="label label-success">Tambah Pemasukan</h5>
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -553,7 +757,7 @@ $nol=0;
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <b><label class="form-control-label" for="input-nominal" id="input-harga-label">Rp. 0 ,00</label></b>
+                                            <b><label class="form-control-label" for="input-nominal" id="input-pemasukan-label">Rp. 0 ,00</label></b>
                                             <input type="number" name="nominal" id="input-nominal"
                                                 class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
                                                 placeholder="Contoh : 150000" value="{{old('nominal')}}" required>
@@ -584,7 +788,7 @@ $nol=0;
                                         $(document).ready(function() {
                                         $("#input-nominal").on('keyup', function() {
                                             // alert("oops!");
-                                            $('#input-harga-label:last').text(format($(this).val()));
+                                            $('#input-pemasukan-label:last').text(format($(this).val()));
                                         });
 
                                     });
@@ -637,66 +841,125 @@ $nol=0;
         </div>
             </div>
         </div>
-
-    <div class="col-xl-4 col-md-12">
-        <div class="card table-card">
-            <div class="card-header">
-                <h5>Pendapatan Bersih</h5>
-                <div class="card-header-right">
-                    <ul class="list-unstyled card-option">
-                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                        <li><i class="fa fa-window-maximize full-card"></i></li>
-                        <li><i class="fa fa-minus minimize-card"></i></li>
-                        <li><i class="fa fa-refresh reload-card"></i></li>
-                        <li><i class="fa fa-trash close-card"></i></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card-block">
-                <div class="table-responsive">
-                    <table class="table table-hover table-borderless">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Nama </th>
-                                <th>Nominal</th>
-                                <th>Jumlah Data</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><label class="label label-success">01</label></td>
-                                <td>Pemasukan</td>
-                                <td>@currency($ambiltotalpendapatan)</td>
-                                <td>{{ $ambiljmlhpendapatan }} Data</td>
-                            </tr>
-                            <tr>
-                                <td><label class="label label-primary">02</label></td>
-                                <td>Pengeluaran</td>
-                                <td>@currency($ambiltotalpengeluaran)</td>
-                                <td>{{ $ambiljmlhpengeluaran }} Data</td>
-                            </tr>
-                            <tr>
-                                <td><label class="label label-danger">03</label></td>
-                                <td>Pemasukan dari Internet</td>
-                                <td><b>@currency($ambiltotalinternetbulanini)</b></td>
-                                <td>{{ $ambiljmlhpembayar }} Pembayaran</td>
-                            </tr>
-                            <tr>
-                                <td><label class="label label-secondary">04</label></td>
-                                <td>Pendapatan Bersih</td>
-                                <td><b>@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</b></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-right m-r-20">
-                        <a href="#!" class=" b-b-primary text-primary">Laporan Selengkapnya</a>
+        <div class="col-xl-6 col-md-12">
+            <div class="card table-card">
+                <div class="card-header">
+                    <h5 class="label label-success">Tambah Pengeluaran</h5>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
                     </div>
                 </div>
+                <div class="card-block">
+                    <div class="card-body">
+                        <form action="/admin/pengeluaran" method="post">
+                            @csrf
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-nama">Nama(*</label>
+                                            <input type="text" name="nama" id="input-nama"
+                                                class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
+                                                placeholder="" value="{{old('nama')}}" required>
+                                            @error('nama')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-nominal">Nominal  (*</label> -
+                                            <b><label class="form-control-label" for="input-nominal" id="input-pengeluaran-label">Rp. 0 ,00</label></b>
+                                            <input type="number" name="nominal" id="input-nominal2"
+                                                class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
+                                                placeholder="Contoh : 150000" value="{{old('nominal')}}" required>
+                                            @error('nominal')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <script>
+                                        var format = function(num){
+                                        var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+                                        if(str.indexOf(".") > 0) {
+                                            parts = str.split(".");
+                                            str = parts[0];
+                                        }
+                                        str = str.split("").reverse();
+                                        for(var j = 0, len = str.length; j < len; j++) {
+                                            if(str[j] != ",") {
+                                                output.push(str[j]);
+                                                if(i%3 == 0 && j < (len - 1)) {
+                                                    output.push(".");
+                                                }
+                                                i++;
+                                            }
+                                        }
+                                        formatted = output.reverse().join("");
+                                        return("Rp" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ",-"));
+                                    };
+                                        $(document).ready(function() {
+                                        $("#input-nominal2").on('keyup', function() {
+                                            // alert("oops!");
+                                            $('#input-pengeluaran-label:last').text(format($(this).val()));
+                                        });
+
+                                    });
+                                    </script>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-tgl">Tanggal (*</label>
+                                            <input type="date" name="tgl" id="input-tgl"
+                                                class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
+                                                placeholder="" value="{{$blnthn}}-{{ $tglskrg }}"required>
+
+                                            @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-sm-6 col-xl-6 m-b-30">
+                                        <label class="form-control-label" for="input-jk">Pilih Kategori  (*</label>
+                                        <select name="jenispengeluaran_id" id="input-jenispengeluaran_id"
+                                            class="form-control form-control-info  @error('jenispengeluaran_id') is-invalid @enderror"
+                                            required>
+                                    <?php
+                                        $data2s = DB::table('jenispengeluaran')->get();
+                                    ?>
+                                        @foreach($data2s as $d2)
+                                                <option value="{{ $d2->id }}">{{ $d2->nama }}</option>
+                                        @endforeach
+                                                </select> @error('jenispengeluaran_id')<div class="invalid-feedback"> {{$message}}
+                                                </div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <button type="Simpan" class="btn btn-success">Simpan</button>
+                                        </div>
+                                    </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
+            </div>
+        </div>
+
         <!-- menubaris2 end -->
 
     </div>

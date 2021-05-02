@@ -142,7 +142,8 @@
 </div>
     <!-- DOM/Jquery table end -->
     <!-- tambah -->
-    <div class="card col-xl-4 col-md-12 " id="add" >
+        <div class="col-xl-4 col-md-12">
+            <div class="card  id="add" >
         <div class="card-header">
             <div class="row">
 
@@ -238,6 +239,7 @@
 
     </form>
     </div>
+</div>
 </div>
 </div>
 </div>
