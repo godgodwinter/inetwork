@@ -80,7 +80,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot-beranda][product-screenshot-pelanggan]](https://github.com/godgodwinter/inetwork)
 
 Ketika usaha jaringan internet anda semakin berkembang maka semakin banyak data yang perlu anda kelola. Untuk itu dengan sistem ini diharapkan dapat membantu usaha jaringan anda.
 
@@ -190,4 +190,5 @@ Project Link: [https://github.com/godgodwinter/inetwork](https://github.com/godg
 [license-url]: https://github.com/godgodwinter/inetwork/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.instagram.com/kukuh.sn/
-[product-screenshot]: images/menu1.PNG
+[product-screenshot-beranda]: images/beranda.PNG
+[product-screenshot-pelanggan]: images/pelanggan.PNG
