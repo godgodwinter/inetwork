@@ -91,7 +91,7 @@
                 <a href="#add" class="btn btn-sm btn-success">BAYAR</a>
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
-                <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
+                <a href="cetak/cetak_pelanggan" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="#add" class="btn btn-sm btn-secondary">BELUM BAYAR</a>&nbsp;
