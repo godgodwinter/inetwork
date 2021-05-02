@@ -80,7 +80,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot-beranda][product-screenshot-pelanggan]](https://github.com/godgodwinter/inetwork)
+[![Product Name Screen Shot][product-screenshot-beranda]](https://github.com/godgodwinter/inetwork)
+[![Product Name Screen Shot][product-screenshot-pelanggan]](https://github.com/godgodwinter/inetwork)
 
 Ketika usaha jaringan internet anda semakin berkembang maka semakin banyak data yang perlu anda kelola. Untuk itu dengan sistem ini diharapkan dapat membantu usaha jaringan anda.
 
