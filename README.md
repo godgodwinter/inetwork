@@ -31,7 +31,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">iNetwork</h3>
+  <h3 align="center">iNetwork Versi PreAlpha 1.21.03.05</h3>
 
   <p align="center">
     Sistem Penunjang Usaha Jaringan RTRW
