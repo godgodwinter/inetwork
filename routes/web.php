@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CetakController;
+use App\Http\Controllers\ExportImport;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,11 +70,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
 
 
-
+    //Export
     // Route for export/download tabledata to .csv, .xls or .xlsx
-    Route::get('exportExcel/{type}', [ExcelController::class, 'exportExcel'])->name('exportExcel');
+    Route::get('admin/exportpaket/{type}', [ExportImport::class, 'exportpaket'])->name('exportpaket');
+    //Import
     // Route for import excel data to database.
-    Route::post('importExcel', [ExcelController::class, 'importExcel'])->name('importExcel');
+    Route::post('importExcel', [ExportImport::class, 'importExcel'])->name('importExcel');
 
 
 });

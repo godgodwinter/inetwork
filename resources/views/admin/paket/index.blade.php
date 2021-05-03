@@ -78,7 +78,7 @@
             <div class="row">
                 <div class="col-xl-6 col-md-6">
                     <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-                    <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
+                    <a href="{{ route('exportpaket', 'xlsx') }}" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                     <a href="cetak/cetak_paket" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
                 </div>
                 <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
