@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\pelanggan;
+use App\Models\tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -55,10 +56,23 @@ class AdminPelangganController extends Controller
             'nik.required'=>'nik harus diisi',
             'nik.unique'=>'nik sudah digunakan'
         ]);
+
+        //periksa apakah nik  sudah ada
+        $ambildatanik= DB::table('pelanggan')
+            ->where('nik',$request->nik)
+            ->count();
+        if($ambildatanik>0){
+            return redirect(URL::to('/').'/admin/pelanggan')->with('status','Gagal, NIK sudah ada!');
+
+        }
+
+
         //ambil nama PAKET
         $ambilpaket = DB::table('paket')->where('id',$request->paket_id)->get();
         foreach($ambilpaket as $ambil){
             $paket_nama=$ambil->nama;
+            $paket_harga=$ambil->harga;
+            $paket_kecepatan=$ambil->kecepatan;
         }
 
         //ambil nama letakserver
@@ -67,7 +81,8 @@ class AdminPelangganController extends Controller
             $letakserver_nama=$ambil2->nama;
             $letakserver_koordinat=$ambil2->koordinat;
         }
-       // simpan
+
+       // simpan ke tabel pelanggan
        DB::table('pelanggan')->insert(
         array(
                'nik'     =>   $request->nik,
@@ -77,16 +92,66 @@ class AdminPelangganController extends Controller
                'tgl_gabung'     =>   $request->tgl_gabung,
                'paket_id'     =>   $request->paket_id,
                'paket_nama'     =>   $paket_nama,
+               'paket_harga'=>$paket_harga,
                'kordinat_rumah'     =>   $request->kordinat_rumah,
                'letakserver_id'     =>   $request->letakserver_id,
                'status_langganan'     =>   $request->status_langganan,
                'letakserver_nama'     =>   $letakserver_nama,
                'letakserver_koordinat'     =>   $letakserver_koordinat,
+               'paket_kecepatan'     =>   $paket_kecepatan,
+               'created_at'=>date("Y-m-d H:i:s"),
+               'updated_at'=>date("Y-m-d H:i:s")
+        ));
+
+        //periksa apakah nik thbln skrg sudah ada
+        $ambildatatagihan= DB::table('tagihan')
+            ->where('nik',$request->nik)
+            ->where('thbln', date("Y-m"))
+            ->count();
+
+        if($ambildatatagihan>0){
+            //update data tagihan nik&&blnskrg
+            // dd("update");
+
+            DB::table('tagihan')
+            ->where('nik', $request->nik)
+            ->where('thbln', date("Y-m"))
+            ->update([
+                'nama'     =>   $request->nama,
+                'paket_id'     =>   $request->paket_id,
+               'paket_nama'     =>   $paket_nama,
+               'paket_harga'     =>   $paket_harga,
+               'paket_kecepatan'     =>   $paket_kecepatan,
+            ]);
+            return redirect('/admin/pelanggan')->with('status','Data berhasil ditambah dan tagihan bulan ini berhasil diupdate!');
+
+        }else{
+            //simpan
+            // dd("simpan");
+
+
+        // simpan ke tabel tagihan
+       DB::table('tagihan')->insert(
+        array(
+               'nik'     =>   $request->nik,
+               'nama'     =>   $request->nama,
+               'total_bayar'     =>   0,
+               'tgl_bayar'     =>   date("Y-m-d H:i:s"),
+               'paket_id'     =>   $request->paket_id,
+               'paket_nama'     =>   $paket_nama,
+               'paket_harga'     =>   $paket_harga,
+               'paket_kecepatan'     =>   $paket_kecepatan,
+               'thbln'     =>   date("Y-m"),
                'created_at'=>date("Y-m-d H:i:s"),
                'updated_at'=>date("Y-m-d H:i:s")
         )
-   );
+    );
+
     return redirect(URL::to('/').'/admin/pelanggan')->with('status','Data berhasil di tambahkan!');
+        }
+
+
+
     }
 
     /**
@@ -143,6 +208,8 @@ class AdminPelangganController extends Controller
         $ambilpaket = DB::table('paket')->where('id',$request->paket_id)->get();
         foreach($ambilpaket as $ambil){
             $paket_nama=$ambil->nama;
+            $paket_harga=$ambil->harga;
+            $paket_kecepatan=$ambil->kecepatan;
         }
 
         $letakserver_nama="Server Tidak ditemukan atau terhapus";
@@ -164,8 +231,9 @@ class AdminPelangganController extends Controller
              'tgl_gabung'=>$request->tgl_gabung,
              'paket_id'=>$request->paket_id,
              'paket_nama'=>$paket_nama,
+             'paket_harga'=>$paket_harga,
              'paket_id'=>$request->paket_id,
-             'paket_id'=>$request->paket_id,
+             'paket_kecepatan'     =>   $paket_kecepatan,
              'kordinat_rumah'     =>   $request->kordinat_rumah,
              'letakserver_id'     =>   $request->letakserver_id,
              'status_langganan'     =>   $request->status_langganan,
@@ -173,7 +241,54 @@ class AdminPelangganController extends Controller
              'letakserver_koordinat'     =>   $letakserver_koordinat,
              'updated_at'=>date("Y-m-d H:i:s")
          ]);
-         return redirect('/admin/pelanggan')->with('status','Data berhasil diupdate!');
+
+
+        //periksa apakah nik thbln skrg sudah ada
+        $ambildatatagihan= DB::table('tagihan')
+        ->where('nik',$request->nik)
+        ->where('thbln', date("Y-m"))
+        ->count();
+
+    if($ambildatatagihan>0){
+        //update data tagihan nik&&blnskrg
+        // dd("update");
+
+        DB::table('tagihan')
+        ->where('nik', $request->nik)
+        ->where('thbln', date("Y-m"))
+        ->update([
+            'nama'     =>   $request->nama,
+            'paket_id'     =>   $request->paket_id,
+           'paket_nama'     =>   $paket_nama,
+           'paket_harga'     =>   $paket_harga,
+           'paket_kecepatan'     =>   $paket_kecepatan,
+        ]);
+        return redirect('/admin/pelanggan')->with('status','Data berhasil ditambah dan tagihan bulan ini berhasil diupdate!');
+
+    }else{
+        //simpan
+        // dd("simpan");
+
+
+    // simpan ke tabel tagihan
+   DB::table('tagihan')->insert(
+    array(
+           'nik'     =>   $request->nik,
+           'nama'     =>   $request->nama,
+           'total_bayar'     =>   0,
+           'tgl_bayar'     =>   date("Y-m-d H:i:s"),
+           'paket_id'     =>   $request->paket_id,
+           'paket_nama'     =>   $paket_nama,
+           'paket_harga'     =>   $paket_harga,
+           'paket_kecepatan'     =>   $paket_kecepatan,
+           'thbln'     =>   date("Y-m"),
+           'created_at'=>date("Y-m-d H:i:s"),
+           'updated_at'=>date("Y-m-d H:i:s")
+    )
+);
+
+return redirect(URL::to('/').'/admin/pelanggan')->with('status','Data berhasil di update!');
+    }
     }
 
     /**

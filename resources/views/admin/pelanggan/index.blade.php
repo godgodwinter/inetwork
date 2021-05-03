@@ -112,9 +112,11 @@
                             <th class="text-center">Status Langganan</th>
                             <th class="text-center">Paket</th>
                             <th width="5%">Aksi</th>
+
                         </tr>
                     </thead>
                     <tbody>
+
                     @php
                     $status_langganan='Non-Aktif';
                     @endphp
@@ -130,14 +132,156 @@
 // dd($tgl);
 // {{ \Carbon\Carbon::parse($user->from_date)->format('d/m/Y')}}
 
-                            @endphp
+//ambildata tagihandetail kurang berapa
+$ambiltagihankurangberapa = DB::table('tagihandetail')
+    ->where('nik',$data->nik)
+    ->where('thbln',date("Y-m"))
+    ->sum('bayar');
 
+    // dd($ambiltagihankurangberapa);
+
+                            @endphp
+  <div class="modal fade" id="large-Modal{{ $data->id }}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pembayaran Cepat!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="pl-lg-4">
+                    <div class="row">
+
+                <form action="/admin/tagihan/bayarsekarang" method="post">
+                    @csrf
+
+                    @php
+                        if(($data->paket_harga-$ambiltagihankurangberapa)==0){
+                            echo'<button type="Simpan" class="btn btn-success" disabled>LUNAS!</button>';
+                        }else{
+                    @endphp
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <b><label class="form-control-label" for="input-nominal" id="inputnominalinternetlabel">@currency(($data->paket_harga-$ambiltagihankurangberapa))</label></b>
+                        <input type="hidden" name="nik" value="{{ $data->nik }}">
+                        <input type="hidden" name="paket_id" value="{{ $data->paket_id }}">
+                        <input type="hidden" name="paket_nama" value="{{ $data->paket_nama }}">
+                        <input type="hidden" name="nama" value="{{ $data->nama }}">
+                        <input type="hidden" name="paket_harga" value="{{ $data->paket_harga }}">
+                        <input type="hidden" name="paket_kecepatan" value="{{ $data->paket_kecepatan }}">
+                        <input type="hidden" name="ambiltagihankurangberapa" value="{{ $ambiltagihankurangberapa }}">
+                        <input type="number" name="nominal" id="inputnominalinternet"
+                            class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
+                            placeholder="Contoh : 150000" value="{{ ($data->paket_harga-$ambiltagihankurangberapa) }}" max='{{ $data->paket_harga-$ambiltagihankurangberapa }}'required>
+                        @error('nominal')<div class="invalid-feedback"> {{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="form-group ">
+                        <button type="Simpan" class="btn btn-success">Simpan</button>
+                    </div>
+                </div>
+                @php
+            }
+                @endphp
+
+                <script>
+                    var format = function(num){
+                    var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+                    if(str.indexOf(".") > 0) {
+                        parts = str.split(".");
+                        str = parts[0];
+                    }
+                    str = str.split("").reverse();
+                    for(var j = 0, len = str.length; j < len; j++) {
+                        if(str[j] != ",") {
+                            output.push(str[j]);
+                            if(i%3 == 0 && j < (len - 1)) {
+                                output.push(".");
+                            }
+                            i++;
+                        }
+                    }
+                    formatted = output.reverse().join("");
+                    return("Rp" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ",-"));
+                };
+                    $(document).ready(function() {
+                    $("#inputnominalinternet").on('keyup', function() {
+                        // alert("oops!");
+                        $('#inputnominalinternetlabel:last').text(format($(this).val()));
+                    });
+
+                });
+                </script>
+
+
+    </form>
+</div>
+</div>
+
+    <div class="col-xl-12 col-md-12">
+        <div class=" feed-card">
+            <div class="card-header">
+                <h5>NIK : {{ $data->nik }} - Nama : {{ $data->nama }}</h5>
+            </div>
+            <div class="card-block">
+
+                <div class="row m-b-30">
+                    <div class="col-auto p-r-0">
+                        <i class="feather icon-file-text bg-simple-c-green feed-icon"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="m-b-5">Harga <span class="text-muted f-right f-13">@currency($data->paket_harga)</span></h6>
+                    </div>
+                </div>
+                <div class="row m-b-30">
+                    <div class="col-auto p-r-0">
+                        <i class="feather icon-file-text  bg-simple-c-blue feed-icon"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="m-b-5">Telah dibayar <span class="text-muted f-right f-13">@currency($ambiltagihankurangberapa)</span></h6>
+                    </div>
+                </div>
+                <div class="row m-b-30">
+                    <div class="col-auto p-r-0">
+                        <i class="feather icon-file-text  bg-simple-c-yellow feed-icon"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="m-b-5">Kurang  <span class="text-muted f-right f-13 "><i class="feather icon-info label-warning"></i>@currency(($data->paket_harga-$ambiltagihankurangberapa))</span></h6>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+            {{-- penutupmodalmain --}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Kembali</button>
+                {{-- <button type="button" class="btn btn-primary waves-effect waves-light ">Bayar</button> --}}
+            </div>
+        </div>
+    </div>
+</div>
                         <tr>
                             <td class="text-center">
+                                 <!-- Modal large-->
+                                 <button type="button" class="btn btn-primary btn-sm waves-effect" data-toggle="modal" data-target="#large-Modal{{ $data->id }}"><span class="pcoded-micon"> <i
+                                    class="feather icon-credit-card"></i></span></button>
+
+
                                 {{-- {{ ($loop->index)+1 }} --}}
-                                <a class="btn btn-success btn-sm btn-outline-success"
+                                {{-- <a class="btn btn-success btn-sm btn-outline-success"
                                 href="/admin/tagihan/{{$data->nik}}/bayar"><span class="pcoded-micon"> <i
-                                        class="feather icon-shopping-cart"></i></span></a>
+                                        class="feather icon-shopping-cart"></i></span></a> --}}
+
+
+
                             </td>
                             <td>{{$data->nik}} - {{$data->nama}}</td>
                             <td>{{$data->hp}}</td>
@@ -158,7 +302,10 @@
                                             class="feather icon-alert-triangle"></i></span>
                                 @php
                                     }else{
-                                        echo $data->paket_nama;
+                                        echo $data->paket_nama."-";
+                                        @endphp
+                                            @currency($data->paket_harga)
+                                        @php
                                     }
                                 @endphp
                             </td>

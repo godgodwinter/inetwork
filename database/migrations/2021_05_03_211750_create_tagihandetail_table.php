@@ -22,6 +22,7 @@ class CreateTagihandetailTable extends Migration
             $table->string('paket_id')->nullable();
             $table->string('paket_harga')->nullable();
             $table->string('paket_kecepatan')->nullable();
+            $table->string('thbln')->nullable();
             $table->timestamps();
         });
     }

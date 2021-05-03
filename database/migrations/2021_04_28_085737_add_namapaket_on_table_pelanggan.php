@@ -18,6 +18,8 @@ class AddNamapaketOnTablePelanggan extends Migration
             $table->string('paket_nama')->nullable();
             $table->string('letakserver_nama')->nullable();
             $table->string('letakserver_koordinat')->nullable();
+            $table->string('paket_harga')->nullable();
+            $table->string('paket_kecepatan')->nullable();
         });
     }
 

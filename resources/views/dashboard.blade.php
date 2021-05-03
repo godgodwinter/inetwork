@@ -30,33 +30,61 @@ $year = date("Y");
 $tglskrg = date("d");
 $pelanggan_lunas=0;
 
+// //ambildata tagihandetail kurang berapa
+// $ambiltagihankurangberapa = DB::table('tagihandetail')
+//     ->where('nik',$data->nik)
+//     ->where('thbln',date("Y-m"))
+//     ->sum('bayar');
 
 //ambil data pelanggan status langgan aktif
 $ambildatapelangganaktif = DB::table('pelanggan')
         ->where('status_langganan', '=', 'Aktif')
         ->count();
 
-//ambil data pelanggan di tagihan
-    $ambildatapelanggantagihan = DB::table('tagihan')
-        ->where('thbln', '=', $blnthn)
+//ambil data pelanggan status langgan aktif
+$ambildatapelangganaktifget = DB::table('pelanggan')
+        ->where('status_langganan', '=', 'Aktif')
         ->get();
 
-        foreach ($ambildatapelanggantagihan as $ambildata1) {
-            $nik=$ambildata1->nik;
-            $paket_id=$ambildata1->paket_id;
-            $paket_harga=$ambildata1->paket_harga;
-            //ambiltotalbayar
-            $ambiltotalbayar= DB::table('tagihan')
-                ->where('thbln', '=', $blnthn)
-                ->where('nik', '=', $nik)
-                ->sum('total_bayar');
+foreach ($ambildatapelangganaktifget as $da) {
+    $ambiltagihankurangberapa = DB::table('tagihandetail')
+    ->where('nik',$da->nik)
+    ->where('thbln',date("Y-m"))
+    ->sum('bayar');
 
-            //periksa jika data sama dengan paketharga maka tambahkan $pelanggan_lunas
-            if($ambiltotalbayar==$paket_harga){
-                    $pelanggan_lunas+=1;
-            }
-
+    $ambildatalunas = DB::table('tagihan')
+        ->where('nik', '=', $da->nik)
+        ->where('paket_harga', '=', $ambiltagihankurangberapa)
+        ->count();
+// dd($da->nik."-".$ambiltagihankurangberapa);
+        if($ambildatalunas>0){
+            $pelanggan_lunas+=1;
         }
+
+
+}
+
+// //ambil data pelanggan di tagihan
+//     $ambildatapelanggantagihan = DB::table('tagihan')
+//         ->where('thbln', '=', $blnthn)
+//         ->get();
+
+//         foreach ($ambildatapelanggantagihan as $ambildata1) {
+//             $nik=$ambildata1->nik;
+//             $paket_id=$ambildata1->paket_id;
+//             $paket_harga=$ambildata1->paket_harga;
+//             //ambiltotalbayar
+//             $ambiltotalbayar= DB::table('tagihan')
+//                 ->where('thbln', '=', $blnthn)
+//                 ->where('nik', '=', $nik)
+//                 ->sum('total_bayar');
+
+//             //periksa jika data sama dengan paketharga maka tambahkan $pelanggan_lunas
+//             if($ambiltotalbayar==$paket_harga){
+//                     $pelanggan_lunas+=1;
+//             }
+
+//         }
 
 
     //Total pemasukan kotor
@@ -110,16 +138,21 @@ $ambildatapelangganaktif = DB::table('pelanggan')
         ->sum('nominal');
 
     //jumlah pelanggan yang telah membayar
-    $ambiljmlhpembayar = DB::table('tagihan')
-        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
-        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+    $ambiljmlhpembayar = DB::table('tagihandetail')
+        ->whereMonth('created_at', '=', date("m",strtotime($blnthn)))
+        ->whereYear('created_at', '=', date("Y",strtotime($blnthn)))
         ->count();
 
     //Total pemasukan dari  internet
-    $ambiltotalinternetbulanini = DB::table('tagihan')
-        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
-        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
-        ->sum('total_bayar');
+    $ambiltotalinternetbulanini = DB::table('tagihandetail')
+        ->whereMonth('created_at', '=', date("m",strtotime($blnthn)))
+        ->whereYear('created_at', '=', date("Y",strtotime($blnthn)))
+        ->sum('bayar');
+
+    //Total pemasukan dari  internet jika semua terbayar
+    $ambiltotalyangdidapatjikasmuaterbayar= DB::table('tagihan')
+        ->where('thbln', '=', date("Y-m"))
+        ->sum('paket_harga');
 
                 // dd($ambiljmlhpembayar)
 @endphp
@@ -230,7 +263,7 @@ $(document).ready(function () {
         precision: 2,
         valueAxes: [{
             id: "v1",
-            title: "Pemasukan",
+            title: "Nominal",
             position: "left",
             autoGridCount: !1,
             labelFunction: function (e) {
@@ -359,11 +392,11 @@ $nol=0;
                     $tglsaja=$d;
 
                        //ambil tagihan
-        $ambiltagihan = DB::table('tagihan')
-        ->whereDay('tgl_bayar', '=', $d)
-        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
-        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
-                ->sum('total_bayar');
+        $ambiltagihan = DB::table('tagihandetail')
+        ->whereDay('created_at', '=', $d)
+        ->whereMonth('created_at', '=', date("m",strtotime($blnthn)))
+        ->whereYear('created_at', '=', date("Y",strtotime($blnthn)))
+                ->sum('bayar');
 
                 // dd($ambiltagihan);
 
@@ -535,7 +568,7 @@ $nol=0;
                         </div>
                         <div class="col-3">
                             <h6 class="text-muted m-b-10">Total Belum dibayar</h6>
-                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalinternetbulanini)</h4>
+                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalyangdidapatjikasmuaterbayar-$ambiltotalinternetbulanini)</h4>
                         </div>
                     </div>
                 </div>
@@ -604,42 +637,43 @@ $nol=0;
             </div>
         </div>
 
+
         <div class="col-xl-6 col-md-12">
-            <div class="card table-card">
+            <div class="card per-task-card">
                 <div class="card-header">
-                    <h5 class="label label-success">Bayar Internet</h5>
-                    <div class="card-header-right">
-                        <ul class="list-unstyled card-option">
-                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                            <li><i class="fa fa-minus minimize-card"></i></li>
-                            <li><i class="fa fa-refresh reload-card"></i></li>
-                            <li><i class="fa fa-trash close-card"></i></li>
-                        </ul>
-                    </div>
+                    <h5 class="label label-info">MENU UTAMA</h5>
                 </div>
                 <div class="card-block">
+                    <div class="row per-task-block text-center">
+                        <div class="col-6">
+                            <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-primary"></div>
+                            <h6 class="text-muted">Pelanggan Aktif</h6>
+                            <p class="text-muted">{{ $ambildatapelangganaktif }}</p>
+                            <button class="btn btn-primary btn-round btn-sm">LIHAT</button>
+                        </div>
+                        <div class="col-6">
+                            <div data-label="30%" class="radial-bar radial-bar-30 radial-bar-lg radial-bar-primary"></div>
+                            <h6 class="text-muted">Pendapatan</h6>
+                            <p class="text-muted">@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</p>
+                            <button class="btn btn-primary btn-outline-primary btn-round btn-sm">Pemasukan</button>
+                            <button class="btn btn-danger btn-outline-danger btn-round btn-sm">Pengeluran</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card per-task-card">
+
+                <div class="card-block">
                     <div class="card-body">
-                        <form action="/admin/tagihan/bayarinternet" method="post">
+                        <form action="/admin/rekap/thbln" method="post">
                             @csrf
                             <div class="pl-lg-4">
                                 <div class="row">
+
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-tgl">Tanggal (*</label>
-                                            <input type="date" name="tgl" id="input-tgl"
-                                                class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
-                                                placeholder="" value="{{$blnthn}}-{{ $tglskrg }}" required>
-
-                                            @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
-                                            @enderror
-                                        </div>
-
-
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="input-tgl">Tagihan Bulan</label>
+                                            <label class="form-control-label label label-info" for="input-tgl"><b>LAPORAN</b></label>
                                             <input type="month" name="thbln" id="input-tgl"
                                                 class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
                                                 placeholder="" value="{{$blnthn}}" required>
@@ -651,68 +685,13 @@ $nol=0;
 
                                     </div>
 
-                                    <div class="col-lg-6 col-sm-6 col-xl-6 m-b-30">
-                                        <label class="form-control-label" for="input-jk">Pelanggan  </label>
-                                        <select name="nik" id="input-jenispendapatan_id"
-                                            class="form-control form-control-info  @error('jenispendapatan_id') is-invalid @enderror"
-                                            required>
-                                    <?php
-                                        $data2p = DB::table('pelanggan')
-                                                ->where('status_langganan', '=', "Aktif")
-                                                ->get();
-                                    ?>
-                                        @foreach($data2p as $d2p)
-                                                <option value="{{ $d2p->nik }}">{{ $d2p->nama }}</option>
-                                        @endforeach
-                                                </select> @error('jenispendapatan_id')<div class="invalid-feedback"> {{$message}}
-                                                </div>
-                                        @enderror
-                                    </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <b><label class="form-control-label" for="input-nominal" id="inputnominalinternetlabel">Rp. 0 ,00</label></b>
-                                            <input type="number" name="nominal" id="inputnominalinternet"
-                                                class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
-                                                placeholder="Contoh : 150000" value="{{old('nominal')}}" required>
-                                            @error('nominal')<div class="invalid-feedback"> {{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-6 mt-4">
                                         <div class="form-group ">
-                                            <button type="Simpan" class="btn btn-success">Simpan</button>
+                                            <button type="Simpan" class="btn btn-success">LIHAT</button>
                                         </div>
                                     </div>
-                                    <script>
-                                        var format = function(num){
-                                        var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
-                                        if(str.indexOf(".") > 0) {
-                                            parts = str.split(".");
-                                            str = parts[0];
-                                        }
-                                        str = str.split("").reverse();
-                                        for(var j = 0, len = str.length; j < len; j++) {
-                                            if(str[j] != ",") {
-                                                output.push(str[j]);
-                                                if(i%3 == 0 && j < (len - 1)) {
-                                                    output.push(".");
-                                                }
-                                                i++;
-                                            }
-                                        }
-                                        formatted = output.reverse().join("");
-                                        return("Rp" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ",-"));
-                                    };
-                                        $(document).ready(function() {
-                                        $("#inputnominalinternet").on('keyup', function() {
-                                            // alert("oops!");
-                                            $('#inputnominalinternetlabel:last').text(format($(this).val()));
-                                        });
-
-                                    });
-                                    </script>
 
 
                         </form>
@@ -723,6 +702,7 @@ $nol=0;
         </div>
             </div>
         </div>
+
 
         <div class="col-xl-6 col-md-12">
             <div class="card table-card">

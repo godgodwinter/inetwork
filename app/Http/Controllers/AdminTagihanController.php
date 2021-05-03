@@ -200,7 +200,6 @@ class AdminTagihanController extends Controller
 
     public function bayarinternet(Request $request)
     {
-        // dd($request);
         // ambil data pelanggan
             $datas = DB::table('pelanggan')->where('nik',$request->nik)->get();
 
@@ -309,4 +308,97 @@ class AdminTagihanController extends Controller
         // simpan tagihan
 
     }
+
+
+    //bayar sekarang
+    public function bayarsekarang(Request $request)
+    {
+
+        $totalsetelahditambahbaru=($request->ambiltagihankurangberapa+$request->nominal);
+        // dd($request->ambiltagihankurangberapa);
+        // dd($request->paket_kecepatan);
+        //
+        $request->validate([
+            'nominal'=>'required|numeric'
+
+        ],
+        [
+            'nominal.required'=>'nominal harus diisi',
+            'nominal.numeric'=>'nominal harus angka'
+
+        ]);
+   $ambildatatagihan= DB::table('tagihan')
+            ->where('nik',$request->nik)
+            ->where('thbln', date("Y-m"))
+            ->count();
+
+    // jika ada
+if($ambildatatagihan>0){
+        //update data tagihan nik&&blnskrg
+        // dd("update");
+
+//ambiltagihanid
+   $ambildatatagihanid= DB::table('tagihan')
+   ->where('nik',$request->nik)
+   ->where('thbln', date("Y-m"))
+   ->get();
+
+   foreach($ambildatatagihanid as $dataidtagihan){
+    $datatagihanid=$dataidtagihan->id;
+   }
+
+        DB::table('tagihan')
+        ->where('nik', $request->nik)
+        ->where('thbln', date("Y-m"))
+        ->update([
+            'total_bayar'     =>   $totalsetelahditambahbaru,
+
+        ]);
+
+
+    }else{
+        //simpan
+        // dd("simpan");
+
+
+    // simpan ke tabel tagihan
+   DB::table('tagihan')->insert(
+    array(
+           'nik'     =>   $request->nik,
+           'nama'     =>   $request->nama,
+           'total_bayar'     =>   $request->nominal,
+           'tgl_bayar'     =>   date("Y-m-d H:i:s"),
+           'paket_id'     =>   $request->paket_id,
+           'paket_nama'     =>   $request->paket_nama,
+           'paket_harga'     =>   $request->paket_harga,
+           'paket_kecepatan'     =>   $request->paket_kecepatan,
+           'thbln'     =>   date("Y-m"),
+           'created_at'=>date("Y-m-d H:i:s"),
+           'updated_at'=>date("Y-m-d H:i:s")
+    )
+);
+
+// return redirect(URL::to('/').'/admin/pelanggan')->with('status','Data berhasil di tambahkan!');
+    }
+
+    //simpan ke tabel tagihan detail
+   DB::table('tagihandetail')->insert(
+    array(
+           'tagihan_id'     =>   $datatagihanid,
+           'nik'     =>   $request->nik,
+           'nama'     =>   $request->nama,
+           'bayar'     =>   $request->nominal,
+           'paket_id'     =>   $request->paket_id,
+           'paket_harga'     =>   $request->paket_harga,
+           'paket_kecepatan'     =>   $request->paket_kecepatan,
+           'thbln'     =>   date("Y-m"),
+           'created_at'=>date("Y-m-d H:i:s"),
+           'updated_at'=>date("Y-m-d H:i:s")
+    )
+);
+
+return redirect(URL::to('/').'/admin/pelanggan')->with('status','Pembayaran berhasil di tambahkan!');
+    }
+
+
 }

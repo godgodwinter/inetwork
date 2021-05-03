@@ -1,6 +1,6 @@
 @extends('admin.main')
 
-@section('title','TAGIHAN LUNAS')
+@section('title','TAGIHAN')
 
 @section('csshere')
 <style>
@@ -105,9 +105,9 @@
                             <th>NIK - Nama</th>
                             <th>Paket</th>
                             <th>Total Bayar</th>
+                            <th>Tagihan</th>
                             <th>No WA</th>
                             <th>Tanggal Bayar</th>
-                            <th width="5%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -130,7 +130,8 @@
 
                         <tr>
                             <td class="text-center">
-                                {{ ($loop->index)+1 }}
+                                <a class="btn btn-info btn-sm  btn-outline-info" href="{{url('/')}}/admin/tagihan/{{ $data->id }}/detail"><span
+                                class="pcoded-micon"> <i class="feather icon-zoom-in"></i></span> Detail</a>
 
                             </td>
                             <td>{{$data->nik}} - {{$data->nama}}</td>
@@ -153,6 +154,9 @@
                                 </td>
                                 <td>
                                     @currency($data->total_bayar)
+                                </td>
+                                <td>
+                                    @currency($data->paket_harga)
                                 </td>
                             <td>
                                 @php
@@ -182,16 +186,7 @@
                             </td>
 
 
-                            <td>
 
-                                <form action="/admin/tagihan/{{$data->id}}" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm  btn-outline-warning"
-                                        onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><span
-                                            class="pcoded-micon"> <i class="feather icon-delete"></i></span></button>
-                                </form>
-                            </td>
                         </tr>
                         @endforeach
                         <tfoot>
@@ -200,9 +195,9 @@
                                 <th>NIK - Nama</th>
                                 <th>Paket</th>
                                 <th>Total Bayar</th>
+                                <th>Tagihan</th>
                                 <th>No WA</th>
                                 <th>Tanggal Bayar</th>
-                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                 </table>
