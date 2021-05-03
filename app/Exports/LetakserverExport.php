@@ -3,14 +3,14 @@
 namespace App\Exports;
 
 
-use App\Models\paket;
+use App\Models\letakserver;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
-class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithStyles
+class LetakserverExport implements FromCollection, WithHeadings, ShouldAutoSize,WithStyles
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -31,15 +31,15 @@ class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithSt
         return [
             'No',
             'Nama.',
-            'Harga',
-            'Kecepatan',
+            'Penanggung Jawab',
+            'Koordinat',
             'Created At',
             'Update At',
         ];
     }
     public function collection()
     {
-        return paket::all();
+        return letakserver::all();
     }
 }
 

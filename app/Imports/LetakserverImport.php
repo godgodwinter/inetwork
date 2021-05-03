@@ -2,13 +2,12 @@
 
 namespace App\Imports;
 
-use App\Models\paket;
-
+use App\Models\letakserver;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
 //IMport Paket
-class PaketImport implements ToModel,WithStartRow
+class LetakserverImport implements ToModel,WithStartRow
 {
     /**
     * @param array $row
@@ -17,11 +16,11 @@ class PaketImport implements ToModel,WithStartRow
     */
     public function model(array $row)
     {
-        return new paket([
+        return new letakserver([
             'id'     => $row[0],
             'nama'    => $row[1],
-            'harga'    => $row[2],
-            'kecepatan'    => $row[3],
+            'penanggungjawab'    => $row[2],
+            'koordinat'    => $row[3],
             'created_at'    => $row[4],
             'updated_at'    => $row[5],
         ]);

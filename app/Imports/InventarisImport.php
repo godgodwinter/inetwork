@@ -2,13 +2,13 @@
 
 namespace App\Imports;
 
-use App\Models\paket;
+use App\Models\inventaris;
 
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
 //IMport Paket
-class PaketImport implements ToModel,WithStartRow
+class InventarisImport implements ToModel,WithStartRow
 {
     /**
     * @param array $row
@@ -17,13 +17,15 @@ class PaketImport implements ToModel,WithStartRow
     */
     public function model(array $row)
     {
-        return new paket([
+        return new inventaris([
             'id'     => $row[0],
             'nama'    => $row[1],
             'harga'    => $row[2],
-            'kecepatan'    => $row[3],
-            'created_at'    => $row[4],
-            'updated_at'    => $row[5],
+            'letak'    => $row[3],
+            'jenisalat_id'=>$row[4],
+            'created_at'    => $row[5],
+            'updated_at'    => $row[6],
+            'jenisalat_nama'=>$row[7],
         ]);
     }
     public function startRow(): int

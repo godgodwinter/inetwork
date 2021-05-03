@@ -3,14 +3,14 @@
 namespace App\Exports;
 
 
-use App\Models\paket;
+use App\Models\inventaris;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
-class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithStyles
+class InventarisExport implements FromCollection, WithHeadings, ShouldAutoSize,WithStyles
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -32,14 +32,16 @@ class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithSt
             'No',
             'Nama.',
             'Harga',
-            'Kecepatan',
+            'Letak Barang',
+            'Jenis Alat ID',
             'Created At',
             'Update At',
+            'Jenis Alat Nama'
         ];
     }
     public function collection()
     {
-        return paket::all();
+        return inventaris::all();
     }
 }
 
