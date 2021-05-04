@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\tagihan;
+use App\Models\tagihandetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -398,6 +399,62 @@ if($ambildatatagihan>0){
 );
 
 return redirect(URL::to('/').'/admin/pelanggan')->with('status','Pembayaran berhasil di tambahkan!');
+    }
+
+    public function detail($id)
+    {
+// dd($id);
+
+        $datas = DB::table('tagihan')
+        ->where('id', $id)
+        ->orderBy('updated_at', 'desc')->get();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.tagihan.detail',compact('datas'));
+    }
+    public function deletechecked(Request $request)
+    {
+        //ambil tagihan_id
+        $dataid = DB::table('tagihandetail')
+        ->where('id', $request->ids)
+        ->orderBy('updated_at', 'desc')->get();
+
+        foreach ($dataid as $di){
+            $tagihan_id=$di->tagihan_id;
+            $thbln=$di->thbln;
+        }
+
+
+
+
+
+
+        //hapus
+        $ids=$request->ids;
+        tagihandetail::whereIn('id',$ids)->delete();
+
+        $ambiltotaltelahdibayar = DB::table('tagihandetail')
+        ->where('tagihan_id',$tagihan_id)
+        ->sum('bayar');
+
+         // update totalbayar di tagihan
+
+         DB::table('tagihan')
+         ->where('id', $tagihan_id)
+         ->where('thbln',$thbln)
+         ->update([
+             'total_bayar'     =>   $ambiltotaltelahdibayar
+         ]);
+
+
+        // load ulang
+        $datas = DB::table('tagihan')
+        ->where('id', $tagihan_id)
+        ->orderBy('updated_at', 'desc')->get();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.tagihan.detail',compact('datas'));
+
     }
 
 

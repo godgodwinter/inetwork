@@ -72,6 +72,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/tagihan/{id}/bayar', 'App\Http\Controllers\AdminTagihanController@bayar');
     Route::post('admin/tagihan/bayarinternet', 'App\Http\Controllers\AdminTagihanController@bayarinternet');
     Route::post('admin/tagihan/bayarsekarang', 'App\Http\Controllers\AdminTagihanController@bayarsekarang');
+    Route::get('admin/tagihan/{id}/detail', 'App\Http\Controllers\AdminTagihanController@detail');
+    Route::delete('admin/tagihandetail-multidel', 'App\Http\Controllers\AdminTagihanController@deletechecked')->name('tagihandetail.deleteSelected');
 
 
     //menu rekap
