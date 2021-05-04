@@ -246,13 +246,13 @@
     <!-- DOM/Jquery table end -->
 
     <!-- tambah -->
-    <div class="card" id="add" >
+    <div class="card" id="add"
+    data-intro="Kemudian Tambahkan data inventaris !" data-step="2"
+    data-hint="Hello step one!" >
         <div class="card-header">
             <div class="row">
                 <div class="col-xl-6 col-md-6">
-                    <h5 class="label label-success"
-                    data-intro="Kemudian Tambahkan data inventaris !" data-step="2"
-                    data-hint="Hello step one!">TAMBAH INVENTARIS</h5>
+                    <h5 class="label label-success">TAMBAH INVENTARIS</h5>
                 </div>
                 <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                     <a href="#jenisalat" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;

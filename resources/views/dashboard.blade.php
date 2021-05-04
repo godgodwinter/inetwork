@@ -526,7 +526,9 @@ $nol=0;
 
           <!-- visitor start -->
           <div class="col-xl-12 col-md-12">
-            <div class="card">
+            <div class="card"
+            data-intro="Grafik Pemasukan dan Pengeluaran!" data-step="9"
+            data-hint="Hello step one!">
                 <div class="card-header">
                     <h5 class="label label-info">Pemasukan dan Pengeluaran Bulan ini</h5>
                     {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
@@ -544,7 +546,9 @@ $nol=0;
             </div>
         </div>
         <div class="col-xl-12 col-md-12">
-            <div class="card">
+            <div class="card"
+            data-intro="Grafik Pembayaran Tagihan Internet!" data-step="10"
+            data-hint="Hello step one!">
                 <div class="card-header">
                     <h5 class="label label-info">Pemasukan dari Pembayaran Internet</h5>
                 </div>
@@ -554,17 +558,17 @@ $nol=0;
                 <div class="card-footer">
                     {{-- <h6 class="text-muted m-b-30 m-t-15">Total Pembayaran Tagihan Internet</h6> --}}
                     <div class="row text-center">
-                        <div class="col-3 b-r-default">
+                        <div class="col-3 b-r-default"
+                        data-intro="Jumlah Pelanggan yang telah melunasi tagihan !" data-step="1"
+                        data-hint="Hello step one!">
                             <h6 class="text-muted m-b-10">Lunas</h6>
-                            <h4 class="m-b-0 f-w-100 "
-                            data-intro="Jumlah Pelanggan yang telah melunasi tagihan !" data-step="1"
-                            data-hint="Hello step one!">{{ $pelanggan_lunas }} Pelanggan</h4>
+                            <h4 class="m-b-0 f-w-100 ">{{ $pelanggan_lunas }} Pelanggan</h4>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3"
+                        data-intro="Total Pelanggan yang Belum melunasi tagihan!" data-step="2"
+                        data-hint="Hello step one!">
                             <h6 class="text-muted m-b-10">Belum lunas</h6>
-                            <h4 class="m-b-0 f-w-100 "
-                            data-intro="Total Pelanggan yang Belum melunasi tagihan!" data-step="2"
-                            data-hint="Hello step one!">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan</h4>
+                            <h4 class="m-b-0 f-w-100 ">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan</h4>
                         </div>
                         <div class="col-3">
                             <h6 class="text-muted m-b-10">Total Pembayaran</h6>
@@ -607,36 +611,36 @@ $nol=0;
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr
+                                data-intro="Total Pemasukan Selain dari Tagihan Internet !" data-step="4"
+                                data-hint="Hello step one!">
                                     <td><label class="label label-success">01</label></td>
                                     <td>Pemasukan</td>
-                                    <td
-                                    data-intro="Total Pemasukan Selain dari Tagihan Internet !" data-step="4"
-                                    data-hint="Hello step one!">@currency($ambiltotalpendapatan)</td>
+                                    <td>@currency($ambiltotalpendapatan)</td>
                                     <td>{{ $ambiljmlhpendapatan }} Data</td>
                                 </tr>
-                                <tr>
+                                <tr
+                                data-intro="Total Pengeluaran !" data-step="5"
+                                data-hint="Hello step one!">
                                     <td><label class="label label-primary">02</label></td>
                                     <td>Pengeluaran</td>
-                                    <td
-                                    data-intro="Total Pengeluaran !" data-step="5"
-                                    data-hint="Hello step one!">@currency($ambiltotalpengeluaran)</td>
+                                    <td>@currency($ambiltotalpengeluaran)</td>
                                     <td>{{ $ambiljmlhpengeluaran }} Data</td>
                                 </tr>
-                                <tr>
+                                <tr
+                                data-intro="Total Pemasukan dari Tagihan Internet !" data-step="3"
+                                data-hint="Hello step one!">
                                     <td><label class="label label-danger">03</label></td>
                                     <td>Pemasukan dari Internet</td>
-                                    <td
-                                    data-intro="Total Pemasukan dari Tagihan Internet !" data-step="3"
-                                    data-hint="Hello step one!"><b>@currency($ambiltotalinternetbulanini)</b></td>
+                                    <td><b>@currency($ambiltotalinternetbulanini)</b></td>
                                     <td>{{ $ambiljmlhpembayar }} Pembayaran</td>
                                 </tr>
-                                <tr>
+                                <tr
+                                data-intro="Total Pendapatan Bersih !" data-step="6"
+                                data-hint="Hello step one!">
                                     <td><label class="label label-secondary">04</label></td>
                                     <td>Pendapatan Bersih</td>
-                                    <td
-                                    data-intro="Total Pendapatan Bersih !" data-step="6"
-                                    data-hint="Hello step one!"><b>@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</b></td>
+                                    <td><b>@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</b></td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -657,12 +661,12 @@ $nol=0;
                 </div>
                 <div class="card-block">
                     <div class="row per-task-block text-center">
-                        <div class="col-6">
+                        <div class="col-6"
+                        data-intro="Pelanggan Internet Aktif!" data-step="7"
+                        data-hint="Hello step one!">
                             <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-primary"></div>
                             <h6 class="text-muted">Pelanggan Aktif</h6>
-                            <p class="text-muted"
-                            data-intro="Pelanggan Internet Aktif!" data-step="7"
-                            data-hint="Hello step one!">{{ $ambildatapelangganaktif }}</p>
+                            <p class="text-muted">{{ $ambildatapelangganaktif }}</p>
                             <button class="btn btn-primary btn-round btn-sm">LIHAT</button>
                         </div>
                         <div class="col-6">
@@ -679,7 +683,9 @@ $nol=0;
             <div class="card per-task-card">
 
                 <div class="card-block">
-                    <div class="card-body">
+                    <div class="card-body"
+                    data-intro="Melihat Laporan!" data-step="8"
+                    data-hint="Hello step one!">
                         <form action="/admin/rekap/thbln" method="post">
                             @csrf
                             <div class="pl-lg-4">
@@ -703,7 +709,7 @@ $nol=0;
 
                                     <div class="col-md-6 mt-4">
                                         <div class="form-group ">
-                                            <button type="Simpan" class="btn btn-success">LIHAT</button>
+                                            <button type="Simpan" class="btn btn-success">LIHAT LAPORAN</button>
                                         </div>
                                     </div>
 
