@@ -141,7 +141,7 @@
                     <div class="main-body">
                         <div class="page-wrapper">
 
-                            @yield('content_head')
+                            @yield('headernav')
                             @yield('notif')
                             @yield('content')
 
