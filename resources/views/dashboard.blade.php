@@ -1,5 +1,5 @@
 
-@extends('admin.main')
+@extends('admin.layouts.nav2')
 
 @section('title','Dashboard')
 
@@ -556,11 +556,15 @@ $nol=0;
                     <div class="row text-center">
                         <div class="col-3 b-r-default">
                             <h6 class="text-muted m-b-10">Lunas</h6>
-                            <h4 class="m-b-0 f-w-100 ">{{ $pelanggan_lunas }} Pelanggan</h4>
+                            <h4 class="m-b-0 f-w-100 "
+                            data-intro="Jumlah Pelanggan yang telah melunasi tagihan !" data-step="1"
+                            data-hint="Hello step one!">{{ $pelanggan_lunas }} Pelanggan</h4>
                         </div>
                         <div class="col-3">
                             <h6 class="text-muted m-b-10">Belum lunas</h6>
-                            <h4 class="m-b-0 f-w-100 ">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan</h4>
+                            <h4 class="m-b-0 f-w-100 "
+                            data-intro="Total Pelanggan yang Belum melunasi tagihan!" data-step="2"
+                            data-hint="Hello step one!">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan</h4>
                         </div>
                         <div class="col-3">
                             <h6 class="text-muted m-b-10">Total Pembayaran</h6>
@@ -606,25 +610,33 @@ $nol=0;
                                 <tr>
                                     <td><label class="label label-success">01</label></td>
                                     <td>Pemasukan</td>
-                                    <td>@currency($ambiltotalpendapatan)</td>
+                                    <td
+                                    data-intro="Total Pemasukan Selain dari Tagihan Internet !" data-step="4"
+                                    data-hint="Hello step one!">@currency($ambiltotalpendapatan)</td>
                                     <td>{{ $ambiljmlhpendapatan }} Data</td>
                                 </tr>
                                 <tr>
                                     <td><label class="label label-primary">02</label></td>
                                     <td>Pengeluaran</td>
-                                    <td>@currency($ambiltotalpengeluaran)</td>
+                                    <td
+                                    data-intro="Total Pengeluaran !" data-step="5"
+                                    data-hint="Hello step one!">@currency($ambiltotalpengeluaran)</td>
                                     <td>{{ $ambiljmlhpengeluaran }} Data</td>
                                 </tr>
                                 <tr>
                                     <td><label class="label label-danger">03</label></td>
                                     <td>Pemasukan dari Internet</td>
-                                    <td><b>@currency($ambiltotalinternetbulanini)</b></td>
+                                    <td
+                                    data-intro="Total Pemasukan dari Tagihan Internet !" data-step="3"
+                                    data-hint="Hello step one!"><b>@currency($ambiltotalinternetbulanini)</b></td>
                                     <td>{{ $ambiljmlhpembayar }} Pembayaran</td>
                                 </tr>
                                 <tr>
                                     <td><label class="label label-secondary">04</label></td>
                                     <td>Pendapatan Bersih</td>
-                                    <td><b>@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</b></td>
+                                    <td
+                                    data-intro="Total Pendapatan Bersih !" data-step="6"
+                                    data-hint="Hello step one!"><b>@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</b></td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -648,7 +660,9 @@ $nol=0;
                         <div class="col-6">
                             <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-primary"></div>
                             <h6 class="text-muted">Pelanggan Aktif</h6>
-                            <p class="text-muted">{{ $ambildatapelangganaktif }}</p>
+                            <p class="text-muted"
+                            data-intro="Pelanggan Internet Aktif!" data-step="7"
+                            data-hint="Hello step one!">{{ $ambildatapelangganaktif }}</p>
                             <button class="btn btn-primary btn-round btn-sm">LIHAT</button>
                         </div>
                         <div class="col-6">
