@@ -159,4 +159,19 @@ class AdminPengeluaranController extends Controller
         return view('admin.pengeluaran.index',compact('datas','datadetails'));
 
     }
+    public function deletecheckedkategori(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        jenispengeluaran::whereIn('id',$ids)->delete();
+
+        // load ulang
+        $datas=pengeluaran::all();
+        $datadetails=jenispengeluaran::all();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.pengeluaran.index',compact('datas','datadetails'));
+
+    }
 }

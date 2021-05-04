@@ -369,14 +369,52 @@
                 <div class="col-xl-6 col-md-6">
                     <h5 class="label label-success">KATEGORI</h5>
                 </div>
+
+                <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
+                    <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecordkategori">HAPUS TERPILIH</a>&nbsp;
+                </div>
             </div>
         </div>
+        <script>
+            $(function(e){
+                $("#chkCheckAllkategori").click(function(){
+                    $(".checkBoxClasskategori").prop('checked',$(this).prop('checked'));
+                })
+
+                $("#deleteAllSelectedRecordkategori").click(function(e){
+                    e.preventDefault();
+                    var allids=[];
+                        $("input:checkbox[name=ids]:checked").each(function(){
+                            allids.push($(this).val());
+                        });
+
+                $.ajax({
+                    url:"{{ route('pendapatan.kategori.deleteSelected') }}",
+                    type:"DELETE",
+                    data:{
+                        _token:$("input[name=_token]").val(),
+                        ids:allids
+                    },
+                    success:function(response){
+                        $.each(allids,function($key,val){
+                                $("#sidkategori"+val).remove();
+                        })
+                    }
+                });
+
+                })
+
+            });
+        </script>
 
         <div class="card-block">
             <div class="table-responsive">
                 <table class="table table-hover table-borderless">
                     <thead>
                         <tr>
+                            <th class="text-center" width="5%">
+                                <input type="checkbox" id="chkCheckAllkategori">
+                            </th>
                             <th width="5%" class="text-center">No</th>
                             <th>Nama</th>
                             <th width="5%">Aksi</th>
@@ -384,7 +422,10 @@
                     </thead>
                     <tbody>
                         @foreach ($datadetails as $dd)
-                         <tr>
+                        <tr id="sidkategori{{ $dd->id }}">
+                            <td class="text-center">
+                                <input type="checkbox" name="ids" class="checkBoxClasskategori" value="{{ $dd->id }}">
+                            </td>
                             <td class="text-center"><label class="label label-success">{{ ($loop->index)+1 }} </label></td>
                             <td>{{$dd->nama}}</td>
 

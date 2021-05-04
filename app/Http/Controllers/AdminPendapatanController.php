@@ -158,4 +158,19 @@ class AdminPendapatanController extends Controller
         return view('admin.pendapatan.index',compact('datas','datadetails'));
 
     }
+    public function deletecheckedkategori(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        jenispendapatan::whereIn('id',$ids)->delete();
+
+        // load ulang
+        $datas=pendapatan::all();
+        $datadetails=jenispendapatan::all();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.pendapatan.index',compact('datas','datadetails'));
+
+    }
 }

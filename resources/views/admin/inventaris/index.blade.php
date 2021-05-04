@@ -359,8 +359,8 @@
  <div class="col-xl-6 col-md-6" id="jenisalat">
     <div class="card table-card">
         <div class="card-header">
-            <div class="row">
 
+            <div class="row">
                 <div class="col-xl-6 col-md-6">
                     <h5 class="label label-success">JENIS ALAT</h5>
                 </div>

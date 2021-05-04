@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pendapatan
     Route::resource('admin/pendapatan','App\Http\Controllers\AdminPendapatanController');
     Route::delete('admin/pendapatan-multidel', 'App\Http\Controllers\AdminPendapatanController@deletechecked')->name('pendapatan.deleteSelected');
+    Route::delete('admin/pendapatan-multidelkategori', 'App\Http\Controllers\AdminPendapatanController@deletecheckedkategori')->name('pendapatan.kategori.deleteSelected');
 
     //Print PDF
     Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('admin/pengeluaran','App\Http\Controllers\AdminPengeluaranController');
     Route::resource('admin/jenispengeluaran','App\Http\Controllers\AdminJenispengeluaranController');
     Route::delete('admin/pengeluaran-multidel', 'App\Http\Controllers\AdminPengeluaranController@deletechecked')->name('pengeluaran.deleteSelected');
+    Route::delete('admin/pengeluaran-multidelkategori', 'App\Http\Controllers\AdminPengeluaranController@deletecheckedkategori')->name('pengeluaran.kategori.deleteSelected');
 
     //menu pengeluaran
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminPelangganController');
