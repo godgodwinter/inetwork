@@ -144,4 +144,19 @@ class AdminPengeluaranController extends Controller
         pengeluaran::destroy($id);
         return redirect(URL::to('/').'/admin/pengeluaran')->with('status','Data berhasil dihapus!');
     }
+    public function deletechecked(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        pengeluaran::whereIn('id',$ids)->delete();
+
+        // load ulang
+        $datas=pengeluaran::all();
+        $datadetails=jenispengeluaran::all();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.pengeluaran.index',compact('datas','datadetails'));
+
+    }
 }

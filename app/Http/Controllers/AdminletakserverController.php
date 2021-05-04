@@ -120,4 +120,16 @@ class AdminletakserverController extends Controller
          letakserver::destroy($id);
          return redirect(URL::to('/').'/admin/letakserver')->with('status','Data berhasil dihapus!');
     }
+    public function deletechecked(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        letakserver::whereIn('id',$ids)->delete();
+
+        // load ulang
+        $datas=letakserver::all();
+        return view('admin.letakserver.index',compact('datas'));
+
+    }
 }

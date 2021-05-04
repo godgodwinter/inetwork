@@ -130,15 +130,50 @@
                     <a href="cetak/cetak_letakserver" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
                 </div>
                 <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
+                    <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>
                     <a href="#add" class="btn btn-sm btn-secondary">TAMBAH</a>
                 </div>
             </div>
         </div>
+        <script>
+            $(function(e){
+                $("#chkCheckAll").click(function(){
+                    $(".checkBoxClass").prop('checked',$(this).prop('checked'));
+                })
+
+                $("#deleteAllSelectedRecord").click(function(e){
+                    e.preventDefault();
+                    var allids=[];
+                        $("input:checkbox[name=ids]:checked").each(function(){
+                            allids.push($(this).val());
+                        });
+
+                $.ajax({
+                    url:"{{ route('letakserver.deleteSelected') }}",
+                    type:"DELETE",
+                    data:{
+                        _token:$("input[name=_token]").val(),
+                        ids:allids
+                    },
+                    success:function(response){
+                        $.each(allids,function($key,val){
+                                $("#sid"+val).remove();
+                        })
+                    }
+                });
+
+                })
+
+            });
+        </script>
         <div class="card-block">
             <div class="table-responsive dt-responsive">
                 <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                     <thead>
                         <tr>
+                            <th class="text-center" width="5%">
+                                <input type="checkbox" id="chkCheckAll">
+                            </th>
                             <th class="text-center" width="5%">No</th>
                             <th>Nama</th>
                             <th>Penanggung Jawab</th>
@@ -147,7 +182,10 @@
                     </thead>
                     <tbody>
                         @foreach ($datas as $data)
-                        <tr>
+                        <tr id="sid{{ $data->id }}">
+                            <td class="text-center">
+                                <input type="checkbox" name="ids" class="checkBoxClass" value="{{ $data->id }}">
+                            </td>
                             <td class="text-center">{{ ($loop->index)+1 }} </td>
                             <td>{{$data->nama}}</td>
                             <td>{{$data->penanggungjawab}}</td>
@@ -168,6 +206,7 @@
                         @endforeach
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th class="text-center">No</th>
                             <th>Nama</th>
                             <th>Penanggung Jawab</th>

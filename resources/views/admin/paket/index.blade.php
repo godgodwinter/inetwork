@@ -120,7 +120,7 @@
 
                     </div>
                     <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                        <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>
+                        <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>&nbsp;
                         <a href="#add" class="btn btn-sm btn-secondary">TAMBAH</a>
                     </div>
                 </div>
@@ -205,6 +205,7 @@
                             @endforeach
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Harga</th>

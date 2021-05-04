@@ -31,14 +31,19 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //paket
     Route::resource('admin/paket','App\Http\Controllers\AdminPaketController');
-    Route::delete('admin/paket', 'App\Http\Controllers\AdminPaketController@deletechecked')->name('paket.deleteSelected');
+    Route::delete('admin/paket-multidel', 'App\Http\Controllers\AdminPaketController@deletechecked')->name('paket.deleteSelected');
     //menu inventaris
     Route::resource('admin/inventaris','App\Http\Controllers\AdminInventarisController');
     Route::resource('admin/jenisalat','App\Http\Controllers\AdminJenisalatController');
+    Route::delete('admin/inventaris-multidel', 'App\Http\Controllers\AdminInventarisController@deletechecked')->name('inventaris.deleteSelected');
+    Route::delete('admin/inventaris-multidelkategori', 'App\Http\Controllers\AdminInventarisController@deletecheckedkategori')->name('inventaris.kategori.deleteSelected');
+
     //menu letakserver
     Route::resource('admin/letakserver','App\Http\Controllers\AdminletakserverController');
+    Route::delete('admin/letakserver-multidel', 'App\Http\Controllers\AdminletakserverController@deletechecked')->name('letakserver.deleteSelected');
     //menu pendapatan
     Route::resource('admin/pendapatan','App\Http\Controllers\AdminPendapatanController');
+    Route::delete('admin/pendapatan-multidel', 'App\Http\Controllers\AdminPendapatanController@deletechecked')->name('pendapatan.deleteSelected');
 
     //Print PDF
     Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
@@ -54,6 +59,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pengeluaran
     Route::resource('admin/pengeluaran','App\Http\Controllers\AdminPengeluaranController');
     Route::resource('admin/jenispengeluaran','App\Http\Controllers\AdminJenispengeluaranController');
+    Route::delete('admin/pengeluaran-multidel', 'App\Http\Controllers\AdminPengeluaranController@deletechecked')->name('pengeluaran.deleteSelected');
 
     //menu pengeluaran
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminPelangganController');

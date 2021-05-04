@@ -143,4 +143,19 @@ class AdminPendapatanController extends Controller
         pendapatan::destroy($id);
         return redirect(URL::to('/').'/admin/pendapatan')->with('status','Data berhasil dihapus!');
     }
+    public function deletechecked(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        pendapatan::whereIn('id',$ids)->delete();
+
+        // load ulang
+        $datas=pendapatan::all();
+        $datadetails=jenispendapatan::all();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.pendapatan.index',compact('datas','datadetails'));
+
+    }
 }

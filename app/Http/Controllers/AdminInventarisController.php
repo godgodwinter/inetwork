@@ -143,4 +143,32 @@ class AdminInventarisController extends Controller
         inventaris::destroy($id);
         return redirect(URL::to('/').'/admin/inventaris')->with('status','Data berhasil dihapus!');
     }
+    public function deletechecked(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        inventaris::whereIn('id',$ids)->delete();
+
+        // load ulang
+        $datas=inventaris::all();
+        $datadetails=jenisalat::all();
+
+        return view('admin.inventaris.index',compact('datas','datadetails'));
+
+    }
+    public function deletecheckedkategori(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        jenisalat::whereIn('id',$ids)->delete();
+
+        // load ulang
+        $datas=inventaris::all();
+        $datadetails=jenisalat::all();
+
+        return view('admin.inventaris.index',compact('datas','datadetails'));
+
+    }
 }
