@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.layouts.nav1')
 
 @section('title','TAGIHAN')
 

@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.layouts.nav1')
 
 @section('title','PELANGGAN')
 
@@ -65,7 +65,7 @@
                 </ul>
             </div>
         </div>
-        
+
     </div>
 </div>
 @endsection
@@ -171,7 +171,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            
+
 
                             <div class="col-lg-4 col-sm-4 col-xl-4 m-b-30">
                                 <label class="form-control-label" for="input-jk">Pilih Paket  (*</label>
@@ -190,7 +190,7 @@
                                 @enderror
                             </div>
 
-                            
+
                             <div class="col-lg-4 col-sm-4 col-xl-4 m-b-30">
                                 <label class="form-control-label" for="input-jk">Pilih Letak Server  (*</label>
                                 <select name="letakserver_id" id="input-letakserver_id"
@@ -206,24 +206,24 @@
                                         </select> @error('letakserver_id')<div class="invalid-feedback"> {{$message}}
                                         </div>
                                 @enderror
-                            </div> 
+                            </div>
 
                             <div class="col-lg-4 col-sm-4 col-xl-4 m-b-30">
                                 <label class="form-control-label" for="input-jk">Pilih Status Langganan  (*</label>
                                 <select name="status_langganan" id="input-status_langganan"
                                     class="form-control form-control-info  @error('status_langganan') is-invalid @enderror"
                                     required>
-                                    
+
                                         <option>{{$status_langganan}}</option>
                                         <option>Aktif</option>
                                         <option>Non-Aktif</option>
-                        
+
                                         </select> @error('status_langganan')<div class="invalid-feedback"> {{$message}}
                                         </div>
                                 @enderror
                             </div>
 
-                            
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-koordinat">Kordinat Rumah (*</label>
@@ -233,14 +233,14 @@
                               @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <label class="form-control-label " for="input-koordinat">&nbsp; </label>
                                 <div class="form-group">
                                     <button type="Simpan" class="btn btn-success">Simpan</button>
                                 </div>
                             </div>
-                            
+
                             <div id="mapCanvas"></div>
                             <div id="infoPanel">
                               <b>Marker status:</b>
@@ -336,7 +336,7 @@
 
                         </div>
                     </div>
-                      
+
                 </form>
     </div>
 </div>

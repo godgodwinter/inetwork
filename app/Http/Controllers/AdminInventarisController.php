@@ -17,10 +17,22 @@ class AdminInventarisController extends Controller
      */
     public function index()
     {
-        $datas=inventaris::all();
-        $datadetails=jenisalat::all();
 
-        return view('admin.inventaris.index',compact('datas','datadetails'));
+        //periksa apakah jenisalatkosong
+        $ambildatakategori= DB::table('jenisalat')
+            ->count();
+            // dd($ambildatakategori);
+        if($ambildatakategori==0){
+            $datas=inventaris::all();
+            $datadetails=jenisalat::all();
+            return view('admin.inventaris.tour',compact('datas','datadetails','ambildatakategori'));
+        }else{
+            $datas=inventaris::all();
+            $datadetails=jenisalat::all();
+
+            return view('admin.inventaris.index',compact('datas','datadetails'));
+        }
+
     }
 
     /**

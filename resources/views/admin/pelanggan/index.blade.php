@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.layouts.nav1')
 
 @section('title','PELANGGAN')
 
@@ -88,7 +88,7 @@
     <div class="card">
         <div class="row">
             <div class="col-xl-6 col-md-6">
-                <a href="#add" class="btn btn-sm btn-success">BAYAR</a>
+                {{-- <a href="#add" class="btn btn-sm btn-success">BAYAR</a> --}}
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                 <a href="cetak/cetak_pelanggan" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
