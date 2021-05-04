@@ -75,8 +75,37 @@
     <div class="card">
         <div class="row">
             <div class="col-xl-6 col-md-6">
-                <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-                <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
+                <a href="import" class="btn btn-sm  btn-primary" target="_blank" data-toggle="modal"
+                        data-target="#import">IMPORT</a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="import" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Import File</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;"
+                                        action="{{ route('importpendapatan') }}" class="form-horizontal" method="post"
+                                        enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input type="file" name="import_file" />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary">Import File</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ route('exportpendapatan', 'xlsx') }}" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
                 <a href="cetak/cetak_pemasukan" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">

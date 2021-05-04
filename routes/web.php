@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CetakController;
+use App\Http\Controllers\ExportImport;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,11 +71,23 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
 
 
-
+    //Export
     // Route for export/download tabledata to .csv, .xls or .xlsx
-    Route::get('exportExcel/{type}', [ExcelController::class, 'exportExcel'])->name('exportExcel');
+    Route::get('admin/exportpaket/{type}', [ExportImport::class, 'exportpaket'])->name('exportpaket');
+    Route::get('admin/exportletakserver/{type}', [ExportImport::class, 'exportletakserver'])->name('exportletakserver');
+    Route::get('admin/exportinventaris/{type}', [ExportImport::class, 'exportinventaris'])->name('exportinventaris');
+    Route::get('admin/exportpelanggan/{type}', [ExportImport::class, 'exportpelanngan'])->name('exportpelanggan');
+    Route::get('admin/exportpendapatan/{type}', [ExportImport::class, 'exportpendapatan'])->name('exportpendapatan');
+    Route::get('admin/exportpengeluaran/{type}', [ExportImport::class, 'exportpengeluaran'])->name('exportpengeluaran');
+    Route::get('admin/exportrekap/{type}', [ExportImport::class, 'exportrekap'])->name('exportrekap');
+    //Import
     // Route for import excel data to database.
-    Route::post('importExcel', [ExcelController::class, 'importExcel'])->name('importExcel');
-
+    Route::post('admin/importpaket', [ExportImport::class, 'importpaket'])->name('importpaket');
+    Route::post('admin/importletakserver', [ExportImport::class, 'importletakserver'])->name('importletakserver');
+    Route::post('admin/importinventaris', [ExportImport::class, 'importinventaris'])->name('importinventaris');
+    Route::post('admin/importpelanggan', [ExportImport::class, 'importpelanggan'])->name('importpelanggan');
+    Route::post('admin/importpendapatan', [ExportImport::class, 'importpendapatan'])->name('importpendapatan');
+    Route::post('admin/importpengeluaran', [ExportImport::class, 'importpengeluaran'])->name('importpengeluaran');
+    Route::post('admin/importrekap', [ExportImport::class, 'importrekap'])->name('importrekap');
 
 });

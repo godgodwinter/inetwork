@@ -7,27 +7,31 @@
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+        -webkit-appearance: none;
+        margin: 0;
     }
 
     /* Firefox */
     input[type=number] {
-      -moz-appearance: textfield;
+        -moz-appearance: textfield;
     }
+
     #mapCanvas {
-    width: 800px;
-    height: 400px;
-    float: left;
-  }
-  #infoPanel {
-    float: left;
-    margin-left: 10px;
-  }
-  #infoPanel div {
-    margin-bottom: 5px;
-  }
-    </style>
+        width: 800px;
+        height: 400px;
+        float: left;
+    }
+
+    #infoPanel {
+        float: left;
+        margin-left: 10px;
+    }
+
+    #infoPanel div {
+        margin-bottom: 5px;
+    }
+
+</style>
 <!-- Data Table Css -->
 <link rel="stylesheet" type="text/css"
     href="{{ asset("admin-style/") }}/files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
@@ -35,7 +39,9 @@
     href="{{ asset("admin-style/") }}/files/assets/pages/data-table/css/buttons.dataTables.min.css">
 <link rel="stylesheet" type="text/css"
     href="{{ asset("admin-style/") }}/files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+    integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+    crossorigin="anonymous"></script>
 @endsection
 
 @section('jshere')
@@ -70,26 +76,57 @@
 @endsection
 
 @section('notif')
-    @if (session('status'))
-    <div class="alert alert-info border-info">
-        {{ session('status') }} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+@if (session('status'))
+<div class="alert alert-info border-info">
+    {{ session('status') }} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
             class="pcoded-micon"> <i class="feather icon-x-square"></i></span>
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
 @endsection
 
 @section('container')
 <!-- Section start -->
-<div class="page-body"id="datatable" >
+<div class="page-body" id="datatable">
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col-xl-6 col-md-6">
-                    <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-                    <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
+                    <a href="import" class="btn btn-sm  btn-primary" target="_blank" data-toggle="modal"
+                        data-target="#import">IMPORT</a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="import" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Import File</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;"
+                                        action="{{ route('importletakserver') }}" class="form-horizontal" method="post"
+                                        enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input type="file" name="import_file" />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary">Import File</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('exportletakserver', 'xlsx') }}" class="btn btn-sm  btn-primary"
+                        target="_blank">EXPORT</a>
                     <a href="cetak/cetak_letakserver" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
                 </div>
                 <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
@@ -110,8 +147,8 @@
                     </thead>
                     <tbody>
                         @foreach ($datas as $data)
-                      <tr>
-                            <td class="text-center" >{{ ($loop->index)+1 }} </td>
+                        <tr>
+                            <td class="text-center">{{ ($loop->index)+1 }} </td>
                             <td>{{$data->nama}}</td>
                             <td>{{$data->penanggungjawab}}</td>
 
@@ -143,7 +180,7 @@
     </div>
     <!-- DOM/Jquery table end -->
     <!-- tambah -->
-    <div class="card" id="add" >
+    <div class="card" id="add">
         <div class="card-header">
             <div class="row">
 
@@ -165,7 +202,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-nama">Nama @yield('title')  (*</label>
+                                    <label class="form-control-label" for="input-nama">Nama @yield('title') (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
                                         placeholder="" value="{{old('nama')}}" required>
@@ -177,7 +214,8 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-penanggungjawab">Penanggung Jawab  (*</label>
+                                    <label class="form-control-label" for="input-penanggungjawab">Penanggung Jawab
+                                        (*</label>
                                     <input type="text" name="penanggungjawab" id="input-penanggungjawab"
                                         class="form-control form-control-alternative  @error('penanggungjawab') is-invalid @enderror"
                                         placeholder="" value="{{old('penanggungjawab')}}" required>
@@ -189,11 +227,12 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-koordinat">Koordinat  (*</label>
-                                     <input type="text" name="koordinat" id="input-koordinat"  class="form-control form-control-alternative  @error('koordinat') is-invalid @enderror"
-                              placeholder="" value="{{old('koordinat')}}" required>
-                              @error('koordinat')<div class="invalid-feedback"> {{$message}}</div>
-                              @enderror
+                                    <label class="form-control-label" for="input-koordinat">Koordinat (*</label>
+                                    <input type="text" name="koordinat" id="input-koordinat"
+                                        class="form-control form-control-alternative  @error('koordinat') is-invalid @enderror"
+                                        placeholder="" value="{{old('koordinat')}}" required>
+                                    @error('koordinat')<div class="invalid-feedback"> {{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -204,81 +243,82 @@
                             </div>
                             <div id="mapCanvas"></div>
                             <div id="infoPanel">
-                              <b>Marker status:</b>
-                              <div id="markerStatus"><i>Click and drag the marker.</i></div>
-                              <b>Current position:</b>
-                              <div id="info"></div>
-                              {{-- <b>Closest matching address:</b>
+                                <b>Marker status:</b>
+                                <div id="markerStatus"><i>Click and drag the marker.</i></div>
+                                <b>Current position:</b>
+                                <div id="info"></div>
+                                {{-- <b>Closest matching address:</b>
                               <div id="address"></div> --}}
-                            </div><script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+                            </div>
+                            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
+                            </script>
 
                             <script>
-
                                 var geocoder = new google.maps.Geocoder();
 
                                 function geocodePosition(pos) {
-                                geocoder.geocode({
-                                    latLng: pos
-                                }, function(responses) {
-                                    if (responses && responses.length > 0) {
-                                    updateMarkerAddress(responses[0].formatted_address);
-                                    } else {
-                                    updateMarkerAddress('Cannot determine address at this location.');
-                                    }
-                                });
+                                    geocoder.geocode({
+                                        latLng: pos
+                                    }, function (responses) {
+                                        if (responses && responses.length > 0) {
+                                            updateMarkerAddress(responses[0].formatted_address);
+                                        } else {
+                                            updateMarkerAddress('Cannot determine address at this location.');
+                                        }
+                                    });
                                 }
 
                                 function updateMarkerStatus(str) {
-                                document.getElementById('markerStatus').innerHTML = str;
+                                    document.getElementById('markerStatus').innerHTML = str;
                                 }
 
                                 function updateMarkerPosition(latLng) {
-                                document.getElementById('info').innerHTML = [
-                                    latLng.lat(),
-                                    latLng.lng()
-                                ].join(', ');
-                                document.getElementById("input-koordinat").value = [
-                                    latLng.lat(),
-                                    latLng.lng()
-                                ].join(', ');
+                                    document.getElementById('info').innerHTML = [
+                                        latLng.lat(),
+                                        latLng.lng()
+                                    ].join(', ');
+                                    document.getElementById("input-koordinat").value = [
+                                        latLng.lat(),
+                                        latLng.lng()
+                                    ].join(', ');
                                 }
 
                                 function updateMarkerAddress(str) {
-                                document.getElementById('address').innerHTML = str;
+                                    document.getElementById('address').innerHTML = str;
                                 }
 
                                 function initialize() {
-                                var latLng = new google.maps.LatLng(-8.129902243245665, 112.4867915739301);
-                                var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                                    zoom: 15,
-                                    center: latLng,
-                                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                                });
-                                var marker = new google.maps.Marker({
-                                    position: latLng,
-                                    title: 'Point A',
-                                    map: map,
-                                    draggable: true
-                                });
+                                    var latLng = new google.maps.LatLng(-8.129902243245665, 112.4867915739301);
+                                    var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                                        zoom: 15,
+                                        center: latLng,
+                                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                                    });
+                                    var marker = new google.maps.Marker({
+                                        position: latLng,
+                                        title: 'Point A',
+                                        map: map,
+                                        draggable: true
+                                    });
 
-                                // Update current position info.
-                                updateMarkerPosition(latLng);
-                                geocodePosition(latLng);
+                                    // Update current position info.
+                                    updateMarkerPosition(latLng);
+                                    geocodePosition(latLng);
 
-                                // Add dragging event listeners.
-                                google.maps.event.addListener(marker, 'dragstart', function() {
-                                    updateMarkerAddress('Dragging...');
-                                });
+                                    // Add dragging event listeners.
+                                    google.maps.event.addListener(marker, 'dragstart', function () {
+                                        updateMarkerAddress('Dragging...');
+                                    });
 
-                                google.maps.event.addListener(marker, 'drag', function() {
-                                    updateMarkerStatus('Dragging...');
-                                    updateMarkerPosition(marker.getPosition());
-                                });
+                                    google.maps.event.addListener(marker, 'drag', function () {
+                                        updateMarkerStatus('Dragging...');
+                                        updateMarkerPosition(marker.getPosition());
+                                    });
 
-                                google.maps.event.addListener(marker, 'dragend', function() {
-                                    updateMarkerStatus('Drag ended');
-                                    geocodePosition(marker.getPosition());
-                                });
+                                    google.maps.event.addListener(marker, 'dragend', function () {
+                                        updateMarkerStatus('Drag ended');
+                                        geocodePosition(marker.getPosition());
+                                    });
                                 }
 
                                 // Onload handler to fire off the app.
@@ -288,20 +328,20 @@
                                 //     // alert("oops!");
                                 //     $('#input-harga-label:last').text(format($(this).val()));
                                 // });
+
                             </script>
                             <script
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB35N54GJSZlfnaC1HWjWjoExGy2JuXroc&callback=initMap&libraries=&v=weekly"
-                            async
-                          ></script>
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB35N54GJSZlfnaC1HWjWjoExGy2JuXroc&callback=initMap&libraries=&v=weekly"
+                                async></script>
 
 
                         </div>
                     </div>
 
                 </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <!-- tambah end -->
 </div>
