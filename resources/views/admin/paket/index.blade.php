@@ -131,12 +131,12 @@
                         $(".checkBoxClass").prop('checked',$(this).prop('checked'));
                     })
 
-                    $("#deleteAllSelectedRecord").click(function(){
+                    $("#deleteAllSelectedRecord").click(function(e){
                         e.preventDefault();
                         var allids=[];
-                        $("input:checkbox[name=ids]:checked").each(function()){
-                            allids.push($(this).val());
-                        });
+                            $("input:checkbox[name=ids]:checked").each(function(){
+                                allids.push($(this).val());
+                            });
 
                     $.ajax({
                         url:"{{ route('paket.deleteSelected') }}",
