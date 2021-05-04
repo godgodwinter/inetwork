@@ -126,4 +126,13 @@ class AdminPaketController extends Controller
         paket::destroy($id);
         return redirect(URL::to('/').'/admin/paket')->with('status','Data berhasil dihapus!');
     }
+    public function deletechecked(Request $request)
+    {
+        //
+        // dd($request);
+        $ids=$request->ids;
+        paket::whereIn('id',$ids)->delete();
+        return redirect(URL::to('/').'/admin/paket')->with('status','Data berhasil dihapus!');
+
+    }
 }

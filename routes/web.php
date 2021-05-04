@@ -29,8 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 //halaman admin fixed
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
-
+    //paket
     Route::resource('admin/paket','App\Http\Controllers\AdminPaketController');
+    Route::delete('admin/paket', 'App\Http\Controllers\AdminPaketController@deletechecked')->name('paket.deleteSelected');
     //menu inventaris
     Route::resource('admin/inventaris','App\Http\Controllers\AdminInventarisController');
     Route::resource('admin/jenisalat','App\Http\Controllers\AdminJenisalatController');
