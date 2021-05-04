@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/exportpelanggan/{type}', [ExportImport::class, 'exportpelanngan'])->name('exportpelanggan');
     Route::get('admin/exportpendapatan/{type}', [ExportImport::class, 'exportpendapatan'])->name('exportpendapatan');
     Route::get('admin/exportpengeluaran/{type}', [ExportImport::class, 'exportpengeluaran'])->name('exportpengeluaran');
+    Route::get('admin/exportrekap/{type}', [ExportImport::class, 'exportrekap'])->name('exportrekap');
     //Import
     // Route for import excel data to database.
     Route::post('admin/importpaket', [ExportImport::class, 'importpaket'])->name('importpaket');
@@ -86,6 +87,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::post('admin/importpelanggan', [ExportImport::class, 'importpelanggan'])->name('importpelanggan');
     Route::post('admin/importpendapatan', [ExportImport::class, 'importpendapatan'])->name('importpendapatan');
     Route::post('admin/importpengeluaran', [ExportImport::class, 'importpengeluaran'])->name('importpengeluaran');
-
+    Route::post('admin/importrekap', [ExportImport::class, 'importrekap'])->name('importrekap');
 
 });
