@@ -44,15 +44,15 @@
                             </li>
                             <li>
                                  <!-- Authentication -->
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
 
-                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();"><i class="feather icon-log-out"></i>
-                    {{ __('Logout') }}
-                    </a>
-            </form>
+                                    <a href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault();
+                                                                    this.closest('form').submit();"><i class="feather icon-log-out"></i>
+                                        {{ __('Logout') }}
+                                        </a>
+                                </form>
 
                             </li>
                         </ul>

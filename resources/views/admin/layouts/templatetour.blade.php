@@ -139,10 +139,12 @@
                 <div class="pcoded-inner-content">
                     <!-- Main-body start -->
                     <div class="main-body">
-                        <div class="page-wrapper">
-
                             @yield('headernav')
                             @yield('notif')
+                    </div>
+                </div>
+            </div>
+            </div>
                             @yield('content')
 
                         </div>
