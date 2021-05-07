@@ -181,8 +181,17 @@
                             <td class="text-center">{{ ($loop->index)+1 }} </td>
                             <td>{{$data->nama}}</td>
                             <td>@currency($nominal)</td>
-                            <td>
-                                {{ \Carbon\Carbon::parse($tgl)->translatedFormat('d F Y')}}
+                            <td>@php
+                                 if (date('Y-m-d', strtotime($tgl)) !== $tgl) {
+                                     @endphp
+                                     Tanggal tidak valid
+                                     @php
+                                 }else{
+                                     @endphp
+                                      {{ \Carbon\Carbon::parse($tgl)->translatedFormat('d F Y')}}
+                                     @php
+                                 }
+                            @endphp
                             </td>
                             <td>
                                 <?php

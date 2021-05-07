@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\pendapatan;
+use App\Models\pengeluaran;
 
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -17,11 +17,21 @@ class PengeluaranImport implements ToModel,WithStartRow
     */
     public function model(array $row)
     {
-        return new pendapatan([
+
+        $myString=$row[3];
+        if (date('Y-m-d', strtotime($myString)) !== $myString) {
+
+            $unixDate = ($myString - 25569) * 86400;
+              $tgl=date("Y-m-d", $unixDate);
+          }else{
+            // it's a date
+            $tgl=$myString;
+          }
+        return new pengeluaran([
             'id'     => $row[0],
             'nama'    => $row[1],
             'nominal'    => $row[2],
-            'tgl'    => $row[3],
+            'tgl'    => $tgl,
             'jenispengeluaran_id'=>$row[4],
             'created_at'    => $row[5],
             'updated_at'    => $row[6],
