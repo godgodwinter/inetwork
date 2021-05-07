@@ -76,21 +76,21 @@ class paketSeeder extends Seeder
         //default settings
             DB::table('jenisalat')->insert([
                     'id' => '1',
-                    'nama' => 'Lain-lain'
+                    'nama' => 'Lain-lain',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);
 
             DB::table('jenispendapatan')->insert([
                     'id' => '1',
-                    'nama' => 'Lain-lain'
+                    'nama' => 'Lain-lain',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);
 
             DB::table('jenispengeluaran')->insert([
                     'id' => '1',
-                    'nama' => 'Lain-lain'
+                    'nama' => 'Lain-lain',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);
