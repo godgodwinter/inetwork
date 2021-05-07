@@ -183,7 +183,18 @@
                             <td>{{$data->nama}}</td>
                             <td>@currency($nominal)</td>
                             <td>
-                                {{ \Carbon\Carbon::parse($tgl)->translatedFormat('d F Y')}}
+                            @php
+                                 if (date('Y-m-d', strtotime($tgl)) !== $tgl) {
+                                     @endphp
+                                     Tanggal tidak valid
+                                     @php
+                                 }else{
+                                     @endphp
+                                      {{ \Carbon\Carbon::parse($tgl)->translatedFormat('d F Y')}}
+                                     @php
+                                 }
+                            @endphp
+
                             </td>
                             <td>
                                 <?php
