@@ -91,10 +91,10 @@
 @php
     //ambil data tagihan detail
 
-        $ambiltotaltelahdibayar = DB::table('tagihandetail')
+        $ambiltotaltelahdibayar = DB::table('tagihan')
         ->where('nik',$data->nik)
         ->where('thbln',$data->thbln)
-        ->sum('bayar');
+        ->sum('total_bayar');
 
 
         $tgl_gabung="data tidak ditemukan";

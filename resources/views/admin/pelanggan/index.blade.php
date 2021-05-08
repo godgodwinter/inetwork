@@ -139,7 +139,7 @@ excel date value to php date value
                 <a href="cetak/cetak_pelanggan" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                <a href="#add" class="btn btn-sm btn-secondary">BELUM BAYAR</a>&nbsp;
+                <a href="#deleteall" class="btn btn-sm btn-danger">HAPUS SEMUA</a>&nbsp;
                 <a href="{{url('/')}}/admin/paket" class="btn btn-sm btn-secondary">PAKET INTERNET</a>&nbsp;
                 <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PELANGGAN</a>&nbsp;
@@ -191,6 +191,16 @@ $ambiltagihankurangberapa = DB::table('tagihan')
     ->where('thbln',$blnthn)
     ->sum('total_bayar');
 
+//periksa apakah di tabel tagihan sudah ada jika belum ambil tagihan sesuai dengan paket harga
+$ambildatanikditagihan= DB::table('tagihan')
+    ->where('nik',$data->nik)
+    ->where('thbln',$blnthn)
+            ->count();
+// if($ambildatanikditagihan<1){
+//     $ambiltagihankurangberapa=$data->paket_harga;
+// }
+
+// dd($ambiltagihankurangberapa);
     // dd($ambiltagihankurangberapa);
 
                             @endphp
@@ -212,7 +222,7 @@ $ambiltagihankurangberapa = DB::table('tagihan')
                     @csrf
 
                     @php
-                        if(($data->paket_harga-$ambiltagihankurangberapa)==0){
+                        if(($data->paket_harga-$ambiltagihankurangberapa)<=0){
                             echo'<button type="Simpan" class="btn btn-success" disabled>LUNAS!</button>';
                         }else{
                     @endphp
@@ -325,7 +335,7 @@ $ambiltagihankurangberapa = DB::table('tagihan')
                             <td class="text-center">
 
                                 @php
-                        if(($data->paket_harga-$ambiltagihankurangberapa)==0){
+                        if(($data->paket_harga-$ambiltagihankurangberapa)<=0){
                             echo'<button type="Simpan" class="btn btn-success btn-sm " disabled>LUNAS!</button>';
                         }else{
                                 @endphp

@@ -55,6 +55,7 @@ foreach ($ambildatapelangganaktifget as $da) {
     $ambildatalunas = DB::table('tagihan')
         ->where('nik', '=', $da->nik)
         ->where('paket_harga', '=', $ambiltagihankurangberapa)
+        ->where('thbln',date("Y-m"))
         ->count();
 // dd($da->nik."-".$ambiltagihankurangberapa);
         if($ambildatalunas>0){

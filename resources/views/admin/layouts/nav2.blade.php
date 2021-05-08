@@ -90,6 +90,12 @@
                 </a>
             </li>
             <li class="">
+                <a href="{{url('/')}}/admin/tagihan">
+                    <span class="pcoded-micon"><i class="feather icon-codepen"></i></span>
+                    <span class="pcoded-mtext">Tagihan
+                </a>
+            </li>
+            <li class="">
                 <a href="{{url('/')}}/admin/inventaris">
                     <span class="pcoded-micon"><i class="feather icon-briefcase"></i></span>
                     <span class="pcoded-mtext">Inventaris</span>
@@ -99,12 +105,6 @@
                 <a href="{{url('/')}}/admin/letakserver">
                     <span class="pcoded-micon"><i class="feather icon-cloud"></i></span>
                     <span class="pcoded-mtext">Letak Server</span>
-                </a>
-            </li>
-            <li class="">
-                <a href="{{url('/')}}/admin/tagihan">
-                    <span class="pcoded-micon"><i class="feather icon-codepen"></i></span>
-                    <span class="pcoded-mtext">Tagihan
                 </a>
             </li>
             <li class="">

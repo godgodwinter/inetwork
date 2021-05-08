@@ -110,6 +110,7 @@
                     <thead>
                         <tr>
                             <th width="5%" class="text-center">No</th>
+                            <th width="5%" class="text-center">Status</th>
                             <th>NIK - Nama</th>
                             <th>Paket</th>
                             <th>Total Bayar</th>
@@ -137,9 +138,22 @@
                             @endphp
 
                         <tr>
+                            <td class="text-center">{{ $loop->index }}</td>
                             <td class="text-center">
-                                <a class="btn btn-info btn-sm  btn-outline-info" href="{{url('/')}}/admin/tagihan/{{ $data->id }}/detail"><span
+                        @php
+                            if(($data->paket_harga-$data->total_bayar)<=0){
+                        @endphp
+                                        <a class="btn btn-success btn-sm  btn-outline-success" href="{{url('/')}}/admin/tagihan/{{ $data->id }}/detail"><span
+                                                class="pcoded-micon"> <i class="feather icon-zoom-in"></i></span> LUNAS</a>
+                        @php
+
+                            }else{
+                        @endphp
+                                       <a class="btn btn-warning btn-sm  btn-outline-warning" href="{{url('/')}}/admin/tagihan/{{ $data->id }}/detail"><span
                                 class="pcoded-micon"> <i class="feather icon-zoom-in"></i></span> Detail</a>
+                        @php
+                            }
+                        @endphp
 
                             </td>
                             <td>{{$data->nik}} - {{$data->nama}}</td>
@@ -200,6 +214,7 @@
                         <tfoot>
                             <tr>
                                 <th class="text-center">No</th>
+                                <th width="5%" class="text-center">Status</th>
                                 <th>NIK - Nama</th>
                                 <th>Paket</th>
                                 <th>Total Bayar</th>
