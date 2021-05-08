@@ -50,7 +50,9 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>@yield('title')</h4>
+                    <h4>@yield('title')
+ {{ \Carbon\Carbon::parse($blnthn)->translatedFormat('F Y')}}
+                    </h4>
                     {{-- <span>Halaman Mastering @yield('title')</span> --}}
                 </div>
             </div>
@@ -61,7 +63,7 @@
                     <li class="breadcrumb-item">
                         <a href="{{url('/dashboard')}}"> <i class="feather icon-home"></i> </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!">@yield('title')</a> </li>
+                    <li class="breadcrumb-item"><a href="#!">@yield('title') </a> </li>
                 </ul>
             </div>
         </div>
@@ -94,6 +96,12 @@
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="{{url('/')}}/admin/pelanggan" class="btn btn-sm btn-secondary">PELANGGAN</a>&nbsp;
+
+                        <form action="/admin/tagihanbln/" method="get" class="d-inline">
+                        <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                        <button type="Simpan" class="btn btn-success">PILIH</button>
+                        </form>
+
             </div>
         </div>
         <div class="card-block">

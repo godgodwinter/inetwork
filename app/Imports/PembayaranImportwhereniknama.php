@@ -42,6 +42,7 @@ class PembayaranImportwhereniknama implements ToModel,WithStartRow
                 $paket_id=$ambil->id;
                 $paket_nama=$ambil->nama;
                 $paket_kecepatan=$ambil->kecepatan;
+                $paket_harga=$ambil->harga;
             }
         }else{
             $paket_id=$row[7];
@@ -51,21 +52,48 @@ class PembayaranImportwhereniknama implements ToModel,WithStartRow
 
 
         //cek apakah data sudah ada
+        $cekdatatagihan = DB::table('tagihan')
+        ->where('nik',$row[1])
+        ->where('nama',$row[2])
+        ->where('tgl_bayar',$tgl)
+        ->where('thbln',$row[4])
+        ->count();
+        // dd($cekdatatagihan);
 
-        return new tagihan([
-            'id'     => $row[0],
-            'nik'     => $row[1],
-            'nama'    => $row[2],
-            'tgl_bayar'    => $tgl,
-            'thbln'    => $row[4],
-            'total_bayar'    => $row[5],
-            'paket_id'    => $paket_id,
-            'paket_harga'    => $harga,
-            'paket_nama'    => $paket_nama,
-            'paket_kecepatan'    => $paket_kecepatan,
-            'created_at'=>date("Y-m-d H:i:s"),
-            'updated_at'=>date("Y-m-d H:i:s"),
-        ]);
+        if($cekdatatagihan>0){
+            //jika sudah ada maka apdet
+
+            DB::table('tagihan')
+            ->where('nik',$row[1])
+            ->where('nama',$row[2])
+            ->where('tgl_bayar',$tgl)
+            ->where('thbln',$row[4])
+            ->update([
+                'paket_id'    => $paket_id,
+                'paket_harga'    => $harga,
+                'paket_nama'    => $paket_nama,
+                'paket_kecepatan'    => $paket_kecepatan,
+                'updated_at'=>date("Y-m-d H:i:s"),
+            ]);
+
+        }else{
+                //jika belum ada maka insert
+            return new tagihan([
+                'id'     => $row[0],
+                'nik'     => $row[1],
+                'nama'    => $row[2],
+                'tgl_bayar'    => $tgl,
+                'thbln'    => $row[4],
+                'total_bayar'    => $row[5],
+                'paket_id'    => $paket_id,
+                'paket_harga'    => $harga,
+                'paket_nama'    => $paket_nama,
+                'paket_kecepatan'    => $paket_kecepatan,
+                'created_at'=>date("Y-m-d H:i:s"),
+                'updated_at'=>date("Y-m-d H:i:s"),
+            ]);
+
+        }
     }
     public function startRow(): int
     {

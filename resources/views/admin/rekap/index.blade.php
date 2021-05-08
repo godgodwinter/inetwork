@@ -92,7 +92,8 @@
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <form action="/admin/rekapbln/" method="get" class="d-inline">
 
-                <input class="form-control" type="month" name="blnthn" value="{{ $blnthn }}" required><button type="Simpan" class="btn btn-success">PILIH</button>
+                <input type="month" name="blnthn" value="{{ $blnthn }}" required>
+                <button type="Simpan" class="btn btn-success">PILIH</button>
                 </form>
 
 

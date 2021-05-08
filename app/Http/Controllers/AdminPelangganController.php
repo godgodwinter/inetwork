@@ -17,10 +17,20 @@ class AdminPelangganController extends Controller
      */
     public function index()
     {
+        $blnthn=date("Y-m");
         $datas=pelanggan::all();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.pelanggan.index',compact('datas'));
+        return view('admin.pelanggan.index',compact('datas','blnthn'));
+    }
+
+    public function pelangganbln(Request $request)
+    {
+        $blnthn=$request->blnthn;
+        $datas=pelanggan::all();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.pelanggan.index',compact('datas','blnthn'));
     }
 
     /**

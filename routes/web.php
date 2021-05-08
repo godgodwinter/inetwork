@@ -63,8 +63,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::delete('admin/pengeluaran-multidel', 'App\Http\Controllers\AdminPengeluaranController@deletechecked')->name('pengeluaran.deleteSelected');
     Route::delete('admin/pengeluaran-multidelkategori', 'App\Http\Controllers\AdminPengeluaranController@deletecheckedkategori')->name('pengeluaran.kategori.deleteSelected');
 
-    //menu pengeluaran
+    //menu pelanggan
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminPelangganController');
+    Route::get('admin/pelangganbln', 'App\Http\Controllers\AdminPelangganController@pelangganbln');
 
 
     //menu tagihan
@@ -74,6 +75,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::post('admin/tagihan/bayarsekarang', 'App\Http\Controllers\AdminTagihanController@bayarsekarang');
     Route::get('admin/tagihan/{id}/detail', 'App\Http\Controllers\AdminTagihanController@detail');
     Route::delete('admin/tagihandetail-multidel', 'App\Http\Controllers\AdminTagihanController@deletechecked')->name('tagihandetail.deleteSelected');
+    Route::get('admin/tagihanbln', 'App\Http\Controllers\AdminTagihanController@tagihanbln');
+
 
 
     //menu rekap

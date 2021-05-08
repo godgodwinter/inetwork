@@ -88,7 +88,6 @@ excel date value to php date value
 @section('container')
 
 @php
-    $blnthn=date("Y-m");
     $list=array();
     $month = date("m");
     $year = date("Y");
@@ -144,7 +143,14 @@ excel date value to php date value
                 <a href="{{url('/')}}/admin/paket" class="btn btn-sm btn-secondary">PAKET INTERNET</a>&nbsp;
                 <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PELANGGAN</a>&nbsp;
+
+                <form action="/admin/pelangganbln/" method="get" class="d-inline">
+                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                    <button type="Simpan" class="btn btn-success">PILIH</button>
+                </form>
+
             </div>
+
         </div>
         <div class="card-block">
             <div class="table-responsive dt-responsive">
@@ -180,10 +186,10 @@ excel date value to php date value
 // {{ \Carbon\Carbon::parse($user->from_date)->format('d/m/Y')}}
 
 //ambildata tagihandetail kurang berapa
-$ambiltagihankurangberapa = DB::table('tagihandetail')
+$ambiltagihankurangberapa = DB::table('tagihan')
     ->where('nik',$data->nik)
-    ->where('thbln',date("Y-m"))
-    ->sum('bayar');
+    ->where('thbln',$blnthn)
+    ->sum('total_bayar');
 
     // dd($ambiltagihankurangberapa);
 
@@ -317,9 +323,18 @@ $ambiltagihankurangberapa = DB::table('tagihandetail')
 </div>
                         <tr>
                             <td class="text-center">
+
+                                @php
+                        if(($data->paket_harga-$ambiltagihankurangberapa)==0){
+                            echo'<button type="Simpan" class="btn btn-success btn-sm " disabled>LUNAS!</button>';
+                        }else{
+                                @endphp
                                  <!-- Modal large-->
                                  <button type="button" class="btn btn-primary btn-sm waves-effect" data-toggle="modal" data-target="#large-Modal{{ $data->id }}"><span class="pcoded-micon"> <i
                                     class="feather icon-credit-card"></i></span></button>
+                                @php
+                            }
+                                @endphp
 
 
                                 {{-- {{ ($loop->index)+1 }} --}}

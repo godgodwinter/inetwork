@@ -17,11 +17,25 @@ class AdminTagihanController extends Controller
      */
     public function index()
     {
-
-        $datas = DB::table('tagihan')->orderBy('updated_at', 'desc')->get();
+        $blnthn=date("Y-m");
+        $datas = DB::table('tagihan')
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('updated_at', 'desc')->get();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.tagihan.index',compact('datas'));
+        return view('admin.tagihan.index',compact('datas','blnthn'));
+    }
+    public function tagihanbln(Request $request)
+    {
+        $blnthn=$request->blnthn;
+        $datas = DB::table('tagihan')
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('updated_at', 'desc')->get();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.tagihan.index',compact('datas','blnthn'));
     }
 
     /**
