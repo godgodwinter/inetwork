@@ -86,6 +86,14 @@ excel date value to php date value
 @endsection
 
 @section('container')
+
+@php
+    $blnthn=date("Y-m");
+    $list=array();
+    $month = date("m");
+    $year = date("Y");
+    $tglskrg = date("d");
+@endphp
 <!-- Section start -->
 <div class="page-body"id="datatable" >
     <!-- DOM/Jquery table start -->
@@ -93,8 +101,42 @@ excel date value to php date value
         <div class="row">
             <div class="col-xl-6 col-md-6">
                 {{-- <a href="#add" class="btn btn-sm btn-success">BAYAR</a> --}}
-                <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-                <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
+                <a href="import" class="btn btn-sm  btn-primary" data-toggle="modal"
+                            data-target="#import">IMPORT</a>
+
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="import" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Import File</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;"
+                                        action="{{ route('importpelanggan') }}" class="form-horizontal" method="post"
+                                            enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                            <input type="file" name="import_file" />
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary">Import File</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="{{ route('exportpelanggan', 'xlsx') }}" class="btn btn-sm  btn-primary"
+                        target="_blank">EXPORT</a>
                 <a href="cetak/cetak_pelanggan" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
@@ -290,7 +332,21 @@ $ambiltagihankurangberapa = DB::table('tagihandetail')
                             <td>{{$data->nik}} - {{$data->nama}}</td>
                             <td>{{$data->hp}}</td>
                             <td>
+
+                            @php
+                            $tgl=$data->tgl_gabung;
+                            if (date('Y-m-d', strtotime($tgl)) !== $tgl) {
+                                @endphp
+                                Tanggal tidak valid
+                                @php
+                            }else{
+                                @endphp
                                 {{ \Carbon\Carbon::parse($data->tgl_gabung)->translatedFormat('d F Y')}}
+
+                                @php
+                            }
+                       @endphp
+
                             </td>
                             <td class="text-center">{{$status_langganan}}</td>
                             <td  class="text-center">
@@ -306,7 +362,7 @@ $ambiltagihankurangberapa = DB::table('tagihandetail')
                                             class="feather icon-alert-triangle"></i></span>
                                 @php
                                     }else{
-                                        echo $data->paket_nama."-";
+                                        echo "Paket ".$data->paket_nama." - ";
                                         @endphp
                                             @currency($data->paket_harga)
                                         @php
@@ -410,7 +466,7 @@ $ambiltagihankurangberapa = DB::table('tagihandetail')
                                     <label class="form-control-label" for="input-tgl_gabung">Tanggal Gabung(*</label>
                                     <input type="date" name="tgl_gabung" id="input-tgl_gabung"
                                         class="form-control form-control-alternative  @error('tgl_gabung') is-invalid @enderror"
-                                        placeholder="" value="{{old('tgl_gabung')}}" required>
+                                        placeholder="" value="{{$blnthn}}-{{ $tglskrg }}"required>
 
                                     @error('tgl_gabung')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror

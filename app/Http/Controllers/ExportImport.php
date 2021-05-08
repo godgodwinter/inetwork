@@ -9,11 +9,13 @@ use App\Exports\LetakserverExport;
 use App\Exports\InventarisExport;
 use App\Exports\PendapatanExport;
 use App\Exports\PengeluaranExport;
+use App\Exports\PelangganExport;
 use App\Imports\PaketImport;
 use App\Imports\LetakserverImport;
 use App\Imports\InventarisImport;
 use App\Imports\PendapatanImport;
 use App\Imports\PengeluaranImport;
+use App\Imports\PelangganImport;
 use Excel;
 use Session;
 
@@ -49,6 +51,11 @@ class ExportImport extends Controller
      public function exportpengeluaran($type)
      {
          return Excel::download(new PengeluaranExport, 'Pengeluaranexport.'.$type);
+     }
+     //export pelanggan
+     public function exportpelanggan($type)
+     {
+         return Excel::download(new pelangganExport, 'Pelangganexport.'.$type);
      }
 
 
@@ -96,6 +103,16 @@ class ExportImport extends Controller
      public function importpengeluaran(Request $request)
      {
          Excel::import(new PengeluaranImport,$request->import_file);
+
+         Session::put('success', 'Your file is imported successfully in database.');
+
+         return back();
+     }
+
+     //import pelanggan
+     public function importpelanggan(Request $request)
+     {
+         Excel::import(new PelangganImport,$request->import_file);
 
          Session::put('success', 'Your file is imported successfully in database.');
 

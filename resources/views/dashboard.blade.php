@@ -168,6 +168,11 @@ foreach ($ambildatapelangganaktifget as $da) {
 
 {{-- <script type="text/javascript" src="{{ asset("admin-style/") }}/files/assets/pages/dashboard/analytic-dashboard.min.js"></script> --}}
 {{-- data dashboard --}}
+<script type="text/javascript">
+
+
+</script>
+
 <script>
 "use strict";
 $(document).ready(function () {
@@ -523,7 +528,20 @@ $nol=0;
                 </ul>
             </div> --}}
         </div>
-
+ <!--  sale analytics start -->
+        <div class="col-xl-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-left ">
+                         <h5 class="label label-info">Pemasukan dan Pengeluaran Bulan ini</h5>
+                        {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
+                    </div>
+                </div>
+                <div class="card-block-big">
+                    <div id="monthly-graph" style="height:305px"></div>
+                </div>
+            </div>
+        </div>
           <!-- visitor start -->
           <div class="col-xl-12 col-md-12">
             <div class="card"

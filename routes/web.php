@@ -87,7 +87,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/exportpaket/{type}', [ExportImport::class, 'exportpaket'])->name('exportpaket');
     Route::get('admin/exportletakserver/{type}', [ExportImport::class, 'exportletakserver'])->name('exportletakserver');
     Route::get('admin/exportinventaris/{type}', [ExportImport::class, 'exportinventaris'])->name('exportinventaris');
-    Route::get('admin/exportpelanggan/{type}', [ExportImport::class, 'exportpelanngan'])->name('exportpelanggan');
+    Route::get('admin/exportpelanggan/{type}', [ExportImport::class, 'exportpelanggan'])->name('exportpelanggan');
     Route::get('admin/exportpendapatan/{type}', [ExportImport::class, 'exportpendapatan'])->name('exportpendapatan');
     Route::get('admin/exportpengeluaran/{type}', [ExportImport::class, 'exportpengeluaran'])->name('exportpengeluaran');
     Route::get('admin/exportrekap/{type}', [ExportImport::class, 'exportrekap'])->name('exportrekap');
