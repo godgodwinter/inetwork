@@ -33,29 +33,30 @@ class PelangganExport implements FromCollection, WithHeadings, ShouldAutoSize,Wi
             'No',
             'NIK',
             'Nama',
+            'Panggilan',
             'Alamat',
             'HP',
+            'ID Paket',
+            'Nama Paket',
+            'Harga Paket',
+            'Kecepatan Paket',
             'Tanggal Bergabung',
+            'Status Langganan',
+            'ID Letak Server',
+            'Nama Letak Server',
+            'Koordinat Letak Server',
+            'Koordinat Rumah',
+            'Created At',
+            'Update At',
             'PPOE User',
             'PPOE Password',
             'PPOE Status',
-            'ID Paket',
-            'Status Langganan',
-            'Letak Server',
-            'Koordinat Rumah',
-            'Nama Paket',
-            'Nama Letak Server',
-            'Koordinat Letak Server',
-            'Harga Paket',
-            'Kecepatan Paket',
-            'Created At',
-            'Update At',
         ];
     }
     public function collection()
     {
         // return pelanggan::all();
-        return  $users = DB::table('pelanggan')->select('id', 'nik', 'nama' , 'alamat', 'hp', 'tgl_gabung', 'user_ppoe', 'pass_ppoe', 'status_ppoe', 'paket_id', 'status_langganan', 'letakserver_id', 'kordinat_rumah', 'paket_nama' , 'letakserver_nama' ,'letakserver_koordinat','paket_harga','paket_kecepatan', 'created_at', 'updated_at')->get();
+        return  $users = DB::table('pelanggan')->select('id', 'nik', 'nama' ,'panggilan', 'alamat', 'hp', 'paket_id', 'paket_nama','paket_harga','paket_kecepatan', 'tgl_gabung', 'status_langganan', 'letakserver_id' , 'letakserver_nama' ,'letakserver_koordinat', 'kordinat_rumah', 'created_at', 'updated_at', 'user_ppoe', 'pass_ppoe', 'status_ppoe')->get();
     }
 }
 

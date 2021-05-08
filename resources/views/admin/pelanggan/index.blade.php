@@ -153,6 +153,7 @@ excel date value to php date value
                         <tr>
                             <th  width="5%" class="text-center">Bayar Cepat</th>
                             <th>NIK - Nama</th>
+                            <th>Panggilan</th>
                             <th>No WA</th>
                             <th>Tanggal Gabung</th>
                             <th class="text-center">Status Langganan</th>
@@ -330,6 +331,7 @@ $ambiltagihankurangberapa = DB::table('tagihandetail')
 
                             </td>
                             <td>{{$data->nik}} - {{$data->nama}}</td>
+                            <td>{{$data->panggilan}}</td>
                             <td>{{$data->hp}}</td>
                             <td>
 
@@ -388,6 +390,7 @@ $ambiltagihankurangberapa = DB::table('tagihandetail')
                             <tr>
                                 <th class="text-center">Bayar</th>
                                 <th>NIK - Nama</th>
+                                <th>Panggilan</th>
                                 <th>No WA</th>
                                 <th>Tanggal Gabung</th>
                                 <th class="text-center">Status Langganan</th>
@@ -430,13 +433,23 @@ $ambiltagihankurangberapa = DB::table('tagihandetail')
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-nama">Nama (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
                                         placeholder="" value="{{old('nama')}}" required>
                                     @error('nama')<div class="invalid-feedback"> {{$message}}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-panggilan">Panggilan (*</label>
+                                    <input type="text" name="panggilan" id="input-panggilan"
+                                        class="form-control form-control-alternative  @error('panggilan') is-invalid @enderror"
+                                        placeholder="" value="{{old('panggilan')}}" required>
+                                    @error('panggilan')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
                             </div>

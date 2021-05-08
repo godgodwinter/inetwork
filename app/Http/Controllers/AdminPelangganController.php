@@ -99,6 +99,7 @@ class AdminPelangganController extends Controller
                'letakserver_nama'     =>   $letakserver_nama,
                'letakserver_koordinat'     =>   $letakserver_koordinat,
                'paket_kecepatan'     =>   $paket_kecepatan,
+               'panggilan'     =>   $request->panggilan,
                'created_at'=>date("Y-m-d H:i:s"),
                'updated_at'=>date("Y-m-d H:i:s")
         ));
@@ -239,6 +240,8 @@ class AdminPelangganController extends Controller
              'status_langganan'     =>   $request->status_langganan,
              'letakserver_nama'     =>   $letakserver_nama,
              'letakserver_koordinat'     =>   $letakserver_koordinat,
+             'paket_kecepatan'     =>   $paket_kecepatan,
+             'panggilan'     =>   $request->panggilan,
              'updated_at'=>date("Y-m-d H:i:s")
          ]);
 

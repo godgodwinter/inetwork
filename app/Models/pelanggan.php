@@ -20,7 +20,7 @@ class pelanggan extends Model
         'pass_ppoe',
         'status_ppoe',
         'paket_id',
-        'status_langgan',
+        'status_langganan',
         'letakserver_id',
         'koordinat_rumah',
         'created_at',
@@ -29,6 +29,7 @@ class pelanggan extends Model
         'letakserver_nama',
         'letakserver_koordinat',
         'paket_harga',
-        'paket_kecepatan'
+        'paket_kecepatan',
+        'panggilan'
     ];
 }

@@ -129,13 +129,23 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-nama">Nama (*</label>
                                     <input type="text" name="nama" id="input-nama"
                                         class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
                                         placeholder="" value="{{$data->nama}}" required>
                                     @error('nama')<div class="invalid-feedback"> {{$message}}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-panggilan">Panggilan (*</label>
+                                    <input type="text" name="panggilan" id="input-panggilan"
+                                        class="form-control form-control-alternative  @error('panggilan') is-invalid @enderror"
+                                        placeholder="" value="{{$data->panggilan}}" required>
+                                    @error('panggilan')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
