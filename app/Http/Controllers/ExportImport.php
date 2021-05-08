@@ -16,6 +16,8 @@ use App\Imports\InventarisImport;
 use App\Imports\PendapatanImport;
 use App\Imports\PengeluaranImport;
 use App\Imports\PelangganImport;
+use App\Imports\PelangganImportgetinet;
+use App\Imports\PembayaranImportwhereniknama;
 use Excel;
 use Session;
 
@@ -113,6 +115,27 @@ class ExportImport extends Controller
      public function importpelanggan(Request $request)
      {
          Excel::import(new PelangganImport,$request->import_file);
+
+         Session::put('success', 'Your file is imported successfully in database.');
+
+         return back();
+     }
+
+
+     //import pelanggan
+     public function importpelanggangetinet(Request $request)
+     {
+         Excel::import(new PelangganImportgetinet,$request->import_file);
+
+         Session::put('success', 'Your file is imported successfully in database.');
+
+         return back();
+     }
+
+     public function importpembayaranwhereniknama(Request $request)
+     {
+        //  dd($request);
+         Excel::import(new PembayaranImportwhereniknama,$request->import_file);
 
          Session::put('success', 'Your file is imported successfully in database.');
 

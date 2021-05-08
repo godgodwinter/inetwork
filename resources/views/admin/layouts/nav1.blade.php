@@ -128,7 +128,14 @@
             </li>
         </ul>
         <div class="pcoded-navigatio-lavel">Developer</div>
+
         <ul class="pcoded-item pcoded-left-item">
+            <li class="">
+            <a href="{{url('/')}}/admin/importspecial">
+                <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                <span class="pcoded-mtext">Import Special</span>
+            </a>
+        </li>
             <li class="">
                 <a href="{{ url('/')}}/task">
                     <span class="pcoded-micon"><i class="feather icon-watch"></i></span>

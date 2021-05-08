@@ -14,6 +14,8 @@ class tagihan extends Model
         'nik',
         'paket_id',
         'total_bayar',
+        'tgl_bayar',
+        'thbln',
         'nama',
         'paket_nama',
         'paket_harga',

@@ -338,15 +338,6 @@ if($ambildatatagihan>0){
         //update data tagihan nik&&blnskrg
         // dd("update");
 
-//ambiltagihanid
-   $ambildatatagihanid= DB::table('tagihan')
-   ->where('nik',$request->nik)
-   ->where('thbln', date("Y-m"))
-   ->get();
-
-   foreach($ambildatatagihanid as $dataidtagihan){
-    $datatagihanid=$dataidtagihan->id;
-   }
 
         DB::table('tagihan')
         ->where('nik', $request->nik)
@@ -382,6 +373,16 @@ if($ambildatatagihan>0){
 // return redirect(URL::to('/').'/admin/pelanggan')->with('status','Data berhasil di tambahkan!');
     }
 
+
+//ambiltagihanid
+   $ambildatatagihanid= DB::table('tagihan')
+   ->where('nik',$request->nik)
+   ->where('thbln', date("Y-m"))
+   ->get();
+
+   foreach($ambildatatagihanid as $dataidtagihan){
+    $datatagihanid=$dataidtagihan->id;
+   }
     //simpan ke tabel tagihan detail
    DB::table('tagihandetail')->insert(
     array(

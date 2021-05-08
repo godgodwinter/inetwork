@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/rekapbln', 'App\Http\Controllers\Adminrekapcontroller@bln');
 
 
+    //menu developer
+    Route::resource('admin/importspecial','App\Http\Controllers\AdminImportspecialController');
 
     //Export
     // Route for export/download tabledata to .csv, .xls or .xlsx
@@ -100,5 +102,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::post('admin/importpendapatan', [ExportImport::class, 'importpendapatan'])->name('importpendapatan');
     Route::post('admin/importpengeluaran', [ExportImport::class, 'importpengeluaran'])->name('importpengeluaran');
     Route::post('admin/importrekap', [ExportImport::class, 'importrekap'])->name('importrekap');
+
+    //import special
+    Route::post('admin/importpelanggangetpaketinet', [ExportImport::class, 'importpelanggangetinet'])->name('importpelanggangetinet');
+    Route::post('admin/importpembayaranwhereniknama', [ExportImport::class, 'importpembayaranwhereniknama'])->name('importpembayaranwhereniknama');
 
 });
