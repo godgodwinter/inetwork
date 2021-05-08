@@ -18,7 +18,9 @@ class AdminPendapatanController extends Controller
      */
     public function index()
     {
-        $datas=pendapatan::all();
+        // $datas=pendapatan::all();
+
+        $datas = DB::table('pendapatan')->orderBy('tgl', 'desc')->get();
         $datadetails=jenispendapatan::all();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');

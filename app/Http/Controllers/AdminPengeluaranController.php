@@ -17,7 +17,7 @@ class AdminPengeluaranController extends Controller
      */
     public function index()
     {
-        $datas=pengeluaran::all();
+        $datas = DB::table('pengeluaran')->orderBy('tgl', 'desc')->get();
         $datadetails=jenispengeluaran::all();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');

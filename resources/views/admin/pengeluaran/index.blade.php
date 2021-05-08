@@ -69,6 +69,13 @@
 @endsection
 
 @section('container')
+@php
+    $blnthn=date("Y-m");
+    $list=array();
+    $month = date("m");
+    $year = date("Y");
+    $tglskrg = date("d");
+@endphp
 <!-- Section start -->
 <div class="page-body"id="datatable" >
     <!-- DOM/Jquery table start -->
@@ -313,7 +320,7 @@
                                     <label class="form-control-label" for="input-tgl">Tanggal (*</label>
                                     <input type="date" name="tgl" id="input-tgl"
                                         class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
-                                        placeholder="" value="{{old('tgl')}}" required>
+                                        placeholder="" value="{{$blnthn}}-{{ $tglskrg }}" required>
 
                                     @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
                                     @enderror

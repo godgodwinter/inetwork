@@ -646,7 +646,7 @@ $nol=0;
                             </tbody>
                         </table>
                         <div class="text-right m-r-20">
-                            <a href="#!" class=" b-b-primary text-primary">Laporan Selengkapnya</a>
+                            <a href="{{ url('/')}}/admin/rekapbln/" class=" b-b-primary text-primary">Laporan Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -686,15 +686,14 @@ $nol=0;
                     <div class="card-body"
                     data-intro="Melihat Laporan!" data-step="8"
                     data-hint="Hello step one!">
-                        <form action="/admin/rekap/thbln" method="post">
-                            @csrf
+                       <form action="{{ url('/')}}/admin/rekapbln/" method="get" class="d-inline">
                             <div class="pl-lg-4">
                                 <div class="row">
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label label label-info" for="input-tgl"><b>LAPORAN</b></label>
-                                            <input type="month" name="thbln" id="input-tgl"
+                                            <input type="month" name="blnthn" id="input-tgl"
                                                 class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
                                                 placeholder="" value="{{$blnthn}}" required>
 
