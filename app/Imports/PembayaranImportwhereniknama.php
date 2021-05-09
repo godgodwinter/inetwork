@@ -21,6 +21,11 @@ class PembayaranImportwhereniknama implements ToModel,WithStartRow
     {
         //ubah format tanggal dari excel ke biasa
         $myString=$row[3];
+
+        if($myString===null){
+            $myString=$row[4]."-01";
+        }
+        // dd($myString);
         if (date('Y-m-d', strtotime($myString)) !== $myString) {
 
             $unixDate = ($myString - 25569) * 86400;
@@ -73,6 +78,7 @@ class PembayaranImportwhereniknama implements ToModel,WithStartRow
                 'paket_harga'    => $harga,
                 'paket_nama'    => $paket_nama,
                 'paket_kecepatan'    => $paket_kecepatan,
+                'tgl_bayar'    => $tgl,
                 'updated_at'=>date("Y-m-d H:i:s"),
             ]);
 

@@ -227,7 +227,7 @@
                                 <td></td>
                                 <td>
                                     @php
-                                        if(($data->total_bayar-$data->paket_harga)==0){
+                                        if(($data->paket_harga-$data->total_bayar)<=0){
                                                 echo'<label class="label label-success">LUNAS</label>';
                                         }else{
                                                 echo'<label class="label label-danger">BELUM LUNAS</label>';
@@ -240,7 +240,10 @@
                     </tbody>
                 </table>
                 <div class="text-right m-r-20">
-                    <a href=".." class=" b-b-primary text-primary">Kembali</a>
+                    <button  action="action"
+                    onclick="window.history.go(-1); return false;"
+                    type="submit"
+                    value="Kembali" class=" button button-primary text-primary">Kembali</button>
                 </div>
             </div>
         </div>
