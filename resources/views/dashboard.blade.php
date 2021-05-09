@@ -1,7 +1,7 @@
 
 @extends('admin.layouts.nav2')
 
-@section('title','Dashboard')
+@section('title','BERANDA - DATA ')
 
 @section('csshere')
 <style>
@@ -71,6 +71,12 @@ $ambildatatagihanpaketharga = DB::table('tagihan')
     ->where('nik',$da->nik)
     ->where('thbln',$blnthn)
         ->get();
+
+$cekdataambildatatagihanpaketharga = DB::table('tagihan')
+    ->where('nik',$da->nik)
+    ->where('thbln',$blnthn)
+        ->count();
+
         $datapharga=0;
 foreach ($ambildatatagihanpaketharga as $datapaketharga) {
     $datapharga=$datapaketharga->paket_harga;
@@ -78,9 +84,11 @@ foreach ($ambildatatagihanpaketharga as $datapaketharga) {
 
 
 // dd($da->nik."-".$ambiltagihankurangberapa."-".$ambildatalunas);
+if($cekdataambildatatagihanpaketharga!=0){
         if($ambiltagihankurangberapa>=$datapharga){
             $pelanggan_lunas+=1;
         }
+    }
 
 
 }
@@ -613,15 +621,15 @@ $nol=0;
                         </div>
                         <div class="col-2">
                             <h6 class="text-muted m-b-10">Total Tagihan</h6>
-                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotaltagihanbulanini)</h4>
+                            <h4 class="m-b-0 f-w-100 ">@currencynorp($ambiltotaltagihanbulanini)</h4>
                         </div>
                         <div class="col-2">
                             <h6 class="text-muted m-b-10">Total Terbayar</h6>
-                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalinternetbulanini)</h4>
+                            <h4 class="m-b-0 f-w-100 ">@currencynorp($ambiltotalinternetbulanini)</h4>
                         </div>
                         <div class="col-2">
                             <h6 class="text-muted m-b-10">Total Belum dibayar</h6>
-                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalyangdidapatjikasmuaterbayar-$ambiltotalinternetbulanini)</h4>
+                            <h4 class="m-b-0 f-w-100 ">@currencynorp($ambiltotalyangdidapatjikasmuaterbayar-$ambiltotalinternetbulanini)</h4>
                         </div>
                     </div>
                 </div>

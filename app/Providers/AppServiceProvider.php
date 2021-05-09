@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('currency', function ($expression) {
             return "Rp. <?php echo number_format($expression, 0, ',', '.'); ?>";
         });
+        //Rupiah converter tanparp
+        Blade::directive('currencynorp', function ($expression) {
+            return "<?php echo number_format($expression, 0, ',', '.'); ?>";
+        });
 
           //Tanggal Indo
           Blade::directive('tanggalindo', function ($expression) {
