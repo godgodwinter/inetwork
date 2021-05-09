@@ -36,7 +36,8 @@ class InventarisExport implements FromCollection, WithHeadings, ShouldAutoSize,W
             'Jenis Alat ID',
             'Created At',
             'Update At',
-            'Jenis Alat Nama'
+            'Jenis Alat Nama',
+            'Tanggal'
         ];
     }
     public function collection()

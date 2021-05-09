@@ -41,13 +41,11 @@ class Adminrekapcontroller extends Controller
             ->sum('nominal');
 
         $dtagihans = DB::table('tagihan')
-        ->whereMonth('tgl_bayar', '=', date("m"))
-        ->whereYear('tgl_bayar', '=', date("Y"))
+        ->where('thbln', '=', $blnthn)
         ->get();
 
             $totaltagihans = DB::table('tagihan')
-            ->whereMonth('tgl_bayar', '=', date("m"))
-            ->whereYear('tgl_bayar', '=', date("Y"))
+            ->where('thbln', '=', $blnthn)
             ->sum('total_bayar');
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
@@ -145,13 +143,11 @@ class Adminrekapcontroller extends Controller
             ->sum('nominal');
 
         $dtagihans = DB::table('tagihan')
-        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
-        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+        ->where('thbln', '=', $blnthn)
         ->get();
 
             $totaltagihans = DB::table('tagihan')
-            ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
-            ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+            ->where('thbln', '=', $blnthn)
             ->sum('total_bayar');
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');

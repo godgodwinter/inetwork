@@ -26,6 +26,7 @@ class InventarisImport implements ToModel,WithStartRow
             'created_at'    => $row[5],
             'updated_at'    => $row[6],
             'jenisalat_nama'=>$row[7],
+            'tgl'=>$row[8],
         ]);
     }
     public function startRow(): int

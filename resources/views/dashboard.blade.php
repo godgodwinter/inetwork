@@ -23,17 +23,16 @@
 
 @endsection
 @php
-    $blnthn=date("Y-m");
     $list=array();
-$month = date("m");
-$year = date("Y");
+$month = date("m",strtotime($blnthn));
+$year = date("Y",strtotime($blnthn));
 $tglskrg = date("d");
 $pelanggan_lunas=0;
 
 // //ambildata tagihandetail kurang berapa
 // $ambiltagihankurangberapa = DB::table('tagihandetail')
 //     ->where('nik',$data->nik)
-//     ->where('thbln',date("Y-m"))
+//     ->where('thbln',$blnthn)
 //     ->sum('bayar');
 
 //ambil data pelanggan status langgan aktif
@@ -46,19 +45,40 @@ $ambildatapelangganaktifget = DB::table('pelanggan')
         ->where('status_langganan', '=', 'Aktif')
         ->get();
 
+        //total tagihan bulan ini
+        $ambiltotaltagihanbulanini = DB::table('tagihan')
+    ->where('thbln',$blnthn)
+    ->sum('paket_harga');
+
 foreach ($ambildatapelangganaktifget as $da) {
+    //ambiljumlahbayar di tagihan detail per nik thbln
     $ambiltagihankurangberapa = DB::table('tagihandetail')
     ->where('nik',$da->nik)
-    ->where('thbln',date("Y-m"))
+    ->where('thbln',$blnthn)
     ->sum('bayar');
 
-    $ambildatalunas = DB::table('tagihan')
-        ->where('nik', '=', $da->nik)
-        ->where('paket_harga', '=', $ambiltagihankurangberapa)
-        ->where('thbln',date("Y-m"))
-        ->count();
-// dd($da->nik."-".$ambiltagihankurangberapa);
-        if($ambildatalunas>0){
+    // dd($da->nik);
+    // $ambildatalunas = DB::table('tagihan')
+    //     ->where('nik', '=', $da->nik)
+    //     ->where('paket_harga', '=', $ambiltagihankurangberapa)
+    //     ->where('thbln',$blnthn)
+    //     ->count();
+
+    //ambil paket harga di tagihan dibandingkan dengan bayar di detailtagihan
+
+//ambil data pelanggan status langgan aktif
+$ambildatatagihanpaketharga = DB::table('tagihan')
+    ->where('nik',$da->nik)
+    ->where('thbln',$blnthn)
+        ->get();
+        $datapharga=0;
+foreach ($ambildatatagihanpaketharga as $datapaketharga) {
+    $datapharga=$datapaketharga->paket_harga;
+}
+
+
+// dd($da->nik."-".$ambiltagihankurangberapa."-".$ambildatalunas);
+        if($ambiltagihankurangberapa>=$datapharga){
             $pelanggan_lunas+=1;
         }
 
@@ -146,13 +166,13 @@ foreach ($ambildatapelangganaktifget as $da) {
 
     //Total pemasukan dari  internet
     $ambiltotalinternetbulanini = DB::table('tagihandetail')
-        ->whereMonth('created_at', '=', date("m",strtotime($blnthn)))
-        ->whereYear('created_at', '=', date("Y",strtotime($blnthn)))
+        ->where('thbln', '=', $blnthn)
         ->sum('bayar');
+        // dd($ambiljmlhpembayar);
 
     //Total pemasukan dari  internet jika semua terbayar
     $ambiltotalyangdidapatjikasmuaterbayar= DB::table('tagihan')
-        ->where('thbln', '=', date("Y-m"))
+        ->where('thbln', '=', $blnthn)
         ->sum('paket_harga');
 
                 // dd($ambiljmlhpembayar)
@@ -514,7 +534,8 @@ $nol=0;
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>@yield('title')</h4>
+                    <h4>@yield('title') BULAN
+                        {{ strtoupper(\Carbon\Carbon::parse($blnthn)->translatedFormat('F Y')) }}</h4>
                     {{-- <span>Selamat datang di Halaman Beranda Administrator.</span> --}}
                 </div>
             </div>
@@ -530,32 +551,33 @@ $nol=0;
             </div> --}}
         </div>
  <!--  sale analytics start -->
-        <div class="col-xl-12 col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-header-left ">
-                         <h5 class="label label-info">Pemasukan dan Pengeluaran Bulan ini</h5>
-                        {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
-                    </div>
-                </div>
-                <div class="card-block-big">
-                    <div id="monthly-graph" style="height:305px"></div>
-                </div>
-            </div>
-        </div>
+
           <!-- visitor start -->
           <div class="col-xl-12 col-md-12">
             <div class="card"
             data-intro="Grafik Pemasukan dan Pengeluaran!" data-step="9"
             data-hint="Hello step one!">
                 <div class="card-header">
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6">
+
                     <h5 class="label label-info">Pemasukan dan Pengeluaran Bulan ini</h5>
+                        </div>
+                        <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
+
+                                    <form action="/admin/dashboardbln/" method="get" class="d-inline">
+                                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                                    <button type="Simpan" class="btn btn-success">PILIH</button>
+                                    </form>
+
+                        </div>
+                    </div>
                     {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
-                            <li><i class="feather icon-maximize full-card"></i></li>
+                            {{-- <li><i class="feather icon-maximize full-card"></i></li>
                             <li><i class="feather icon-minus minimize-card"></i></li>
-                            <li><i class="feather icon-trash-2 close-card"></i></li>
+                            <li><i class="feather icon-trash-2 close-card"></i></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -589,11 +611,15 @@ $nol=0;
                             <h6 class="text-muted m-b-10">Belum lunas</h6>
                             <h4 class="m-b-0 f-w-100 ">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan</h4>
                         </div>
-                        <div class="col-3">
-                            <h6 class="text-muted m-b-10">Total Pembayaran</h6>
+                        <div class="col-2">
+                            <h6 class="text-muted m-b-10">Total Tagihan</h6>
+                            <h4 class="m-b-0 f-w-100 ">@currency($ambiltotaltagihanbulanini)</h4>
+                        </div>
+                        <div class="col-2">
+                            <h6 class="text-muted m-b-10">Total Terbayar</h6>
                             <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalinternetbulanini)</h4>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <h6 class="text-muted m-b-10">Total Belum dibayar</h6>
                             <h4 class="m-b-0 f-w-100 ">@currency($ambiltotalyangdidapatjikasmuaterbayar-$ambiltotalinternetbulanini)</h4>
                         </div>
@@ -665,7 +691,7 @@ $nol=0;
                             </tbody>
                         </table>
                         <div class="text-right m-r-20">
-                            <a href="{{ url('/')}}/admin/rekapbln/" class=" b-b-primary text-primary">Laporan Selengkapnya</a>
+                            <a href="{{ url('/')}}/admin/rekapbln/?blnthn={{ $blnthn }}" class=" b-b-primary text-primary">Laporan Selengkapnya</a>
                         </div>
                     </div>
                 </div>

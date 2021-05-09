@@ -171,6 +171,19 @@
                             </div>
 
 
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-tgl">Tanggal (*</label>
+                                    <input type="date" name="tgl" id="input-tgl"
+                                        class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
+                                        placeholder="" value="{{ $data->tgl }}" required>
+
+                                    @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                     <hr class="my-4" />

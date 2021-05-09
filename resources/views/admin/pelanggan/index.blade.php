@@ -112,11 +112,13 @@ excel date value to php date value
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Import File</h5>
+
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <span>Isi data dengan lengkap, ID Paket, Harga dll. Jika menggunakan nama paket gunakan Import Special</span>
                                         <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;"
                                         action="{{ route('importpelanggan') }}" class="form-horizontal" method="post"
                                             enctype="multipart/form-data">

@@ -22,13 +22,15 @@ Route::get('/', function () {
     return view('beranda');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
 
 
 //halaman admin fixed
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
+    //dashboard
+    Route::resource('dashboard','App\Http\Controllers\AdminDashboardController');
+    Route::resource('admin/dashboard','App\Http\Controllers\AdminDashboardController');
+    Route::get('admin/dashboardbln', 'App\Http\Controllers\AdminDashboardController@dashboardbln');
+
     //paket
     Route::resource('admin/paket','App\Http\Controllers\AdminPaketController');
     Route::delete('admin/paket-multidel', 'App\Http\Controllers\AdminPaketController@deletechecked')->name('paket.deleteSelected');
@@ -37,6 +39,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('admin/jenisalat','App\Http\Controllers\AdminJenisalatController');
     Route::delete('admin/inventaris-multidel', 'App\Http\Controllers\AdminInventarisController@deletechecked')->name('inventaris.deleteSelected');
     Route::delete('admin/inventaris-multidelkategori', 'App\Http\Controllers\AdminInventarisController@deletecheckedkategori')->name('inventaris.kategori.deleteSelected');
+    Route::get('admin/inventarisbln', 'App\Http\Controllers\AdminInventarisController@inventarisbln');
 
     //menu letakserver
     Route::resource('admin/letakserver','App\Http\Controllers\AdminletakserverController');
@@ -45,6 +48,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('admin/pendapatan','App\Http\Controllers\AdminPendapatanController');
     Route::delete('admin/pendapatan-multidel', 'App\Http\Controllers\AdminPendapatanController@deletechecked')->name('pendapatan.deleteSelected');
     Route::delete('admin/pendapatan-multidelkategori', 'App\Http\Controllers\AdminPendapatanController@deletecheckedkategori')->name('pendapatan.kategori.deleteSelected');
+    Route::get('admin/pendapatanbln', 'App\Http\Controllers\AdminPendapatanController@pendapatanbln');
 
     //Print PDF
     Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
@@ -62,6 +66,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('admin/jenispengeluaran','App\Http\Controllers\AdminJenispengeluaranController');
     Route::delete('admin/pengeluaran-multidel', 'App\Http\Controllers\AdminPengeluaranController@deletechecked')->name('pengeluaran.deleteSelected');
     Route::delete('admin/pengeluaran-multidelkategori', 'App\Http\Controllers\AdminPengeluaranController@deletecheckedkategori')->name('pengeluaran.kategori.deleteSelected');
+    Route::get('admin/pengeluaranbln', 'App\Http\Controllers\AdminPengeluaranController@pengeluaranbln');
 
     //menu pelanggan
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminPelangganController');

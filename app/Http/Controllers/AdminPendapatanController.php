@@ -20,11 +20,30 @@ class AdminPendapatanController extends Controller
     {
         // $datas=pendapatan::all();
 
-        $datas = DB::table('pendapatan')->orderBy('tgl', 'desc')->get();
+        $blnthn=date("Y-m");
+        $datas = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('tgl', 'desc')->get();
         $datadetails=jenispendapatan::all();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.pendapatan.index',compact('datas','datadetails'));
+        return view('admin.pendapatan.index',compact('datas','datadetails','blnthn'));
+    }
+
+    public function pendapatanbln(Request $request)
+    {
+        // $datas=pendapatan::all();
+
+        $blnthn=$request->blnthn;
+        $datas = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('tgl', 'desc')->get();
+        $datadetails=jenispendapatan::all();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.pendapatan.index',compact('datas','datadetails','blnthn'));
     }
 
     /**

@@ -50,8 +50,8 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>@yield('title')
- {{ \Carbon\Carbon::parse($blnthn)->translatedFormat('F Y')}}
+                    <h4>@yield('title') BULAN
+ {{ strtoupper(\Carbon\Carbon::parse($blnthn)->translatedFormat('F Y')) }}
                     </h4>
                     {{-- <span>Halaman Mastering @yield('title')</span> --}}
                 </div>

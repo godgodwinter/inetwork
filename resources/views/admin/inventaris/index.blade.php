@@ -70,6 +70,12 @@
 @endsection
 
 @section('container')
+@php
+
+    $month = date("m");
+    $year = date("Y");
+    $tglskrg = date("d");
+@endphp
 
 <!-- Section start -->
 <div class="page-body"id="datatable" >
@@ -117,6 +123,10 @@
                 <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>&nbsp;
                 <a href="#jenisalat" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH INVENTARIS</a>&nbsp;
+                <form action="/admin/inventarisbln/" method="get" class="d-inline">
+                <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                <button type="Simpan" class="btn btn-success">PILIH</button>
+                </form>
             </div>
         </div>
 
@@ -324,6 +334,19 @@
                                         </select> @error('jenisalat_id')<div class="invalid-feedback"> {{$message}}
                                         </div>
                                 @enderror
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-tgl">Tanggal (*</label>
+                                    <input type="date" name="tgl" id="input-tgl"
+                                        class="form-control form-control-alternative  @error('tgl') is-invalid @enderror"
+                                        placeholder="" value="{{$blnthn}}-{{ $tglskrg }}" required>
+
+                                    @error('tgl')<div class="invalid-feedback"> {{$message}}</div>
+                                    @enderror
+                                </div>
                             </div>
 
 

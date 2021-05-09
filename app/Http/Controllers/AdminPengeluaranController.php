@@ -17,11 +17,28 @@ class AdminPengeluaranController extends Controller
      */
     public function index()
     {
-        $datas = DB::table('pengeluaran')->orderBy('tgl', 'desc')->get();
+        $blnthn=date("Y-m");
+        $datas = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('tgl', 'desc')->get();
         $datadetails=jenispengeluaran::all();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.pengeluaran.index',compact('datas','datadetails'));
+        return view('admin.pengeluaran.index',compact('datas','datadetails','blnthn'));
+    }
+
+    public function pengeluaranbln(Request $request)
+    {
+        $blnthn=$request->blnthn;
+        $datas = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('tgl', 'desc')->get();
+        $datadetails=jenispengeluaran::all();
+
+        // $today = Carbon::now()->isoFormat('D MMMM Y');
+        return view('admin.pengeluaran.index',compact('datas','datadetails','blnthn'));
     }
 
     /**

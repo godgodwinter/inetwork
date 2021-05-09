@@ -1,6 +1,6 @@
 @extends('admin.layouts.nav1')
 
-@section('title','Pemasukan')
+@section('title','PEMASUKAN')
 
 @section('csshere')
 <style>
@@ -38,7 +38,9 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>@yield('title')</h4>
+                    <h4>@yield('title') BULAN
+                        {{ strtoupper(\Carbon\Carbon::parse($blnthn)->translatedFormat('F Y')) }}
+                    </h4>
                     {{-- <span>Halaman Mastering @yield('title')</span> --}}
                 </div>
             </div>
@@ -70,7 +72,6 @@
 
 @section('container')
 @php
-    $blnthn=date("Y-m");
     $list=array();
     $month = date("m");
     $year = date("Y");
@@ -119,6 +120,10 @@
                 <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>&nbsp;
                 <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PEMASUKAN</a>&nbsp;
+                    <form action="/admin/pendapatanbln/" method="get" class="d-inline">
+                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                    <button type="Simpan" class="btn btn-success">PILIH</button>
+                    </form>
             </div>
         </div>
 
