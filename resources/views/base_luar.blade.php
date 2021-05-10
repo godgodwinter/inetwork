@@ -76,8 +76,8 @@
           <h2>PASS : 12345678</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
             {{-- <a href="{{ url('/')}}/login" class="btn-get-started scrollto">Masuk</a> --}}
-            <a href="https://github.com/godgodwinter/inetwork" class="glightbox btn-watch-video"><i class="ri-github-fill"></i><span>Github iNetwork</span></a>
-            <a href="{{ url('/')}}/login" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Coba Sekarang</span></a>
+            <a href="http://github.com/godgodwinter/inetwork" class="btn btn-watch-video"><i class="ri-github-fill"></i><span>Github iNetwork</span></a>
+            <a href="{{ url('/')}}/login" class="btn btn-watch-video"><i class="bi bi-play-circle"></i><span>Coba Sekarang</span></a>
             {{-- <a href="{{ url('/')}}/cari" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Cari NIK</span></a> --}}
           </div>
         </div>
