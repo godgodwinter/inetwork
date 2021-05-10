@@ -51,7 +51,11 @@
         <ul>
           <li><a class="nav-link scrollto active" href="{{ url('/')}}/#hero">Beranda</a></li>
           <li><a class="nav-link scrollto" href="{{ url('/')}}/#about">Tentang</a></li>
-          <li><a class="nav-link scrollto" href="{{ url('/')}}/#services">Penggunaan</a></li>
+          <li><a class="nav-link scrollto" href="{{ url('/')}}/#fitur">Fitur</a></li>
+          <li><a class="nav-link scrollto" href="{{ url('/')}}/#pengembangan">Pengembangan</a></li>
+          <li><a class="nav-link scrollto" href="{{ url('/')}}/#harga">Harga</a></li>
+          <li><a class="nav-link scrollto" href="{{ url('/')}}/#team">Team</a></li>
+          <li><a class="getstarted scrollto" href="{{ url('/')}}/login">Mulai</a></li>
           {{-- <li><a class="getstarted scrollto" href="{{ url('/')}}/cari">Cari</a></li> --}}
 
         </ul>
@@ -67,10 +71,13 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>SISTEM PENUNJANG USAHA</h1>
-          <h2>JARINGAN</h2>
+          <h1>DEMO APLIKASI</h1>
+          <h2>USER : admin@gmail.com</h2>
+          <h2>PASS : 12345678</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="{{ url('/')}}/login" class="btn-get-started scrollto">Masuk</a>
+            {{-- <a href="{{ url('/')}}/login" class="btn-get-started scrollto">Masuk</a> --}}
+            <a href="https://github.com/godgodwinter/inetwork" class="glightbox btn-watch-video"><i class="ri-github-fill"></i><span>Github iNetwork</span></a>
+            <a href="{{ url('/')}}/login" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Coba Sekarang</span></a>
             {{-- <a href="{{ url('/')}}/cari" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Cari NIK</span></a> --}}
           </div>
         </div>
@@ -90,8 +97,12 @@
 
         <div class="row" data-aos="zoom-in">
 
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                <img src="{{ asset("img/") }}/chrome.png" class="img-fluid" alt="">
+              </div>
+
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset("Arsha/") }}/assets/img/clients/malang.svg" class="img-fluid" alt="">
+            <img src="{{ asset("img/") }}/mikrotik.png" class="img-fluid" alt="">
           </div>
 
 
@@ -112,54 +123,271 @@
         <div class="row content">
           <div class="col-lg-12">
             <p>
-                Semakin berkembangnya suatu usaha semakin banyak pula data yang kita milik. Untuk mengelola data-data tersebut.
+                Sistem untuk membantu mengelola data Keuangan dan Usaha Internet. Menggunakan :
             </p>
-            <p>
-               Dengan Sistem iNetwork ini diharapkan dapat membatu dalam usaha anda.
-            </p>
+            <ul>
+                <li><i class="ri-check-double-line"></i> Laravel versi 8.5</li>
+                <li><i class="ri-check-double-line"></i> Bootstrap Template Arsha</li>
+                <li><i class="ri-check-double-line"></i>  Bootstrap Template Adminty</li>
+              </ul>
 
           </div>
+          <div class="row content">
+            <div class="col-lg-12">
+              <p>
+                  Gunakan :
+              </p>
+              <ul>
+                  <li><i class="ri-check-double-line"></i> Chrome Terbaru</li>
+                  <li><i class="ri-check-double-line"></i> Nginx</li>
+                  <li><i class="ri-check-double-line"></i> Php 7+</li>
+                  <li><i class="ri-check-double-line"></i> Composer v2+</li>
+                </ul>
+
+            </div>
 
         </div>
 
       </div>
     </section><!-- End About Us Section -->
 
+
     <!-- ======= Why Us Section ======= -->
+    <section id="fitur" class="why-us section-bg">
+        <div class="container-fluid" data-aos="fade-up">
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg">
-      <div class="container" data-aos="fade-up">
+          <div class="row">
 
-        <div class="section-title">
-          <h2>Penggunaan</h2>
-          {{-- <p>Pengambilan bantuan dapat di ambil oleh orang yang bersangkutan atau diwakilkan orang dalam satu KK.</p> --}}
-        </div>
+            <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
 
-        <div class="row">
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-                <div class="icon"><i class="bx bx-layer"></i></div>
-              <h4><a href="">Data</a></h4>
-              <p>Siapkan data anda.</p>
+              <div class="content">
+                <h3><strong>Fitur</strong></h3>
+                <p>
+                 Sistem masih dalam tahap pengembangan. Beberapa fitur yang sudah ditambahkan :
+                </p>
+              </div>
+
+              <div class="accordion-list">
+                <ul>
+                  <li>
+                    <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Rekap Pemasukan <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                      <p>
+                        Pemasukan atau pendapatan selain dari internet dapat di cetak, backup maupun di import apabila data sudah ada.
+                      </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Rekap Pengeluaran<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                        <p>
+                            Pengeluaran selain dari internet dapat di cetak, backup maupun di import apabila data sudah ada.
+                          </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Rekap data Pelanggan Internet <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                        Data Paket Internet, Data Pelanggan Internet dan Pembayaran tagihan dapat di cetak , backup,  maupun di import apabila sudah ada.
+                      </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>04</span> Rekap Pendapatan Bersih<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                       Pendapata bersih dapat di cetak per bulan yang di pilih.
+                      </p>
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+
             </div>
+
+            <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("{{ asset("Arsha/") }}/assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
           </div>
 
+        </div>
+      </section><!-- End Why Us Section -->
 
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Masuk sebagai admin</a></h4>
-              <p>Agar dapat mengelola data anda harus masuk sebagai Administrator.</p>
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="pengembangan" class="why-us section-bg">
+        <div class="container-fluid" data-aos="fade-up">
+
+          <div class="row">
+
+            <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+              <div class="content">
+                <h3><strong>Pengembangan</strong></h3>
+                <p>
+                 Beberapa fitur yang masih dalam proses pengembangan :
+                </p>
+              </div>
+
+              <div class="accordion-list">
+                <ul>
+                  <li>
+                    <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Mobile Version <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                      <p>
+                        Bentuk Aplikasi mobile yang terhubung dengan server web ini.(Flutter)
+                      </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Setting On/Off PPOE<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                        <p>
+                            Untuk memudah kan pengguna RT/RW net dalam disable/mengaktifkan pelanggan yang sudah terlambat membayar atau berhenti. (RouterosOS)
+                          </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Buat Halaman pelanggan Internet<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                        Menu pelanggan tanpa login cek rekap pembayaran yang sudah dilakukan di bulan ini atau sebelumnya.
+                      </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>04</span> Rekap Pendapatan Bersih<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                       Pendapata bersih dapat di cetak per bulan yang di pilih.
+                      </p>
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+
             </div>
+
+            <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("{{ asset("Arsha/") }}/assets/img/why-us.png");' data-aos="zoom-out" data-aos-delay="150">&nbsp;</div>
           </div>
 
+        </div>
+      </section><!-- End Why Us Section -->
 
+       <!-- ======= Pricing Section ======= -->
+    <section id="harga" class="pricing">
+        <div class="container" data-aos="fade-up">
+
+          <div class="section-title">
+            <h2>HARGA</h2>
+            <p>Gratis untuk menggunakan versi Alpha (Tahap pengembangan awal).</p>
+          </div>
+
+          <div class="row">
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+              <div class="box">
+                <h3>Gratis Penggunakan</h3>
+                <h4><sup>Rp</sup>0<span>versi Alpha</span></h4>
+                <ul>
+                  <li><i class="bx bx-check"></i> Semua fitur versi ini</li>
+                  <li class="na"><i class="bx bx-x"></i> <span>Server</span></li>
+                  <li class="na"><i class="bx bx-x"></i> <span>Pemasangan</span></li>
+                    <li class="na"><i class="bx bx-x"></i> <span>Support</span></li>
+                </ul>
+                <a href="#" class="buy-btn">Get Started</a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
+              <div class="box featured">
+                <h3>Bantu Installasi</h3>
+                <h4><sup>Rp</sup>900.000,00<span>bayar sekali (Sudah termasuk server 1th)</span></h4>
+                <ul>
+                    <li><i class="bx bx-check"></i> Semua fitur versi ini</li>
+                    <li><i class="bx bx-check"></i> <span>Server Kapasitas 3GB + gratis domain 1th</span> (Rp.500.000)</li>
+                    <li ><i class="bx bx-check"></i> <span>Pemasangan Installasi SSH, Laravel, debuggin awal 1 bulan</span>(Rp.400.000)</li>
+                      <li><i class="bx bx-check"></i> <span>Support 2 minggu setelah pemasangan selesai</span></li>
+                </ul>
+                <a href="#" class="buy-btn">Get Started</a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
+              <div class="box">
+                <h3>Support</h3>
+                <h4><sup>Rp</sup>900.000,00<span>bayar sekali (Sudah termasuk server 1th)</span></h4>
+                <h4><sup>+Rp</sup>100.000,00<span>per bulan</span></h4>
+                <ul>
+                    <li><i class="bx bx-check"></i> Semua fitur versi ini</li>
+                    <li><i class="bx bx-check"></i> <span>Server Kapasitas 3GB + gratis domain 1th</span> (Rp.500.000)</li>
+                    <li ><i class="bx bx-check"></i> <span>Pemasangan Installasi SSH, Laravel, debuggin awal 1 bulan</span>(Rp.400.000)</li>
+                      <li><i class="bx bx-check"></i> <span>Support</span></li>
+                </ul>
+                <a href="#" class="buy-btn">Get Started</a>
+              </div>
+            </div>
+
+          </div>
 
         </div>
+      </section><!-- End Pricing Section -->
 
-      </div>
-    </section><!-- End Services Section -->
+      <!-- ======= Team Section ======= -->
+    <section id="team" class="team section-bg">
+        <div class="container" data-aos="fade-up">
+
+          <div class="section-title">
+            <h2>TeamFOMO</h2>
+            <p>Team Pengembang Saat ini.</p>
+          </div>
+
+          <div class="row">
+
+            <div class="col-lg-6">
+              <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                <div class="pic"><img src="{{ asset("img/") }}/logo2.png" class="img-fluid" alt=""></div>
+                <div class="member-info">
+                  <h4>Kukuh Setya N</h4>
+                  <span>Developer</span>
+                  <p>F**k with fundamental, we love sh*t coin xD</p>
+                  <div class="social">
+                    <a href="https://github.com/godgodwinter" target="_blank"><i class="ri-github-fill"></i></a>
+                    <a href="https://saweria.co/kakadlz" target="_blank"><i class="ri-money-dollar-circle-fill"></i></a>
+                    <a href="http://instagram.com/kukuh.sn" target="_blank"><i class="ri-instagram-fill"></i></a>
+                    <a href="https://api.whatsapp.com/send?phone=6285736862399" target="_blank"> <i class="ri-whatsapp-fill"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mt-4 mt-lg-0">
+              <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="200">
+                <div class="pic"><img src="{{ asset("img/") }}/logo1.jpg" class="img-fluid" alt=""></div>
+                <div class="member-info">
+                  <h4>M Yusri F</h4>
+                  <span>Developer</span>
+                  <p></p>
+                  <div class="social">
+                    <a href="#"><i class="ri-instagram-fill"></i></a>
+                    <a href="#"> <i class="ri-linkedin-box-fill"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </section><!-- End Team Section -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
