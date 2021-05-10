@@ -39,7 +39,7 @@
     <a href="https://github.com/godgodwinter/inetwork"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/godgodwinter/inetwork">View Demo</a>
+    <a href="https://inetwork.baemon.web.id">View Demo https://inetwork.baemon.web.id</a>
     ·
     <a href="https://twitter.com/kakadlz">Report Bug</a>
     ·
@@ -80,8 +80,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot-beranda]](https://github.com/godgodwinter/inetwork)
-[![Product Name Screen Shot][product-screenshot-pelanggan]](https://github.com/godgodwinter/inetwork)
+[![Product Name Screen Shot][product-screenshot-dashboardluar]](https://github.com/godgodwinter/inetwork)
+[![Product Name Screen Shot][product-screenshot-dashboardlm]](https://github.com/godgodwinter/inetwork)
+[![Product Name Screen Shot][product-screenshot-tagihan]](https://github.com/godgodwinter/inetwork)
 
 Ketika usaha jaringan internet anda semakin berkembang maka semakin banyak data yang perlu anda kelola. Untuk itu dengan sistem ini diharapkan dapat membantu usaha jaringan anda.
 
@@ -191,5 +192,6 @@ Project Link: [https://github.com/godgodwinter/inetwork](https://github.com/godg
 [license-url]: https://github.com/godgodwinter/inetwork/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.instagram.com/kukuh.sn/
-[product-screenshot-beranda]: images/beranda1.png
-[product-screenshot-pelanggan]: images/pelanggan1.png
+[product-screenshot-dashboardluar]: images/dashboardluar.png
+[product-screenshot-dashboardlm]: images/dashboardlm.png
+[product-screenshot-tagihan]: images/tagihan.png
