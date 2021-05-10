@@ -93,7 +93,7 @@ class CetakController extends Controller
 
 
         $pdf = PDF::loadview('admin/pengeluaran/cetak_pengeluaran',['pengeluaran'=>$pengeluaran]);
-    	return $pdf->download('laporan-pengeluaran-pdf');
+    	return $pdf->download('laporan-pengeluaran-pdf'.date("YmdHis").'.pdf');
     }
 
     public function cetak_pemasukan()
