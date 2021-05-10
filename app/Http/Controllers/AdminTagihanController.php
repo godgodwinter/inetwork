@@ -38,6 +38,65 @@ class AdminTagihanController extends Controller
         return view('admin.tagihan.index',compact('datas','blnthn'));
     }
 
+    public function tagihansync(Request $request)
+    {
+        $blnthn=$request->blnthn;
+        // dd($request);
+        //tampilkan data pelanggan aktif
+        $datas = DB::table('pelanggan')
+        ->where('status_langganan', '=', 'Aktif')
+        ->get();
+
+        //cek nik per blnthn
+        foreach($datas as $d){
+
+            $dataniktagihan = DB::table('tagihan')
+            ->where('nik', '=', $d->nik)
+            ->where('thbln', '=', $request->blnthn)
+            ->count();
+            // dd($dataniktagihan);
+            if($dataniktagihan>0){
+                //update
+         //update paket jika sudah ada
+
+                DB::table('tagihan')
+                ->where('nik', $request->nik)
+                ->where('thbln', date("Y-m"))
+                ->update([
+                    'paket_id'     =>   $d->paket_id,
+                    'tgl_bayar'     =>   $request->blnthn.date("-d H:i:s"),
+                    'nama'     =>   $d->nama,
+                    'paket_nama'     =>   $d->paket_nama,
+                    'paket_kecepatan'     =>   $d->paket_kecepatan,
+                    'paket_harga'     =>   $d->paket_harga,
+
+                ]);
+            }else{
+
+                //insert jika belum ada
+                //simpan
+                DB::table('tagihan')->insert(
+                    array(
+                           'nik'     =>   $d->nik,
+                           'paket_id'     =>   $d->paket_id,
+                           'total_bayar'     =>   '0',
+                           'tgl_bayar'     =>   $request->blnthn.date("-d H:i:s"),
+                           'nama'     =>   $d->nama,
+                           'thbln'     =>   $blnthn,
+                           'paket_nama'     =>   $d->paket_nama,
+                           'paket_kecepatan'     =>   $d->paket_kecepatan,
+                           'paket_harga'     =>   $d->paket_harga,
+                           'created_at'=>date("Y-m-d H:i:s"),
+                           'updated_at'=>date("Y-m-d H:i:s")
+                    )
+               );
+            }
+        }
+
+        return redirect(URL::to('/').'/admin/tagihanbln/?blnthn='.$blnthn)->with('status','Data Tagihan berhasil disynkronkan dengan data pelanggan!');
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

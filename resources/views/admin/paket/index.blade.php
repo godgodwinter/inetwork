@@ -74,7 +74,7 @@
 @section('container')
 <!-- Section start -->
 <div class="row">
-    <div class="col-xl-8 col-md-12 page-body" id="datatable">
+    <div class="col-xl-12 col-md-12 page-body" id="datatable">
         <!-- DOM/Jquery table start -->
         <div class="card">
             <div class="card-header">
@@ -220,8 +220,8 @@
     </div>
     <!-- DOM/Jquery table end -->
     <!-- tambah -->
-    <div class="col-xl-4 col-md-12">
-        <div class="card  id=" add">
+    <div class="col-xl-12 col-md-12" id="add">
+        <div class="card  >
             <div class="card-header">
                 <div class="row">
 

@@ -45,6 +45,8 @@
 @endsection
 @section('headernav')
 
+
+
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">
@@ -84,6 +86,143 @@
 @endsection
 
 @section('container')
+
+@php
+    $list=array();
+$month = date("m",strtotime($blnthn));
+$year = date("Y",strtotime($blnthn));
+$tglskrg = date("d");
+$pelanggan_lunas=0;
+
+// //ambildata tagihandetail kurang berapa
+// $ambiltagihankurangberapa = DB::table('tagihandetail')
+//     ->where('nik',$data->nik)
+//     ->where('thbln',$blnthn)
+//     ->sum('bayar');
+
+//ambil data pelanggan status langgan aktif
+$ambildatapelangganaktif = DB::table('pelanggan')
+        ->where('status_langganan', '=', 'Aktif')
+        ->count();
+
+//ambil data pelanggan status langgan aktif
+$ambildatapelangganaktifget = DB::table('pelanggan')
+        ->where('status_langganan', '=', 'Aktif')
+        ->get();
+
+        //total tagihan bulan ini
+        $ambiltotaltagihanbulanini = DB::table('tagihan')
+    ->where('thbln',$blnthn)
+    ->sum('paket_harga');
+
+foreach ($ambildatapelangganaktifget as $da) {
+    //ambiljumlahbayar di tagihan detail per nik thbln
+    $ambiltagihankurangberapa = DB::table('tagihandetail')
+    ->where('nik',$da->nik)
+    ->where('thbln',$blnthn)
+    ->sum('bayar');
+
+    // dd($da->nik);
+    // $ambildatalunas = DB::table('tagihan')
+    //     ->where('nik', '=', $da->nik)
+    //     ->where('paket_harga', '=', $ambiltagihankurangberapa)
+    //     ->where('thbln',$blnthn)
+    //     ->count();
+
+    //ambil paket harga di tagihan dibandingkan dengan bayar di detailtagihan
+
+//ambil data pelanggan status langgan aktif
+$ambildatatagihanpaketharga = DB::table('tagihan')
+    ->where('nik',$da->nik)
+    ->where('thbln',$blnthn)
+        ->get();
+
+$cekdataambildatatagihanpaketharga = DB::table('tagihan')
+    ->where('nik',$da->nik)
+    ->where('thbln',$blnthn)
+        ->count();
+
+        $datapharga=0;
+foreach ($ambildatatagihanpaketharga as $datapaketharga) {
+    $datapharga=$datapaketharga->paket_harga;
+}
+
+
+// dd($da->nik."-".$ambiltagihankurangberapa."-".$ambildatalunas);
+if($cekdataambildatatagihanpaketharga!=0){
+        if($ambiltagihankurangberapa>=$datapharga){
+            $pelanggan_lunas+=1;
+        }
+    }
+
+
+}
+
+
+    //jumlah pelanggan yang telah membayar
+    $ambiljmlhpembayar = DB::table('tagihandetail')
+        ->whereMonth('created_at', '=', date("m",strtotime($blnthn)))
+        ->whereYear('created_at', '=', date("Y",strtotime($blnthn)))
+        ->count();
+
+    //Total pemasukan dari  internet
+    $ambiltotalinternetbulanini = DB::table('tagihandetail')
+        ->where('thbln', '=', $blnthn)
+        ->sum('bayar');
+        // dd($ambiljmlhpembayar);
+
+    //Total pemasukan dari  internet jika semua terbayar
+    $ambiltotalyangdidapatjikasmuaterbayar= DB::table('tagihan')
+        ->where('thbln', '=', $blnthn)
+        ->sum('paket_harga');
+
+                // dd($ambiljmlhpembayar)
+@endphp
+
+<div class="page-body">
+    <div class="row">
+
+<!-- customar project  start -->
+<div class="col-xl-4 col-md-6">
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center m-l-0">
+                <div class="col-auto">
+                    <h6 class="text-muted m-b-10">TOTAL TAGIHAN</h6>
+                    <h5 class="m-b-0 text-c-blue">@currency($ambiltotaltagihanbulanini)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-4 col-md-6">
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center m-l-0">
+                <div class="col-auto">
+                    <h6 class="text-muted m-b-10">LUNAS</h6>
+                    <h5 class="m-b-0 text-c-green">{{ $pelanggan_lunas }} Pelanggan - @currency($ambiltotalinternetbulanini)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-4 col-md-6">
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center m-l-0">
+                <div class="col-auto">
+                    <h6 class="text-muted m-b-10">BELUM LUNAS</h6>
+                    <h5 class="m-b-0 text-c-pink">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan - @currency($ambiltotalyangdidapatjikasmuaterbayar-$ambiltotalinternetbulanini)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- customar project  end -->
+</div>
+</div>
+
 <!-- Section start -->
 <div class="page-body"id="datatable" >
     <!-- DOM/Jquery table start -->
@@ -95,6 +234,11 @@
                 <a href="cetak/cetak_tagihan" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
+                <form action="/admin/tagihansync/" method="post" class="d-inline">
+                    @csrf
+                    <input  type="hidden" name="blnthn" value="{{ $blnthn }}" required>
+                    <button type="Simpan" class="btn btn-primary">SYNC</button>
+                    </form>&nbsp;
                 <a href="{{url('/')}}/admin/pelanggan" class="btn btn-sm btn-secondary">PELANGGAN</a>&nbsp;
 
                         <form action="/admin/tagihanbln/" method="get" class="d-inline">
@@ -138,7 +282,7 @@
                             @endphp
 
                         <tr>
-                            <td class="text-center">{{ $loop->index }}</td>
+                            <td class="text-center">{{ $loop->index+1 }}</td>
                             <td class="text-center">
                         @php
                             if(($data->paket_harga-$data->total_bayar)<=0){

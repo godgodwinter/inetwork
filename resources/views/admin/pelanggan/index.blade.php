@@ -51,11 +51,22 @@ excel date value to php date value
 @endphp --}}
 <div class="page-header">
     <div class="row align-items-end">
-        <div class="col-lg-8">
+        <div class="col-lg-4">
             <div class="page-header-title">
                 <div class="d-inline">
                     <h4>@yield('title')</h4>
                     {{-- <span>Halaman Mastering @yield('title')</span> --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-title">
+                <div class="d-inline">
+
+        <form action="/admin/inventarisbln/" method="get" class="d-inline">
+            <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+            <button type="Simpan" class="btn btn-success">PILIH</button>
+            </form>
                 </div>
             </div>
         </div>
@@ -146,10 +157,6 @@ excel date value to php date value
                 <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PELANGGAN</a>&nbsp;
 
-                <form action="/admin/pelangganbln/" method="get" class="d-inline">
-                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
-                    <button type="Simpan" class="btn btn-success">PILIH</button>
-                </form>
 
             </div>
 

@@ -44,14 +44,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="page-header-breadcrumb">
-                <ul class="breadcrumb-title">
-                    <li class="breadcrumb-item">
-                        <a href="{{url('/dashboard')}}"> <i class="feather icon-home"></i> </a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#!">@yield('title')</a> </li>
-                </ul>
+
+        <div class="col-lg-4 d-flex flex-row-reverse">
+            <div class="page-header-title">
+                <div class="d-inline">
+
+                <form action="/admin/inventarisbln/" method="get" class="d-inline">
+                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                    <button type="Simpan" class="btn btn-success">PILIH</button>
+                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -77,6 +79,13 @@
     $tglskrg = date("d");
 @endphp
 
+
+<div class="page-body">
+    <div class="row">
+
+<!-- customar project  end -->
+</div>
+</div>
 <!-- Section start -->
 <div class="page-body"id="datatable" >
     <!-- DOM/Jquery table start -->
@@ -123,10 +132,6 @@
                 <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>&nbsp;
                 <a href="#jenisalat" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH INVENTARIS</a>&nbsp;
-                <form action="/admin/inventarisbln/" method="get" class="d-inline">
-                <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
-                <button type="Simpan" class="btn btn-success">PILIH</button>
-                </form>
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 
 @extends('admin.layouts.nav2')
 
-@section('title','BERANDA - DATA ')
+@section('title','BERANDA')
 
 @section('csshere')
 <style>
@@ -542,7 +542,7 @@ $nol=0;
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>@yield('title') BULAN
+                    <h4>@yield('title') - DATA BULAN
                         {{ strtoupper(\Carbon\Carbon::parse($blnthn)->translatedFormat('F Y')) }}</h4>
                     {{-- <span>Selamat datang di Halaman Beranda Administrator.</span> --}}
                 </div>
@@ -560,19 +560,24 @@ $nol=0;
         </div>
  <!--  sale analytics start -->
 
-          <!-- visitor start -->
-          <div class="col-xl-12 col-md-12">
+
+        <div class="col-xl-12 col-md-12">
             <div class="card"
-            data-intro="Grafik Pemasukan dan Pengeluaran!" data-step="9"
+            data-intro="Grafik Pembayaran Tagihan Internet!" data-step="10"
             data-hint="Hello step one!">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-xl-6 col-md-6">
 
-                    <h5 class="label label-info">Pemasukan dan Pengeluaran Bulan ini</h5>
+                            <h5 class="label label-info">Pemasukan dari Pembayaran Internet</h5>
                         </div>
                         <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-
+                            <form action="/admin/tagihansync/" method="post" class="d-inline">
+                                @csrf
+                                <input  type="hidden" name="blnthn" value="{{ $blnthn }}" required>
+                                <button type="Simpan" class="btn btn-primary btn-block">SYNC DATA</button>
+                                </form>
+&nbsp;
                                     <form action="/admin/dashboardbln/" method="get" class="d-inline">
                                     <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
                                     <button type="Simpan" class="btn btn-success">PILIH</button>
@@ -580,26 +585,6 @@ $nol=0;
 
                         </div>
                     </div>
-                    {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
-                    <div class="card-header-right">
-                        <ul class="list-unstyled card-option">
-                            {{-- <li><i class="feather icon-maximize full-card"></i></li>
-                            <li><i class="feather icon-minus minimize-card"></i></li>
-                            <li><i class="feather icon-trash-2 close-card"></i></li> --}}
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-block">
-                    <div id="visitor" style="height:300px"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-12 col-md-12">
-            <div class="card"
-            data-intro="Grafik Pembayaran Tagihan Internet!" data-step="10"
-            data-hint="Hello step one!">
-                <div class="card-header">
-                    <h5 class="label label-info">Pemasukan dari Pembayaran Internet</h5>
                 </div>
                 <div class="card-block bg-c-green">
                     <div id="proj-earning" style="height: 230px"></div>
@@ -607,35 +592,29 @@ $nol=0;
                 <div class="card-footer">
                     {{-- <h6 class="text-muted m-b-30 m-t-15">Total Pembayaran Tagihan Internet</h6> --}}
                     <div class="row text-center">
-                        <div class="col-3 b-r-default"
+                        <div class="col-4">
+                            <h6 class="text-muted m-b-10">Total Tagihan</h6>
+                            <h4 class="m-b-0 f-w-100  text-c-blue">@currency($ambiltotaltagihanbulanini)</h4>
+                        </div>
+                        <div class="col-4 b-r-default"
                         data-intro="Jumlah Pelanggan yang telah melunasi tagihan !" data-step="1"
                         data-hint="Hello step one!">
                             <h6 class="text-muted m-b-10">Lunas</h6>
-                            <h4 class="m-b-0 f-w-100 ">{{ $pelanggan_lunas }} Pelanggan</h4>
+                            <h4 class="m-b-0 f-w-100  text-c-green">{{ $pelanggan_lunas }} Pelanggan - @currency($ambiltotalinternetbulanini)</h4>
                         </div>
-                        <div class="col-3"
+
+                        <div class="col-4"
                         data-intro="Total Pelanggan yang Belum melunasi tagihan!" data-step="2"
                         data-hint="Hello step one!">
                             <h6 class="text-muted m-b-10">Belum lunas</h6>
-                            <h4 class="m-b-0 f-w-100 ">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan</h4>
-                        </div>
-                        <div class="col-2">
-                            <h6 class="text-muted m-b-10">Total Tagihan</h6>
-                            <h4 class="m-b-0 f-w-100 ">@currencynorp($ambiltotaltagihanbulanini)</h4>
-                        </div>
-                        <div class="col-2">
-                            <h6 class="text-muted m-b-10">Total Terbayar</h6>
-                            <h4 class="m-b-0 f-w-100 ">@currencynorp($ambiltotalinternetbulanini)</h4>
-                        </div>
-                        <div class="col-2">
-                            <h6 class="text-muted m-b-10">Total Belum dibayar</h6>
-                            <h4 class="m-b-0 f-w-100 ">@currencynorp($ambiltotalyangdidapatjikasmuaterbayar-$ambiltotalinternetbulanini)</h4>
+                            <h4 class="m-b-0 f-w-100 text-c-pink">{{ $ambildatapelangganaktif-$pelanggan_lunas }} Pelanggan - @currency($ambiltotalyangdidapatjikasmuaterbayar-$ambiltotalinternetbulanini)</h4>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- visitor end -->
+
 
         <!-- menubaris2 start -->
         <div class="col-xl-6 col-md-12">
@@ -707,6 +686,8 @@ $nol=0;
         </div>
 
 
+
+
         <div class="col-xl-6 col-md-12">
             <div class="card per-task-card">
                 <div class="card-header">
@@ -720,14 +701,15 @@ $nol=0;
                             <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-primary"></div>
                             <h6 class="text-muted">Pelanggan Aktif</h6>
                             <p class="text-muted">{{ $ambildatapelangganaktif }}</p>
-                            <button class="btn btn-primary btn-round btn-sm">LIHAT</button>
+                            <a href="{{ url('/')}}/admin/pelangganbln/?blnthn={{ $blnthn }}"class="btn btn-primary btn-round btn-sm">Pelanggan</a>
+                            <a href="{{ url('/')}}/admin/tagihanbln/?blnthn={{ $blnthn }}"class="btn btn-warning btn-round btn-sm">Tagihan</a>
                         </div>
                         <div class="col-6">
                             <div data-label="30%" class="radial-bar radial-bar-30 radial-bar-lg radial-bar-primary"></div>
                             <h6 class="text-muted">Pendapatan</h6>
                             <p class="text-muted">@currency(($ambiltotalpendapatan+$ambiltotalinternetbulanini-$ambiltotalpengeluaran))</p>
-                            <button class="btn btn-primary btn-outline-primary btn-round btn-sm">Pemasukan</button>
-                            <button class="btn btn-danger btn-outline-danger btn-round btn-sm">Pengeluran</button>
+                            <a href="{{ url('/')}}/admin/pendapatanbln/?blnthn={{ $blnthn }}" class="btn btn-primary btn-outline-primary btn-round btn-sm">Pemasukan</a>
+                            <a href="{{ url('/')}}/admin/pengeluaranbln/?blnthn={{ $blnthn }}" class="btn btn-danger btn-outline-danger btn-round btn-sm">Pengeluran</a>
                         </div>
                     </div>
 
@@ -775,6 +757,40 @@ $nol=0;
             </div>
         </div>
 
+        <!-- visitor start -->
+        <div class="col-xl-12 col-md-12">
+            <div class="card"
+            data-intro="Grafik Pemasukan dan Pengeluaran!" data-step="9"
+            data-hint="Hello step one!">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6">
+
+                    <h5 class="label label-info">Pemasukan dan Pengeluaran Bulan ini</h5>
+                        </div>
+                        <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
+
+                                    <form action="/admin/dashboardbln/" method="get" class="d-inline">
+                                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                                    <button type="Simpan" class="btn btn-success">PILIH</button>
+                                    </form>
+
+                        </div>
+                    </div>
+                    {{-- <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span> --}}
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            {{-- <li><i class="feather icon-maximize full-card"></i></li>
+                            <li><i class="feather icon-minus minimize-card"></i></li>
+                            <li><i class="feather icon-trash-2 close-card"></i></li> --}}
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div id="visitor" style="height:300px"></div>
+                </div>
+            </div>
+        </div>
 
         <div class="col-xl-6 col-md-12">
             <div class="card table-card">

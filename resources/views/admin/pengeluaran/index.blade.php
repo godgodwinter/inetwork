@@ -45,14 +45,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="page-header-breadcrumb">
-                <ul class="breadcrumb-title">
-                    <li class="breadcrumb-item">
-                        <a href="{{url('/dashboard')}}"> <i class="feather icon-home"></i> </a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#!">@yield('title')</a> </li>
-                </ul>
+
+        <div class="col-lg-4 d-flex flex-row-reverse">
+            <div class="page-header-title">
+                <div class="d-inline">
+
+                <form action="/admin/pengeluaranbln/" method="get" class="d-inline">
+                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                    <button type="Simpan" class="btn btn-success">PILIH</button>
+                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -120,10 +122,7 @@
                 <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>&nbsp;
                 <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PENGELUARAN</a>&nbsp;
-                <form action="/admin/pengeluaranbln/" method="get" class="d-inline">
-                <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
-                <button type="Simpan" class="btn btn-success">PILIH</button>
-                </form>
+
             </div>
         </div>
         <script>
