@@ -572,7 +572,7 @@ $nol=0;
                             <h5 class="label label-info">Pemasukan dari Pembayaran Internet</h5>
                         </div>
                         <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                            <form action="/admin/tagihansync/" method="post" class="d-inline">
+                            <form action="{{ route('tagihan.sync') }}" method="post" class="d-inline">
                                 @csrf
                                 <input  type="hidden" name="blnthn" value="{{ $blnthn }}" required>
                                 <button type="Simpan" class="btn btn-primary btn-block">SYNC DATA</button>

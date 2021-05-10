@@ -234,7 +234,7 @@ if($cekdataambildatatagihanpaketharga!=0){
                 <a href="cetak/cetak_tagihan" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                <form action="/admin/tagihansync/" method="post" class="d-inline">
+                <form action="{{ route('tagihan.sync') }}" method="post" class="d-inline">
                     @csrf
                     <input  type="hidden" name="blnthn" value="{{ $blnthn }}" required>
                     <button type="Simpan" class="btn btn-primary">SYNC</button>
