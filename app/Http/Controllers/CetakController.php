@@ -47,6 +47,8 @@ class CetakController extends Controller
     	return $pdf->download('laporan-pelanggan-pdf'.date("YmdHis").'.pdf');
     }
 
+
+
     //cetak pelanggan
     public function cetak_inventaris()
     {
@@ -80,6 +82,28 @@ class CetakController extends Controller
 
         $pdf = PDF::loadview('admin/pendapatan/cetak_pemasukan',['pemasukan'=>$pemasukan]);
     	return $pdf->download('laporan-pemasukan-pdf'.date("YmdHis").'.pdf');
+    }
+
+    public function pendapatanbulanini($blnthn)
+    {
+        $datas = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('tgl', 'desc')->get();
+
+        $jml = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->count();
+
+        $total = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->sum('nominal');
+
+
+        $pdf = PDF::loadview('admin/pendapatan/cetak_pemasukan_bulanini',compact('datas','blnthn','total','jml'));
+    	return $pdf->download('laporan-pemasukan-bulanini-pdf'.date("YmdHis").'.pdf');
     }
 
     public function cetak_rekap(Request $request)
