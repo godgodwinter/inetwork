@@ -66,6 +66,27 @@ class CetakController extends Controller
     	return $pdf->download('laporan-tagihan-pdf'.date("YmdHis").'.pdf');
     }
 
+    public function tagihanbulanini($blnthn)
+    {
+
+        $datas = DB::table('tagihan')
+        ->where('thbln', '=', $blnthn)
+        ->orderBy('thbln', 'desc')->get();
+
+        $jml = DB::table('tagihan')
+        ->where('thbln', '=', $blnthn)
+        ->count();
+
+        $total = DB::table('tagihan')
+        ->where('thbln', '=', $blnthn)
+        ->sum('total_bayar');
+        // dd($datas);
+
+
+        $pdf = PDF::loadview('admin/tagihan/cetak_tagihanbulanini',compact('datas','blnthn','total','jml'));
+    	return $pdf->download('laporan-pemasukan-bulanini-pdf'.date("YmdHis").'.pdf');
+    }
+
     public function cetak_pengeluaran()
     {
         $pengeluaran = pengeluaran::all();
@@ -105,6 +126,30 @@ class CetakController extends Controller
         $pdf = PDF::loadview('admin/pendapatan/cetak_pemasukan_bulanini',compact('datas','blnthn','total','jml'));
     	return $pdf->download('laporan-pemasukan-bulanini-pdf'.date("YmdHis").'.pdf');
     }
+
+    public function pengeluaranbulanini($blnthn)
+    {
+        $datas = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->orderBy('tgl', 'desc')->get();
+
+        $jml = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->count();
+
+        $total = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->sum('nominal');
+
+
+        $pdf = PDF::loadview('admin/pengeluaran/cetak_pengeluaran_bulanini',compact('datas','blnthn','total','jml'));
+    	return $pdf->download('laporan-pengeluaran-bulanini-pdf'.date("YmdHis").'.pdf');
+    }
+
+
 
     public function cetak_rekap(Request $request)
     {

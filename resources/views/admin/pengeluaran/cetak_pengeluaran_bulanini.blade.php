@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Laporan Pemasukan</title>
+        <title>Laporan Pengeluaran</title>
                 <style type="text/css">
             table tr td,
             table tr th{
@@ -38,7 +38,7 @@
             <td width="13%" align="right"><</td>
             <td width="80%" align="center"><p><b>
                 <font size="28px"></font><br>
-                <font size="20px">LAPORAN PEMASUKAN BULAN
+                <font size="20px">LAPORAN PENGELUARAN BULAN
                     {{ strtoupper(\Carbon\Carbon::parse($blnthn)->translatedFormat('F Y'))}}<br></p>
             </td>
             <td widht="7%"></td>
@@ -75,8 +75,8 @@
             </td>
             <td align="center">
                 <?php
-                $namakategori=$data->jenispendapatan_nama;
-                $data2s = DB::table('jenispendapatan')->where('id',$data->jenispendapatan_id)->get();
+                $namakategori=$data->jenispengeluaran_nama;
+                $data2s = DB::table('jenispengeluaran')->where('id',$data->jenispengeluaran_id)->get();
             ?>
                 @foreach($data2s as $d2)
                     @php
@@ -98,12 +98,13 @@ Keterangan :
     <tr>
         <th width="3%"></th>
         <th width="60%" align="left">
-            1. Jumlah Pemasukan : <b>{{ $jml }}<b><br>
-            2. Total Pemasukan :  <b>@currency($total)</b><br>
+            1. Jumlah Pengeluaran : <b>{{ $jml }}<b><br>
+            2. Total Pengeluaran :  <b>@currency($total)</b><br>
 
         </th>
 
         <th width="34%"></th>
+
 
         <th width="3%"></th>
 

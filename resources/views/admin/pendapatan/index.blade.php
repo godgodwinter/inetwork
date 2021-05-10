@@ -117,7 +117,7 @@
                     </div>
                     <a href="{{ route('exportpendapatan', 'xlsx') }}" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-download"></i>EXPORT</a>
                 <a href="cetak/cetak_pemasukan" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
-                <a href="cetak/{{ $blnthn }}/pendapatan-bulanini/" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-moon"></i>PDF BULAN INI</a>
+                <a href="{{ url('/')}}/admin/cetak/{{ $blnthn }}/pendapatan-bulanini/" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-moon"></i>PDF BULAN INI</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord"><i class="feather icon-x"></i>HAPUS TERPILIH</a>&nbsp;

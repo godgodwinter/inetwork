@@ -232,6 +232,8 @@ if($cekdataambildatatagihanpaketharga!=0){
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-upload"></i>IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-download"></i>EXPORT</a>
                 <a href="cetak/cetak_tagihan" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
+                <a href="{{ url('/')}}/admin/cetak/{{ $blnthn }}/tagihan-bulanini/" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-moon"></i>PDF BULAN INI</a>
+
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <form action="{{ route('tagihan.sync') }}" method="post" class="d-inline">
