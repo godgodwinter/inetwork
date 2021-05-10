@@ -87,7 +87,17 @@
             <div class="col-xl-6 col-md-6">
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
-                <a href="cetak" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
+
+
+                <form action="/cetak/cetak_rekap/" method="get" class="d-inline" target="_blank">
+
+                    <input type="month" name="blnthn" value="{{ $blnthn }}" required hidden>
+
+                    <input type="submit" class="btn btn-sm  btn-primary"  value="iki submit CETAK PDF">
+
+
+                <a href="cetak/cetak_rekap" class="btn btn-sm  btn-primary" target="_blank">iki href CETAK PDF</a>
+            </form>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <form action="/admin/rekapbln/" method="get" class="d-inline">
@@ -95,6 +105,8 @@
                 <input type="month" name="blnthn" value="{{ $blnthn }}" required>
                 <button type="Simpan" class="btn btn-success">PILIH</button>
                 </form>
+
+
 
 
             </div>
