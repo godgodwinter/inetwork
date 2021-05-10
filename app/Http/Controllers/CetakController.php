@@ -118,7 +118,7 @@ class CetakController extends Controller
 
 
         $pdf = PDF::loadview('admin/rekap/cetak_rekap',compact('dpengeluarans','dpendapatans','dtagihans','totaltagihans','totaldapat','totalkeluar','blnthn'));
-    	return $pdf->download('rekappdf'.date("YmdHis"));
+    	return $pdf->download('rekappdf'.date("YmdHis").'.pdf');
     }
 
 }
