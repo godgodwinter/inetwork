@@ -25,7 +25,7 @@ class CetakController extends Controller
         $paket = paket::all();
 
         $pdf = PDF::loadview('admin/paket/cetak_paket',['paket'=>$paket]);
-    	return $pdf->download('laporan-paket-pdf');
+    	return $pdf->download('laporan-paket-pdf'.date("YmdHis").'.pdf');
 
 
     }
@@ -35,7 +35,7 @@ class CetakController extends Controller
         $letakserver = letakserver::all();
 
         $pdf = PDF::loadview('admin/letakserver/cetak_letakserver',['letakserver'=>$letakserver]);
-    	return $pdf->download('laporan-letakserver-pdf');
+    	return $pdf->download('laporan-letakserver-pdf'.date("YmdHis").'.pdf');
     }
 
     //cetak pelanggan
@@ -44,7 +44,7 @@ class CetakController extends Controller
         $pelanggan = pelanggan::all();
 
         $pdf = PDF::loadview('admin/pelanggan/cetak_pelanggan',['pelanggan'=>$pelanggan]);
-    	return $pdf->download('laporan-pelanggan-pdf');
+    	return $pdf->download('laporan-pelanggan-pdf'.date("YmdHis").'.pdf');
     }
 
     //cetak pelanggan
@@ -53,7 +53,7 @@ class CetakController extends Controller
         $inventaris = inventaris::all();
 
         $pdf = PDF::loadview('admin/inventaris/cetak_inventaris',['inventaris'=>$inventaris]);
-    	return $pdf->download('laporan-inventaris-pdf');
+    	return $pdf->download('laporan-inventaris-pdf'.date("YmdHis").'.pdf');
     }
 
     public function cetak_tagihan()
@@ -61,7 +61,7 @@ class CetakController extends Controller
         $tagihan = tagihan::all();
 
         $pdf = PDF::loadview('admin/tagihan/cetak_tagihan',['tagihan'=>$tagihan]);
-    	return $pdf->download('laporan-tagihan-pdf');
+    	return $pdf->download('laporan-tagihan-pdf'.date("YmdHis").'.pdf');
     }
 
     public function cetak_pengeluaran()
@@ -79,7 +79,7 @@ class CetakController extends Controller
 
 
         $pdf = PDF::loadview('admin/pendapatan/cetak_pemasukan',['pemasukan'=>$pemasukan]);
-    	return $pdf->download('laporan-pemasukan-pdf');
+    	return $pdf->download('laporan-pemasukan-pdf'.date("YmdHis").'.pdf');
     }
 
     public function cetak_rekap(Request $request)

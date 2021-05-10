@@ -1,6 +1,6 @@
 @extends('admin.layouts.nav1')
 
-@section('title','PENDAPATAN BERSIH')
+@section('title','LAPORAN PENDAPATAN BERSIH')
 
 @section('csshere')
 <style>
@@ -93,10 +93,10 @@
 
                     <input type="month" name="blnthn" value="{{ $blnthn }}" required hidden>
 
-                    <input type="submit" class="btn btn-sm  btn-primary"  value="iki submit CETAK PDF">
+                    <input type="submit" class="btn btn-sm  btn-primary"  value="CETAK PDF">
 
 
-                <a href="cetak/cetak_rekap" class="btn btn-sm  btn-primary" target="_blank">iki href CETAK PDF</a>
+                {{-- <a href="cetak/cetak_rekap" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a> --}}
             </form>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">

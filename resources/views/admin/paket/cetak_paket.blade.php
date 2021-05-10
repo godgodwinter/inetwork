@@ -1,33 +1,56 @@
-
 <html>
-<head>
-	<title>Laporan Paket Internet</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
-	<style type="text/css">
-		table tr td,
-		table tr th{
-			font-size: 9pt;
-		}
-	</style>
-        <br><br>
-		<center><h5>Laporan Paket Internet</h4></center>
-        <br><br>
+    <head>
+        <title>Laporan Paket</title>
+                <style type="text/css">
+            table tr td,
+            table tr th{
+                font-size: 12px;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+            td{
+                height:10px;
+                padding-left: 5px;
+            }
+            body {
+                font-size: 12px;
+                font-family:Georgia, 'Times New Roman', Times, serif;
+                }
+            h1 h2 h3 h4 h5{
+                line-height: 1.2;
+            }
+            .spa{
+              letter-spacing:3px;
+            }
+            table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+    }
+        </style>
+    </head>
+    <body>
 
-            <div class="card-block">
-                <div class="table-responsive dt-responsive">
-                    <table id="dom-jqry" class="table table-bordered nowrap">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Harga</th>
-                                <th>Kecepatan</th>
+    <table width="100%" border="0">
+        <tr>
+            <td width="13%" align="right"><</td>
+            <td width="80%" align="center"><p><b>
+                <font size="28px"></font><br>
+                <font size="20px">PAKET INTERNET<br></p>
+            </td>
+            <td widht="7%"></td>
+        </tr>
+    </table>
 
-                            </tr>
-                        </thead>
-                        <tbody>
+    <table width="100%" border="1">
+
+        <tr>
+            <th align="center">No</th>
+            <th>Nama</th>
+            <th align="center">Harga</th>
+            <th align="center">Kecepatan</th>
+
+        </tr>
+
                             @foreach ($paket as $data)
                                 @php
 
@@ -36,18 +59,16 @@
                                 @endphp
 
                             <tr>
-                                <td>{{ ($loop->index)+1 }} </td>
-                                <td>{{$data->nama}}</td>
-                                <td>@currency($harga)</td>
-                                <td>{{$data->kecepatan}} Mbps</td>
+                                <td align="center">{{ ($loop->index)+1 }} </td>
+                                <td>Paket {{$data->nama}}</td>
+                                <td align="center">@currency($harga)</td>
+                                <td align="center">{{$data->kecepatan}} Mbps</td>
 
 
                             </tr>
                             @endforeach
 
-                    </table>
-                </div>
-            </div>
-            </div>
+    </table>
+
 </body>
 </html>
