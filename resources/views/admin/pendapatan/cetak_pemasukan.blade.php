@@ -10,6 +10,9 @@
             td{
                 height:10px;
                 padding-left: 5px;
+                padding-right: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
             }
             body {
                 font-size: 12px;
@@ -35,7 +38,7 @@
             <td width="13%" align="right"><</td>
             <td width="80%" align="center"><p><b>
                 <font size="28px"></font><br>
-                <font size="20px">PEMASUKAN<br></p>
+                <font size="20px">LAPORAN PEMASUKAN<br></p>
             </td>
             <td widht="7%"></td>
         </tr>

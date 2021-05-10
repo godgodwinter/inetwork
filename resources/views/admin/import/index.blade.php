@@ -96,26 +96,26 @@
                 <div class="row">
                     <div class="col-xl-12 col-md-12"> <br>
                             <code>Download Template</code> <br>
-                            <a href="#" class="btn btn-warning btn-skew">Paket Internet</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Paket Internet</a>
 
-                            <a href="#" class="btn btn-warning btn-skew">Inventaris</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Inventaris</a>
 
-                            <a href="#" class="btn btn-warning btn-skew">Pemasukan / Pendapatan</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Pemasukan / Pendapatan</a>
 
-                            <a href="#" class="btn btn-warning btn-skew">Pengeluaran</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Pengeluaran</a>
 
-                            <a href="#" class="btn btn-warning btn-skew">Letak Server</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Letak Server</a>
                         <br>
                             <code>Template Pelanggan</code>. *) Perlu Mengisi/Import data Paket Internet terlebih dahulu<br>
-                            <a href="#" class="btn btn-warning btn-skew">Inventaris</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Pelanggan</a>
                         <hr>
                         <h5>Import menu Pelanggan dan Tagihan. Gunakan template dan jangan sampai ada field kosong di bawah data excel.</h5>
                         <p>Gunakan <code>Import ini</code> dengan mengisi data paket terlebih dahulu. Dan nama paket di field excel harus sama dengan yang telah anda isi di halaman <code>Paket Internet</code>.</p>
                         <a href="import" class="btn  btn-primary btn-skew" data-toggle="modal"
-                            data-target="#import">IMPORT PELANGGAN GET DATA PAKET INTERNET</a>
+                            data-target="#import"><i class="feather icon-upload"></i>IMPORT PELANGGAN GET DATA PAKET INTERNET</a>
                         <br>
                         <code>Download template</code> <br>
-                            <a href="#" class="btn btn-warning btn-skew">Download Template Import PELANGGAN GET DATA PAKET INTERNET</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i> Template Import PELANGGAN GET DATA PAKET INTERNET</a>
 
 
                         <!-- Modal -->
@@ -149,11 +149,11 @@
                         <hr>
                         <p>Gunakan <code>Import ini</code> dengan mengisi data paket dan pelanggan terlebih dahulu. Dan nik pada field excel harus sama dengan data di halaman <code>Pelanggan</code>.</p>
 
-                        <a href="import" class="btn btn-sm  btn-primary btn-skew" data-toggle="modal"
-                        data-target="#import-importpembayaranwhereniknama">IMPORT PEMBAYARAN BERDASARKAN NIK NAMA HARGA TAHUN DAN BULAN</a>
+                        <a href="import" class="btn btn-primary btn-skew" data-toggle="modal"
+                        data-target="#import-importpembayaranwhereniknama"><i class="feather icon-upload"></i>IMPORT PEMBAYARAN BERDASARKAN NIK NAMA HARGA TAHUN DAN BULAN</a>
                         <br>
                         <code>Download template</code> <br>
-                            <a href="#" class="btn btn-warning btn-skew">Download Template IMPORT PEMBAYARAN BERDASARKAN NIK NAMA HARGA  TAHUN DAN BULAN</a>
+                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Download Template IMPORT PEMBAYARAN BERDASARKAN NIK NAMA HARGA  TAHUN DAN BULAN</a>
 
 
                     <!-- Modal -->

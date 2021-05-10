@@ -130,7 +130,7 @@
         <ul class="pcoded-item pcoded-left-item">
             <li class="">
                 <a href="{{url('/')}}/admin/importspecial">
-                    <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                    <span class="pcoded-micon"><i class="feather icon-upload"></i></span>
                     <span class="pcoded-mtext">Template Import</span>
                 </a>
             </li>

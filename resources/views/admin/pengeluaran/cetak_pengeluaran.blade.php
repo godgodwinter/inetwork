@@ -10,6 +10,9 @@
             td{
                 height:10px;
                 padding-left: 5px;
+                padding-right: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
             }
             body {
                 font-size: 12px;

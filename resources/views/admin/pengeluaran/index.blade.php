@@ -86,7 +86,7 @@
         <div class="row">
             <div class="col-xl-6 col-md-6">
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank" data-toggle="modal"
-                        data-target="#import">IMPORT</a>
+                        data-target="#import"><i class="feather icon-upload"></i>IMPORT</a>
 
                     <!-- Modal -->
                     <div class="modal fade" id="import" tabindex="-1" role="dialog"
@@ -115,13 +115,13 @@
                             </div>
                         </div>
                     </div>
-                <a href="{{ route('exportpengeluaran', 'xlsx') }}" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
-                <a href="cetak/cetak_pengeluaran" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a>
+                <a href="{{ route('exportpengeluaran', 'xlsx') }}" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-download"></i>EXPORT</a>
+                <a href="cetak/cetak_pengeluaran" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord">HAPUS TERPILIH</a>&nbsp;
-                <a href="#kategori" class="btn btn-sm btn-secondary">KATEGORI</a>&nbsp;
-                <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PENGELUARAN</a>&nbsp;
+                <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord"><i class="feather icon-x"></i>HAPUS TERPILIH</a>&nbsp;
+                <a href="#kategori" class="btn btn-sm btn-secondary"><i class="feather icon-box"></i>KATEGORI</a>&nbsp;
+                <a href="#add" class="btn btn-sm btn-secondary"><i class="feather icon-plus"></i>TAMBAH PENGELUARAN</a>&nbsp;
 
             </div>
         </div>
