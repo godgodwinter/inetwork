@@ -1,6 +1,6 @@
 @extends('admin.layouts.nav1')
 
-@section('title','Import Special')
+@section('title','IMPORT DATA DAN TEMPLATE')
 
 @section('csshere')
 <style>
@@ -42,7 +42,7 @@
             <div class="page-header-title">
                 <div class="d-inline">
                     <h4>@yield('title')</h4>
-                    {{-- <span>Halaman Mastering @yield('title')</span> --}}
+                    {{-- <span>Halaman Import dengan data paket belum lengkap</span> --}}
                 </div>
             </div>
         </div>
@@ -72,17 +72,50 @@
 @endsection
 
 @section('container')
+
+
+<div class="page-body">
+    <div class="row">
+
+<!-- customar project  end -->
+</div>
+</div>
 <!-- Section start -->
 <div class="row">
     <div class="col-xl-12 col-md-12 page-body" id="datatable">
         <!-- DOM/Jquery table start -->
         <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-xl-12 col-md-12">
-                        <a href="import" class="btn btn-sm  btn-primary" data-toggle="modal"
-                            data-target="#import">IMPORT PELANGGAN GET DATA PAKET INTERNET</a>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-left">
+                     <h5>Gunakan Template di bawah untuk memudahkan memindah data yang sudah ada ke dalam sistem.</h5>
+                    </div>
 
+                </div>
+                <div class="card-block">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12"> <br>
+                            <code>Download Template</code> <br>
+                            <a href="#" class="btn btn-warning btn-skew">Paket Internet</a>
+
+                            <a href="#" class="btn btn-warning btn-skew">Inventaris</a>
+
+                            <a href="#" class="btn btn-warning btn-skew">Pemasukan / Pendapatan</a>
+
+                            <a href="#" class="btn btn-warning btn-skew">Pengeluaran</a>
+
+                            <a href="#" class="btn btn-warning btn-skew">Letak Server</a>
+                        <br>
+                            <code>Template Pelanggan</code>. *) Perlu Mengisi/Import data Paket Internet terlebih dahulu<br>
+                            <a href="#" class="btn btn-warning btn-skew">Inventaris</a>
+                        <hr>
+                        <h5>Import menu Pelanggan dan Tagihan. Gunakan template dan jangan sampai ada field kosong di bawah data excel.</h5>
+                        <p>Gunakan <code>Import ini</code> dengan mengisi data paket terlebih dahulu. Dan nama paket di field excel harus sama dengan yang telah anda isi di halaman <code>Paket Internet</code>.</p>
+                        <a href="import" class="btn  btn-primary btn-skew" data-toggle="modal"
+                            data-target="#import">IMPORT PELANGGAN GET DATA PAKET INTERNET</a>
+                        <br>
+                        <code>Download template</code> <br>
+                            <a href="#" class="btn btn-warning btn-skew">Download Template Import PELANGGAN GET DATA PAKET INTERNET</a>
 
 
                         <!-- Modal -->
@@ -113,10 +146,14 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <p>Gunakan <code>Import ini</code> dengan mengisi data paket dan pelanggan terlebih dahulu. Dan nik pada field excel harus sama dengan data di halaman <code>Pelanggan</code>.</p>
 
-                        <a href="import" class="btn btn-sm  btn-primary" data-toggle="modal"
-                        data-target="#import-importpembayaranwhereniknama">IMPORT PEMBAYARAN BERDASARKAN NIK NAMA HARGA</a>
-
+                        <a href="import" class="btn btn-sm  btn-primary btn-skew" data-toggle="modal"
+                        data-target="#import-importpembayaranwhereniknama">IMPORT PEMBAYARAN BERDASARKAN NIK NAMA HARGA TAHUN DAN BULAN</a>
+                        <br>
+                        <code>Download template</code> <br>
+                            <a href="#" class="btn btn-warning btn-skew">Download Template IMPORT PEMBAYARAN BERDASARKAN NIK NAMA HARGA  TAHUN DAN BULAN</a>
 
 
                     <!-- Modal -->

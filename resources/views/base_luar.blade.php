@@ -265,7 +265,15 @@
                     <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>04</span> Rekap Pendapatan Bersih<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                     <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
                       <p>
-                       Pendapata bersih dapat di cetak per bulan yang di pilih.
+                       Pendapatan bersih dapat di cetak per bulan yang di pilih.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>05</span> Rekap Utang Piutang<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                       Fitur pencatatan utang dan piutang.
                       </p>
                     </div>
                   </li>
@@ -302,7 +310,7 @@
                   <li class="na"><i class="bx bx-x"></i> <span>Pemasangan</span></li>
                     <li class="na"><i class="bx bx-x"></i> <span>Support</span></li>
                 </ul>
-                <a href="#" class="buy-btn">Get Started</a>
+                <a href="#team" class="buy-btn">Get Started</a>
               </div>
             </div>
 
@@ -316,7 +324,7 @@
                     <li ><i class="bx bx-check"></i> <span>Pemasangan Installasi SSH, Laravel, debuggin awal 1 bulan</span>(Rp.400.000)</li>
                       <li><i class="bx bx-check"></i> <span>Support 2 minggu setelah pemasangan selesai</span></li>
                 </ul>
-                <a href="#" class="buy-btn">Get Started</a>
+                <a href="#team" class="buy-btn">Get Started</a>
               </div>
             </div>
 
@@ -331,7 +339,7 @@
                     <li ><i class="bx bx-check"></i> <span>Pemasangan Installasi SSH, Laravel, debuggin awal 1 bulan</span>(Rp.400.000)</li>
                       <li><i class="bx bx-check"></i> <span>Support</span></li>
                 </ul>
-                <a href="#" class="buy-btn">Get Started</a>
+                <a href="#team" class="buy-btn">Get Started</a>
               </div>
             </div>
 

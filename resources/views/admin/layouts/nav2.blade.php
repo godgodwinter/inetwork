@@ -129,11 +129,18 @@
         <div class="pcoded-navigatio-lavel">Developer</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="">
-            <a href="{{url('/')}}/admin/importspecial">
-                <span class="pcoded-micon"><i class="feather icon-users"></i></span>
-                <span class="pcoded-mtext">Import Special</span>
+                <a href="{{url('/')}}/admin/importspecial">
+                    <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                    <span class="pcoded-mtext">Template Import</span>
+                </a>
+            </li>
+        <li class="">
+            <a href="{{ url('/')}}/backup">
+                <span class="pcoded-micon"><i class="feather icon-save"></i></span>
+                <span class="pcoded-mtext">Backup Data</span>
             </a>
-        </li>
+
+    </li>
             <li class="">
                 <a href="{{ url('/')}}/task">
                     <span class="pcoded-micon"><i class="feather icon-watch"></i></span>

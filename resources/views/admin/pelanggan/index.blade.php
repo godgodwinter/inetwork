@@ -153,8 +153,6 @@ excel date value to php date value
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="#deleteall" class="btn btn-sm btn-danger">HAPUS SEMUA</a>&nbsp;
-                <a href="{{url('/')}}/admin/paket" class="btn btn-sm btn-secondary">PAKET INTERNET</a>&nbsp;
-                <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
                 <a href="#add" class="btn btn-sm btn-secondary">TAMBAH PELANGGAN</a>&nbsp;
 
 
