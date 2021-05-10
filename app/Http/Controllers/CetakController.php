@@ -86,29 +86,31 @@ class CetakController extends Controller
     {
 
 
-        $blnthn=$request->blnthn;
+            $blnthn=$request->blnthn;
 
-        $dpendapatans = DB::table('pendapatan')
-        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
-        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
-        ->get();
+            $dpendapatans = DB::table('pendapatan')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->get();
+
             $totaldapat = DB::table('pendapatan')
             ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
             ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
             ->sum('nominal');
 
-        $dpengeluarans = DB::table('pengeluaran')
-        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
-        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
-        ->get();
+            $dpengeluarans = DB::table('pengeluaran')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->get();
+
             $totalkeluar = DB::table('pengeluaran')
             ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
             ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
             ->sum('nominal');
 
-        $dtagihans = DB::table('tagihan')
-        ->where('thbln', '=', $blnthn)
-        ->get();
+            $dtagihans = DB::table('tagihan')
+            ->where('thbln', '=', $blnthn)
+            ->get();
 
             $totaltagihans = DB::table('tagihan')
             ->where('thbln', '=', $blnthn)
@@ -116,7 +118,7 @@ class CetakController extends Controller
 
 
         $pdf = PDF::loadview('admin/rekap/cetak_rekap',compact('dpengeluarans','dpendapatans','dtagihans','totaltagihans','totaldapat','totalkeluar','blnthn'));
-    	return $pdf->download('laporan-rekap-pdf');
+    	return $pdf->download('rekappdf'.date("YmdHis"));
     }
 
 }

@@ -128,27 +128,29 @@ class Adminrekapcontroller extends Controller
         ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
         ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
         ->get();
-            $totaldapat = DB::table('pendapatan')
-            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
-            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
-            ->sum('nominal');
+
+        $totaldapat = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->sum('nominal');
 
         $dpengeluarans = DB::table('pengeluaran')
         ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
         ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
         ->get();
-            $totalkeluar = DB::table('pengeluaran')
-            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
-            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
-            ->sum('nominal');
+
+        $totalkeluar = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->sum('nominal');
 
         $dtagihans = DB::table('tagihan')
         ->where('thbln', '=', $blnthn)
         ->get();
 
-            $totaltagihans = DB::table('tagihan')
-            ->where('thbln', '=', $blnthn)
-            ->sum('total_bayar');
+        $totaltagihans = DB::table('tagihan')
+        ->where('thbln', '=', $blnthn)
+        ->sum('total_bayar');
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
         return view('admin.rekap.index',compact('dpengeluarans','dpendapatans','dtagihans','totaltagihans','totaldapat','totalkeluar','blnthn'));
