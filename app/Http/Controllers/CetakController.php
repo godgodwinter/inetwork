@@ -11,7 +11,8 @@ use App\Models\inventaris;
 use App\Models\pendapatan;
 use App\Models\tagihan;
 use App\Models\pengeluaran;
-
+use App\Http\Controllers\Adminrekapcontroller;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 
@@ -80,4 +81,42 @@ class CetakController extends Controller
         $pdf = PDF::loadview('admin/pendapatan/cetak_pemasukan',['pemasukan'=>$pemasukan]);
     	return $pdf->download('laporan-pemasukan-pdf');
     }
+
+    public function cetak_rekap(Request $request)
+    {
+
+
+        $blnthn=$request->blnthn;
+
+        $dpendapatans = DB::table('pendapatan')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->get();
+            $totaldapat = DB::table('pendapatan')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->sum('nominal');
+
+        $dpengeluarans = DB::table('pengeluaran')
+        ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+        ->get();
+            $totalkeluar = DB::table('pengeluaran')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->sum('nominal');
+
+        $dtagihans = DB::table('tagihan')
+        ->where('thbln', '=', $blnthn)
+        ->get();
+
+            $totaltagihans = DB::table('tagihan')
+            ->where('thbln', '=', $blnthn)
+            ->sum('total_bayar');
+
+
+        $pdf = PDF::loadview('admin/rekap/cetak_rekap',compact('dpengeluarans','dpendapatans','dtagihans','totaltagihans','totaldapat','totalkeluar','blnthn'));
+    	return $pdf->download('laporan-rekap-pdf');
+    }
+
 }

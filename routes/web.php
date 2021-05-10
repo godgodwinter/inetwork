@@ -49,16 +49,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::delete('admin/pendapatan-multidel', 'App\Http\Controllers\AdminPendapatanController@deletechecked')->name('pendapatan.deleteSelected');
     Route::delete('admin/pendapatan-multidelkategori', 'App\Http\Controllers\AdminPendapatanController@deletecheckedkategori')->name('pendapatan.kategori.deleteSelected');
     Route::get('admin/pendapatanbln', 'App\Http\Controllers\AdminPendapatanController@pendapatanbln');
-
-    //Print PDF
-    Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
-    Route::get('admin/cetak/cetak_letakserver', 'App\Http\Controllers\CetakController@cetak_letakserver');
-    Route::get('admin/cetak/cetak_inventaris', 'App\Http\Controllers\CetakController@cetak_inventaris');
-    Route::get('admin/cetak/cetak_pelanggan', 'App\Http\Controllers\CetakController@cetak_pelanggan');
-    Route::get('admin/cetak/cetak_tagihan', 'App\Http\Controllers\CetakController@cetak_tagihan');
-    Route::get('admin/cetak/cetak_pemasukan', 'App\Http\Controllers\CetakController@cetak_pemasukan');
-    Route::get('admin/cetak/cetak_pengeluaran', 'App\Http\Controllers\CetakController@cetak_pengeluaran');
-
     Route::resource('admin/jenispendapatan','App\Http\Controllers\AdminJenispendapatanController');
 
     //menu pengeluaran
@@ -92,6 +82,18 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     //menu developer
     Route::resource('admin/importspecial','App\Http\Controllers\AdminImportspecialController');
+
+    //Print PDF
+    Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
+    Route::get('admin/cetak/cetak_letakserver', 'App\Http\Controllers\CetakController@cetak_letakserver');
+    Route::get('admin/cetak/cetak_inventaris', 'App\Http\Controllers\CetakController@cetak_inventaris');
+    Route::get('admin/cetak/cetak_pelanggan', 'App\Http\Controllers\CetakController@cetak_pelanggan');
+    Route::get('admin/cetak/cetak_tagihan', 'App\Http\Controllers\CetakController@cetak_tagihan');
+    Route::get('admin/cetak/cetak_pemasukan', 'App\Http\Controllers\CetakController@cetak_pemasukan');
+    Route::get('admin/cetak/cetak_pengeluaran', 'App\Http\Controllers\CetakController@cetak_pengeluaran');
+    Route::get('/cetak/cetak_rekap', 'App\Http\Controllers\CetakController@cetak_rekap');
+
+
 
     //Export
     // Route for export/download tabledata to .csv, .xls or .xlsx
