@@ -75,6 +75,8 @@ class AdminPelangganController extends Controller
     public function create()
     {
         //
+        $blnthn=date("Y-m");
+        return view('admin.pelanggan.create',compact('blnthn'));
     }
 
     /**

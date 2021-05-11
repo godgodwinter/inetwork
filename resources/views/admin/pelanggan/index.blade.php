@@ -152,7 +152,7 @@ excel date value to php date value
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="#deleteall" class="btn btn-sm btn-danger"><i class="feather icon-x"></i> SEMUA</a>&nbsp;
-                <a href="#add" class="btn btn-sm btn-secondary"><i class="feather icon-plus"></i>TAMBAH PELANGGAN</a>&nbsp;
+                <a href="{{ route('pelanggan.create') }}" class="btn btn-sm btn-secondary"><i class="feather icon-plus"></i>TAMBAH PELANGGAN</a>&nbsp;
 
 
             </div>
