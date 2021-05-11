@@ -61,9 +61,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pelanggan
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminPelangganController');
     Route::get('admin/pelangganbln', 'App\Http\Controllers\AdminPelangganController@pelangganbln');
-    Route::get('admin/pelanggan/{blnthn}/pelangganbln', 'App\Http\Controllers\AdminPelangganController@showpelangganbln');
+    Route::get('admin/pelanggan/{blnthn}/{orderby}/{ascdesc}/pelangganbln', 'App\Http\Controllers\AdminPelangganController@showpelangganbln');
     Route::get('admin/pelanggan/{blnthn}/cari', 'App\Http\Controllers\AdminPelangganController@cari')->name('pelanggan-cari');
-    Route::get('admin/pelanggan/{blnthn}/{cari}/pelanggan-cari', 'App\Http\Controllers\AdminPelangganController@showcari')->name('pelanggan-cari');
+    Route::get('admin/pelanggan/{blnthn}/{orderby}/{ascdesc}/{cari}/pelanggan-cari', 'App\Http\Controllers\AdminPelangganController@showcari')->name('pelanggan-cari');
 
 
     //menu tagihan

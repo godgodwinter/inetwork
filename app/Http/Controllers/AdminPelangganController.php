@@ -15,41 +15,80 @@ class AdminPelangganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($cari='')
+    public function index($cari='',$orderby='nama',$ascdesc='asc')
     {
         $blnthn=date("Y-m");
-        $datas=pelanggan::paginate(10);
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari'));
+		$datas = DB::table('pelanggan')
+		->where('nama','like',"%".$cari."%")
+		->orwhere('alamat','like',"%".$cari."%")
+		->orwhere('panggilan','like',"%".$cari."%")
+		->orwhere('paket_nama','like',"%".$cari."%")
+		->orwhere('hp','like',"%".$cari."%")
+        ->orderBy($orderby,)->orderBy('id','desc')
+		->paginate(10);
+        // $datas=pelanggan::paginate(10);
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc'));
     }
 
     public function pelangganbln(Request $request,$cari='')
     {
         $blnthn=$request->blnthn;
-        return redirect('/admin/pelanggan/'.$blnthn.'/pelangganbln');
+        $orderby=$request->orderby;
+        $ascdesc=$request->ascdesc;
+        return redirect('/admin/pelanggan/'.$blnthn.'/'.$orderby.'/'.$ascdesc.'/pelangganbln');
 
     }
-    public function showpelangganbln($blnthn,$cari='')
+    public function showpelangganbln($blnthn,$orderby='nama',$ascdesc='asc',$cari='')
     {
         $blnthn=$blnthn;
-        $datas=pelanggan::paginate(10);
+        $orderby=$orderby;
+        $ascdesc=$ascdesc;
+        // dd($orderby);
+        // dd(($orderby==='nama')OR($orderby==='panggilan')OR($orderby==='tgl_gabung')OR($orderby=='status_langganan'));
+        if(($orderby==='nama')OR($orderby==='panggilan')OR($orderby==='tgl_gabung')OR($orderby==='status_langganan')OR($orderby==='paket_id')){
 
-        // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari'));
+        }else{
+
+            $orderby='nama';
+        }
+        // dd($cari);
+        $datas = DB::table('pelanggan')
+		->where('nama','like',"%".$cari."%")
+		->orwhere('alamat','like',"%".$cari."%")
+		->orwhere('panggilan','like',"%".$cari."%")
+		->orwhere('paket_nama','like',"%".$cari."%")
+		->orwhere('hp','like',"%".$cari."%")
+        ->orderBy($orderby,$ascdesc)
+		->paginate(10);
+        // $datas=pelanggan::paginate(10);
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc'));
     }
-    public function cari(Request $request,$blnthn)
+    public function cari(Request $request,$blnthn,$orderby='nama',$ascdesc='asc',$cari='')
     {
-        // dd($request);
-        $blnthn=$blnthn;
         $cari=$request->cari;
-        return redirect('/admin/pelanggan/'.$blnthn.'/'.$cari.'/pelanggan-cari/');
+         $blnthn=$request->blnthn;
+        $orderby=$request->orderby;
+        $ascdesc=$request->ascdesc;
+        if($cari===null){
+            return redirect('/admin/pelanggan/'.$blnthn.'/'.$orderby.'/'.$ascdesc.'/pelangganbln');
+        }
+        return redirect('/admin/pelanggan/'.$blnthn.'/'.$orderby.'/'.$ascdesc.'/'.$cari.'/pelanggan-cari');
 
     }
-    public function showcari($blnthn,$cari)
+    public function showcari($blnthn,$orderby,$ascdesc,$cari)
 	{
 
-		// menangkap data pencarian
-		$cari = $cari;
         $blnthn=$blnthn;
+        $orderby=$orderby;
+        $ascdesc=$ascdesc;
+        // dd($orderby);
+        // dd(($orderby==='nama')OR($orderby==='panggilan')OR($orderby==='tgl_gabung')OR($orderby=='status_langganan'));
+        if(($orderby==='nama')OR($orderby==='panggilan')OR($orderby==='tgl_gabung')OR($orderby==='status_langganan')OR($orderby==='paket_id')){
+
+        }else{
+
+            $orderby='nama';
+        }
 
     		// mengambil data dari table pegawai sesuai pencarian data
 		$datas = DB::table('pelanggan')
@@ -58,11 +97,13 @@ class AdminPelangganController extends Controller
 		->orwhere('panggilan','like',"%".$cari."%")
 		->orwhere('paket_nama','like',"%".$cari."%")
 		->orwhere('hp','like',"%".$cari."%")
+		->orwhere('hp','like',"%".$cari."%")
+        ->orderBy($orderby,$ascdesc)
 		->paginate(10);
 
         // dd($datas);
     		// mengirim data pegawai ke view index
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari'));
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc'));
 
 	}
 

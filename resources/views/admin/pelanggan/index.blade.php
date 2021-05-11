@@ -59,20 +59,43 @@ excel date value to php date value
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <div class="page-header-title">
                 <div class="d-inline">
 
-        <form action="/admin/pelangganbln/" method="get" class="d-inline">
+        <form action="{{ url('/')}}/admin/pelanggan/{{ $blnthn }}/cari" method="GET">
+            <input type="hidden" name="cari" placeholder="Cari .." value="{{ $cari }}">
             <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+
+
+                <select name="orderby" required>
+                    <option value='{{ $orderby }}'>{{ $orderby }}</option>
+                     <option value='nama'>Nama</option>
+                     <option value='panggilan'>Panggilan</option>
+                     <option value='paket_id'>Paket</option>
+                     <option value='tgl_gabung'>Tanggal Gabung</option>
+                     <option value='status_langganan'>Status Langganan</option>
+                </select>
+                <select name="ascdesc" required>
+                    <option value='{{ $ascdesc }}'>{{ $ascdesc }}</option>
+                     <option value='asc'>ASC</option>
+                     <option value='desc'>Desc</option>
+                </select>
+
+
+
+
             <button type="Simpan" class="btn btn-success">PILIH</button>
             </form>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="page-header-breadcrumb">
                 <form action="{{ url('/')}}/admin/pelanggan/{{ $blnthn }}/cari" method="GET">
+                    <input type="hidden" name="orderby" value="{{ $orderby }}">
+                    <input type="hidden" name="blnthn" value="{{ $blnthn }}">
+                    <input type="hidden" name="ascdesc" value="{{ $ascdesc }}">
                     <input type="text" name="cari" placeholder="Cari .." value="{{ $cari }}">
                     <input type="submit" value="CARI">
                 </form>
@@ -108,7 +131,7 @@ excel date value to php date value
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="row">
-            <div class="col-xl-6 col-md-6">
+            <div class="col-xl-12 col-md-12 col-lg-12 ml-1 mt-1">
                 {{-- <a href="#add" class="btn btn-sm btn-success">BAYAR</a> --}}
                 <a href="import" class="btn btn-sm  btn-primary" data-toggle="modal"
                             data-target="#import"><i class="feather icon-upload"></i>IMPORT</a>
@@ -149,9 +172,12 @@ excel date value to php date value
                         <a href="{{ route('exportpelanggan', 'xlsx') }}" class="btn btn-sm  btn-primary"
                         target="_blank"><i class="feather icon-download"></i>EXPORT</a>
                 <a href="{{ route('pelanggan-cetakpdf') }}" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
+                <a href="#" class="btn btn-sm  btn-warning" target="_blank"><i class="feather icon-file-text"></i>LUNAS</a>
+                <a href="#" class="btn btn-sm  btn-warning" target="_blank"><i class="feather icon-file-text"></i>BELUM LUNAS</a>
             </div>
-            <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                <a href="#deleteall" class="btn btn-sm btn-danger"><i class="feather icon-x"></i> SEMUA</a>&nbsp;
+            <div class="col-xl-12 col-md-12  col-lg-12 mt-1  ml-1">
+                {{-- <div class="col-xl-12 col-md-12  col-lg-12 d-flex flex-row-reverse"> --}}
+                <a href="#deleteall" class="btn btn-sm btn-danger"><i class="feather icon-x"></i> HAPUS SEMUA</a>&nbsp;
                 <a href="{{ route('pelanggan.create') }}" class="btn btn-sm btn-secondary"><i class="feather icon-plus"></i>TAMBAH PELANGGAN</a>&nbsp;
 
 
@@ -432,15 +458,17 @@ $ambildatanikditagihan= DB::table('tagihan')
                 </table>
 
 
-<br/>
-Halaman : {{ $datas->currentPage() }} <br/>
-Jumlah Data : {{ $datas->total() }} <br/>
-Data Per Halaman : {{ $datas->perPage() }} <br/>
-
 {{-- Pagination --}}
 <div class="d-flex justify-content-center">
 {!! $datas->links() !!}
 </div>
+
+<br/>
+Halaman : {{ $datas->currentPage() }} <br/>
+Jumlah Data : {{ $datas->total() }} <br/>
+Data Per Halaman : {{ $datas->perPage() }} <br/>
+Urutan Berdasarkan : {{ $orderby }} - {{ $ascdesc }} <br/>
+Halaman di muat dalam {{ number_format((microtime(true) - LARAVEL_START),2) }} detik.
             </div>
         </div>
     </div>
