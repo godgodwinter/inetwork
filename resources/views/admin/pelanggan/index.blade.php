@@ -64,7 +64,8 @@ excel date value to php date value
                 <div class="d-inline">
 
         <form action="{{ url('/')}}/admin/pelanggan/{{ $blnthn }}/cari" method="GET">
-            <input type="hidden" name="cari" placeholder="Cari .." value="{{ $cari }}">
+            <input type="hidden" name="cari" value="{{ $cari }}">
+            <input type="hidden" name="tagihan" value="{{ $tagihan }}">
             <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
 
 
@@ -94,6 +95,7 @@ excel date value to php date value
             <div class="page-header-breadcrumb">
                 <form action="{{ url('/')}}/admin/pelanggan/{{ $blnthn }}/cari" method="GET">
                     <input type="hidden" name="orderby" value="{{ $orderby }}">
+                    <input type="hidden" name="tagihan" value="{{ $tagihan }}">
                     <input type="hidden" name="blnthn" value="{{ $blnthn }}">
                     <input type="hidden" name="ascdesc" value="{{ $ascdesc }}">
                     <input type="text" name="cari" placeholder="Cari .." value="{{ $cari }}">
@@ -172,8 +174,8 @@ excel date value to php date value
                         <a href="{{ route('exportpelanggan', 'xlsx') }}" class="btn btn-sm  btn-primary"
                         target="_blank"><i class="feather icon-download"></i>EXPORT</a>
                 <a href="{{ route('pelanggan-cetakpdf') }}" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
-                <a href="#" class="btn btn-sm  btn-warning" target="_blank"><i class="feather icon-file-text"></i>LUNAS</a>
-                <a href="#" class="btn btn-sm  btn-warning" target="_blank"><i class="feather icon-file-text"></i>BELUM LUNAS</a>
+                <a href="{{ url('/')}}/admin/pelanggan-lunas" class="btn btn-sm  btn-warning"><i class="feather icon-file-text"></i>LUNAS</a>
+                <a href="{{ url('/')}}/admin/pelanggan-belumlunas" class="btn btn-sm  btn-warning"><i class="feather icon-file-text"></i>BELUM LUNAS</a>
             </div>
             <div class="col-xl-12 col-md-12  col-lg-12 mt-1  ml-1">
                 {{-- <div class="col-xl-12 col-md-12  col-lg-12 d-flex flex-row-reverse"> --}}
@@ -228,12 +230,7 @@ $ambildatanikditagihan= DB::table('tagihan')
     ->where('nik',$data->nik)
     ->where('thbln',$blnthn)
             ->count();
-// if($ambildatanikditagihan<1){
-//     $ambiltagihankurangberapa=$data->paket_harga;
-// }
 
-// dd($ambiltagihankurangberapa);
-    // dd($ambiltagihankurangberapa);
 
                             @endphp
   <div class="modal fade" id="large-Modal{{ $data->id }}" tabindex="-1" role="dialog">
@@ -468,262 +465,13 @@ Halaman : {{ $datas->currentPage() }} <br/>
 Jumlah Data : {{ $datas->total() }} <br/>
 Data Per Halaman : {{ $datas->perPage() }} <br/>
 Urutan Berdasarkan : {{ $orderby }} - {{ $ascdesc }} <br/>
+Status Pembayaran : {{ $tagihan }} <br/>
 Halaman di muat dalam {{ number_format((microtime(true) - LARAVEL_START),2) }} detik.
             </div>
         </div>
     </div>
 
-    <!-- DOM/Jquery table end -->
-    <!-- tambah -->
-    {{-- <div class="card" id="add" >
-        <div class="card-header">
-            <div class="row">
-                <div class="col-xl-6 col-md-6">
-                    <h5 class="label label-success">TAMBAH PELANGGAN</h5>
-                </div>
-                <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                <a href="{{url('/')}}/admin/paket" class="btn btn-sm btn-secondary">PAKET INTERNET</a>&nbsp;
-                <a href="{{url('/')}}/admin/letakserver" class="btn btn-sm btn-secondary">LETAK SERVER</a>&nbsp;
-                    <a href="#datatable" class="btn btn-sm btn-secondary">PELANGGAN</a>
-                </div>
-            </div>
-        </div>
-        <div class="card-block">
-            <div class="card-body">
-                <form action="/admin/pelanggan" method="post">
-                    @csrf
-                    <div class="pl-lg-4">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-nik">NIK (*</label>
-                                    <input type="text" name="nik" id="input-nik"
-                                        class="form-control form-control-alternative  @error('nik') is-invalid @enderror"
-                                        placeholder="" value="{{old('nik')}}" required>
-                                    @error('nik')<div class="invalid-feedback"> {{$message}}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-nama">Nama (*</label>
-                                    <input type="text" name="nama" id="input-nama"
-                                        class="form-control form-control-alternative  @error('nama') is-invalid @enderror"
-                                        placeholder="" value="{{old('nama')}}" required>
-                                    @error('nama')<div class="invalid-feedback"> {{$message}}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-panggilan">Panggilan (*</label>
-                                    <input type="text" name="panggilan" id="input-panggilan"
-                                        class="form-control form-control-alternative  @error('panggilan') is-invalid @enderror"
-                                        placeholder="" value="{{old('panggilan')}}" required>
-                                    @error('panggilan')<div class="invalid-feedback"> {{$message}}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-alamat">Alamat (*</label>
-                                    <input type="text" name="alamat" id="input-alamat"
-                                        class="form-control form-control-alternative  @error('alamat') is-invalid @enderror"
-                                        placeholder="" value="{{old('alamat')}}" required>
-                                    @error('alamat')<div class="invalid-feedback"> {{$message}}</div>
-                                    @enderror
-                                </div>
-                            </div>
 
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-hp">No WA (*</label>
-                                    <input type="text" name="hp" id="input-hp"
-                                        class="form-control form-control-alternative  @error('hp') is-invalid @enderror"
-                                        placeholder="" value="{{old('hp')}}" required>
-                                    @error('hp')<div class="invalid-feedback"> {{$message}}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-tgl_gabung">Tanggal Gabung(*</label>
-                                    <input type="date" name="tgl_gabung" id="input-tgl_gabung"
-                                        class="form-control form-control-alternative  @error('tgl_gabung') is-invalid @enderror"
-                                        placeholder="" value="{{$blnthn}}-{{ $tglskrg }}"required>
-
-                                    @error('tgl_gabung')<div class="invalid-feedback"> {{$message}}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-4 col-sm-4 col-xl-4 m-b-30">
-                                <label class="form-control-label" for="input-jk">Pilih Paket  (*</label>
-                                <select name="paket_id" id="input-paket_id"
-                                    class="form-control form-control-info  @error('paket_id') is-invalid @enderror"
-                                    required>
-                            <?php
-                                $data2s = DB::table('paket')->orderBy('kecepatan', 'asc')->get();
-                            ?>
-                                @foreach($data2s as $d2)
-                                        <option value="{{ $d2->id }}">{{ $d2->nama }} - {{$d2->kecepatan}} Mbps</option>
-                                @endforeach
-                                        </select> @error('paket_id')<div class="invalid-feedback"> {{$message}}
-                                        </div>
-                                @enderror
-                            </div>
-
-
-                            <div class="col-lg-4 col-sm-4 col-xl-4 m-b-30">
-                                <label class="form-control-label" for="input-jk">Pilih Letak Server  (*</label>
-                                <select name="letakserver_id" id="input-letakserver_id"
-                                    class="form-control form-control-info  @error('letakserver_id') is-invalid @enderror"
-                                    required>
-                            <?php
-                                $data3s = DB::table('letakserver')->orderBy('nama', 'asc')->get();
-                            ?>
-                                @foreach($data3s as $d3)
-                                        <option value="{{ $d3->id }}">{{ $d3->nama }}</option>
-                                @endforeach
-                                        </select> @error('letakserver_id')<div class="invalid-feedback"> {{$message}}
-                                        </div>
-                                @enderror
-                            </div>
-
-                            <div class="col-lg-4 col-sm-4 col-xl-4 m-b-30">
-                                <label class="form-control-label" for="input-jk">Pilih Status Langganan  (*</label>
-                                <select name="status_langganan" id="input-status_langganan"
-                                    class="form-control form-control-info  @error('status_langganan') is-invalid @enderror"
-                                    required>
-
-                                        <option>Aktif</option>
-                                        <option>Non-Aktif</option>
-
-                                        </select> @error('status_langganan')<div class="invalid-feedback"> {{$message}}
-                                        </div>
-                                @enderror
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-koordinat">Kordinat Rumah (*</label>
-                                     <input type="text" name="kordinat_rumah" id="input-koordinat"  class="form-control form-control-alternative  @error('kordinat_rumah') is-invalid @enderror"
-                              placeholder="" value="{{old('kordinat_rumah')}}" required>
-                              @error('kordinat_rumah')<div class="invalid-feedback"> {{$message}}</div>
-                              @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-control-label " for="input-koordinat">&nbsp; </label>
-                                <div class="form-group">
-                                    <button type="Simpan" class="btn btn-success">Simpan</button>
-                                </div>
-                            </div>
-
-                            <div id="mapCanvas"></div>
-                            <div id="infoPanel">
-                              <b>Marker status:</b>
-                              <div id="markerStatus"><i>Click and drag the marker.</i></div>
-                              <b>Current position:</b>
-                              <div id="info"></div>
-                              {{-- <b>Closest matching address:</b>
-                              <div id="address"></div> --}}
-                            </div><script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
-                            <script>
-
-                                var geocoder = new google.maps.Geocoder();
-
-                                function geocodePosition(pos) {
-                                geocoder.geocode({
-                                    latLng: pos
-                                }, function(responses) {
-                                    if (responses && responses.length > 0) {
-                                    updateMarkerAddress(responses[0].formatted_address);
-                                    } else {
-                                    updateMarkerAddress('Cannot determine address at this location.');
-                                    }
-                                });
-                                }
-
-                                function updateMarkerStatus(str) {
-                                document.getElementById('markerStatus').innerHTML = str;
-                                }
-
-                                function updateMarkerPosition(latLng) {
-                                document.getElementById('info').innerHTML = [
-                                    latLng.lat(),
-                                    latLng.lng()
-                                ].join(', ');
-                                document.getElementById("input-koordinat").value = [
-                                    latLng.lat(),
-                                    latLng.lng()
-                                ].join(', ');
-                                }
-
-                                function updateMarkerAddress(str) {
-                                document.getElementById('address').innerHTML = str;
-                                }
-
-                                function initialize() {
-                                var latLng = new google.maps.LatLng(-8.129902243245665, 112.4867915739301);
-                                var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                                    zoom: 15,
-                                    center: latLng,
-                                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                                });
-                                var marker = new google.maps.Marker({
-                                    position: latLng,
-                                    title: 'Point A',
-                                    map: map,
-                                    draggable: true
-                                });
-
-                                // Update current position info.
-                                updateMarkerPosition(latLng);
-                                geocodePosition(latLng);
-
-                                // Add dragging event listeners.
-                                google.maps.event.addListener(marker, 'dragstart', function() {
-                                    updateMarkerAddress('Dragging...');
-                                });
-
-                                google.maps.event.addListener(marker, 'drag', function() {
-                                    updateMarkerStatus('Dragging...');
-                                    updateMarkerPosition(marker.getPosition());
-                                });
-
-                                google.maps.event.addListener(marker, 'dragend', function() {
-                                    updateMarkerStatus('Drag ended');
-                                    geocodePosition(marker.getPosition());
-                                });
-                                }
-
-                                // Onload handler to fire off the app.
-                                google.maps.event.addDomListener(window, 'load', initialize);
-
-                                // $("#input-harga").on('keyup', function() {
-                                //     // alert("oops!");
-                                //     $('#input-harga-label:last').text(format($(this).val()));
-                                // });
-                            </script>
-                            <script
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB35N54GJSZlfnaC1HWjWjoExGy2JuXroc&callback=initMap&libraries=&v=weekly"
-                            async
-                          ></script>
-
-
-                        </div>
-                    </div>
-
-                </form>
-    </div>
-</div>
-</div> --}}
-<!-- tambah end -->
 
 </div>
 <!-- Section end -->

@@ -61,9 +61,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pelanggan
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminPelangganController');
     Route::get('admin/pelangganbln', 'App\Http\Controllers\AdminPelangganController@pelangganbln');
-    Route::get('admin/pelanggan/{blnthn}/{orderby}/{ascdesc}/pelangganbln', 'App\Http\Controllers\AdminPelangganController@showpelangganbln');
+    Route::get('admin/pelanggan/{blnthn}/{tagihan}/{orderby}/{ascdesc}/pelangganbln', 'App\Http\Controllers\AdminPelangganController@showpelangganbln');
     Route::get('admin/pelanggan/{blnthn}/cari', 'App\Http\Controllers\AdminPelangganController@cari')->name('pelanggan-cari');
-    Route::get('admin/pelanggan/{blnthn}/{orderby}/{ascdesc}/{cari}/pelanggan-cari', 'App\Http\Controllers\AdminPelangganController@showcari')->name('pelanggan-cari');
+    Route::get('admin/pelanggan/{blnthn}/{tagihan}/{orderby}/{ascdesc}/{cari}/pelanggan-cari', 'App\Http\Controllers\AdminPelangganController@showcari')->name('pelanggan-cari');
+
+    Route::get('admin/pelanggan-lunas', 'App\Http\Controllers\AdminPelangganController@lunas');
+    Route::get('admin/pelanggan-belumlunas', 'App\Http\Controllers\AdminPelangganController@belumlunas');
 
 
     //menu tagihan

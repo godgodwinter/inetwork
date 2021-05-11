@@ -15,7 +15,7 @@ class AdminPelangganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($cari='',$orderby='nama',$ascdesc='asc')
+    public function index($cari='',$orderby='nama',$ascdesc='asc',$tagihan='campur')
     {
         $blnthn=date("Y-m");
 		$datas = DB::table('pelanggan')
@@ -27,19 +27,52 @@ class AdminPelangganController extends Controller
         ->orderBy($orderby,)->orderBy('id','desc')
 		->paginate(10);
         // $datas=pelanggan::paginate(10);
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc'));
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+    }
+
+    public function lunas($cari='',$orderby='nama',$ascdesc='asc',$tagihan='lunas')
+    {
+        // dd($tagihan);
+        $blnthn=date("Y-m");
+		$datas = DB::table('pelanggan')
+		->where('nama','like',"%".$cari."%")
+		->orwhere('alamat','like',"%".$cari."%")
+		->orwhere('panggilan','like',"%".$cari."%")
+		->orwhere('paket_nama','like',"%".$cari."%")
+		->orwhere('hp','like',"%".$cari."%")
+        ->orderBy($orderby,)->orderBy('id','desc')
+		->paginate(10);
+        // $datas=pelanggan::paginate(10);
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+    }
+
+    public function belumlunas($cari='',$orderby='nama',$ascdesc='asc',$tagihan='belumlunas')
+    {
+        $blnthn=date("Y-m");
+		$datas = DB::table('pelanggan')
+		->where('nama','like',"%".$cari."%")
+		->orwhere('alamat','like',"%".$cari."%")
+		->orwhere('panggilan','like',"%".$cari."%")
+		->orwhere('paket_nama','like',"%".$cari."%")
+		->orwhere('hp','like',"%".$cari."%")
+        ->orderBy($orderby,)->orderBy('id','desc')
+		->paginate(10);
+        // $datas=pelanggan::paginate(10);
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
     }
 
     public function pelangganbln(Request $request,$cari='')
     {
+        $tagihan=$request->tagihan;
         $blnthn=$request->blnthn;
         $orderby=$request->orderby;
         $ascdesc=$request->ascdesc;
-        return redirect('/admin/pelanggan/'.$blnthn.'/'.$orderby.'/'.$ascdesc.'/pelangganbln');
+        return redirect('/admin/pelanggan/'.$blnthn.'/'.$tagihan.'/'.$orderby.'/'.$ascdesc.'/pelangganbln');
 
     }
-    public function showpelangganbln($blnthn,$orderby='nama',$ascdesc='asc',$cari='')
+    public function showpelangganbln($blnthn,$tagihan='campur',$orderby='nama',$ascdesc='asc',$cari='')
     {
+        $tagihan=$tagihan;
         $blnthn=$blnthn;
         $orderby=$orderby;
         $ascdesc=$ascdesc;
@@ -61,21 +94,22 @@ class AdminPelangganController extends Controller
         ->orderBy($orderby,$ascdesc)
 		->paginate(10);
         // $datas=pelanggan::paginate(10);
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc'));
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
     }
     public function cari(Request $request,$blnthn,$orderby='nama',$ascdesc='asc',$cari='')
     {
         $cari=$request->cari;
+        $tagihan=$request->tagihan;
          $blnthn=$request->blnthn;
         $orderby=$request->orderby;
         $ascdesc=$request->ascdesc;
         if($cari===null){
-            return redirect('/admin/pelanggan/'.$blnthn.'/'.$orderby.'/'.$ascdesc.'/pelangganbln');
+            return redirect('/admin/pelanggan/'.$blnthn.'/'.$tagihan.'/'.$orderby.'/'.$ascdesc.'/pelangganbln');
         }
-        return redirect('/admin/pelanggan/'.$blnthn.'/'.$orderby.'/'.$ascdesc.'/'.$cari.'/pelanggan-cari');
+        return redirect('/admin/pelanggan/'.$blnthn.'/'.$tagihan.'/'.$orderby.'/'.$ascdesc.'/'.$cari.'/pelanggan-cari');
 
     }
-    public function showcari($blnthn,$orderby,$ascdesc,$cari)
+    public function showcari($blnthn,$tagihan,$orderby,$ascdesc,$cari)
 	{
 
         $blnthn=$blnthn;
@@ -101,9 +135,20 @@ class AdminPelangganController extends Controller
         ->orderBy($orderby,$ascdesc)
 		->paginate(10);
 
-        // dd($datas);
-    		// mengirim data pegawai ke view index
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc'));
+        //ikiyus
+        //1.ambildata pelanggan
+        //2.cek apakah tagihan.paket_harga - tagihan.total_bayar
+        //3.$tagihan==lunas
+            //jika $hasilnya<=0 berarti lunas
+            //tampilkan siapa saja yang lunas
+        //4.$tagihan==belumlunas
+            //jika >0 berarti belum lunas
+            //tampilkan siapa saja yang belum lunas
+        //5.$tagihan==campur
+            //tampilkan semua
+
+    		// mengirim data pelanggan ke view index
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
 
 	}
 
