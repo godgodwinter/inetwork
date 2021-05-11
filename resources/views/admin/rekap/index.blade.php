@@ -85,19 +85,23 @@
     <div class="card">
         <div class="row">
             <div class="col-xl-6 col-md-6">
-                <a href="import" class="btn btn-sm  btn-primary" target="_blank">IMPORT</a>
-                <a href="export" class="btn btn-sm  btn-primary" target="_blank">EXPORT</a>
+                {{-- <a href="import" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-upload"></i>IMPORT</a>
+                <a href="export" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-download"></i>EXPORT</a> --}}
 
 
                 <form action="/cetak/cetak_rekap/" method="get" class="d-inline" target="_blank">
 
                     <input type="month" name="blnthn" value="{{ $blnthn }}" required hidden>
 
-                    <input type="submit" class="btn btn-sm  btn-primary"  value="CETAK PDF">
+                    <button type="submit" class="btn btn-sm  btn-primary"  value="PDF"><i class="feather icon-file-text"></i>PDF</button>
+                </form>
 
+                <form action="/cetak/cetak_rekapnodetail/" method="get" class="d-inline" target="_blank">
 
-                {{-- <a href="cetak/cetak_rekap" class="btn btn-sm  btn-primary" target="_blank">CETAK PDF</a> --}}
-            </form>
+                    <input type="month" name="blnthn" value="{{ $blnthn }}" required hidden>
+
+                    <button type="submit" class="btn btn-sm  btn-primary"  value="PDF"><i class="feather icon-file-text"></i>PDF TANPA DETAIL</button>
+                </form>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <form action="/admin/rekapbln/" method="get" class="d-inline">

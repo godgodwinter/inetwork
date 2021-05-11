@@ -190,4 +190,43 @@ class CetakController extends Controller
     	return $pdf->download('rekappdf'.date("YmdHis").'.pdf');
     }
 
+    public function cetak_rekapnodetail(Request $request)
+    {
+
+
+            $blnthn=$request->blnthn;
+
+            $dpendapatans = DB::table('pendapatan')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->get();
+
+            $totaldapat = DB::table('pendapatan')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->sum('nominal');
+
+            $dpengeluarans = DB::table('pengeluaran')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->get();
+
+            $totalkeluar = DB::table('pengeluaran')
+            ->whereMonth('tgl', '=', date("m",strtotime($blnthn)))
+            ->whereYear('tgl', '=', date("Y",strtotime($blnthn)))
+            ->sum('nominal');
+
+            $dtagihans = DB::table('tagihan')
+            ->where('thbln', '=', $blnthn)
+            ->get();
+
+            $totaltagihans = DB::table('tagihan')
+            ->where('thbln', '=', $blnthn)
+            ->sum('total_bayar');
+
+
+        $pdf = PDF::loadview('admin/rekap/cetak_rekapnodetail',compact('dpengeluarans','dpendapatans','dtagihans','totaltagihans','totaldapat','totalkeluar','blnthn'));
+    	return $pdf->download('rekappdf'.date("YmdHis").'.pdf');
+    }
+
 }

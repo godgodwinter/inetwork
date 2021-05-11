@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/cetak/{blnthn}/pendapatan-bulanini', 'App\Http\Controllers\CetakController@pendapatanbulanini');
     Route::get('admin/cetak/{blnthn}/pengeluaran-bulanini', 'App\Http\Controllers\CetakController@pengeluaranbulanini');
     Route::get('admin/cetak/{blnthn}/tagihan-bulanini', 'App\Http\Controllers\CetakController@tagihanbulanini');
+    Route::get('/cetak/cetak_rekapnodetail', 'App\Http\Controllers\CetakController@cetak_rekapnodetail');
 
 
 
