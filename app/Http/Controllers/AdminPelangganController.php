@@ -15,27 +15,57 @@ class AdminPelangganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($cari='')
     {
         $blnthn=date("Y-m");
-        $datas=pelanggan::paginate(8);
-        // $datas = DB::table('pelanggan')
-        //         ->offset(0)
-        //         ->limit(5)
-        //         ->get();
-
-        // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.pelanggan.index',compact('datas','blnthn'));
+        $datas=pelanggan::paginate(10);
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari'));
     }
 
-    public function pelangganbln(Request $request)
+    public function pelangganbln(Request $request,$cari='')
     {
         $blnthn=$request->blnthn;
-        $datas=pelanggan::all();
+        return redirect('/admin/pelanggan/'.$blnthn.'/pelangganbln');
+
+    }
+    public function showpelangganbln($blnthn,$cari='')
+    {
+        $blnthn=$blnthn;
+        $datas=pelanggan::paginate(10);
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.pelanggan.index',compact('datas','blnthn'));
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari'));
     }
+    public function cari(Request $request,$blnthn)
+    {
+        // dd($request);
+        $blnthn=$blnthn;
+        $cari=$request->cari;
+        return redirect('/admin/pelanggan/'.$blnthn.'/'.$cari.'/pelanggan-cari/');
+
+    }
+    public function showcari($blnthn,$cari)
+	{
+
+		// menangkap data pencarian
+		$cari = $cari;
+        $blnthn=$blnthn;
+
+    		// mengambil data dari table pegawai sesuai pencarian data
+		$datas = DB::table('pelanggan')
+		->where('nama','like',"%".$cari."%")
+		->orwhere('alamat','like',"%".$cari."%")
+		->orwhere('panggilan','like',"%".$cari."%")
+		->orwhere('paket_nama','like',"%".$cari."%")
+		->orwhere('hp','like',"%".$cari."%")
+		->paginate(10);
+
+        // dd($datas);
+    		// mengirim data pegawai ke view index
+        return view('admin.pelanggan.index',compact('datas','blnthn','cari'));
+
+	}
+
 
     /**
      * Show the form for creating a new resource.

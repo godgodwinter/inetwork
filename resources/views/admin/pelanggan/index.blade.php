@@ -63,7 +63,7 @@ excel date value to php date value
             <div class="page-header-title">
                 <div class="d-inline">
 
-        <form action="/admin/inventarisbln/" method="get" class="d-inline">
+        <form action="/admin/pelangganbln/" method="get" class="d-inline">
             <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
             <button type="Simpan" class="btn btn-success">PILIH</button>
             </form>
@@ -72,14 +72,13 @@ excel date value to php date value
         </div>
         <div class="col-lg-4">
             <div class="page-header-breadcrumb">
-                <ul class="breadcrumb-title">
-                    <li class="breadcrumb-item">
-                        <a href="{{url('/dashboard')}}"> <i class="feather icon-home"></i> </a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#!">@yield('title')</a> </li>
-                </ul>
+                <form action="{{ url('/')}}/admin/pelanggan/{{ $blnthn }}/cari" method="GET">
+                    <input type="text" name="cari" placeholder="Cari .." value="{{ $cari }}">
+                    <input type="submit" value="CARI">
+                </form>
             </div>
         </div>
+
 
     </div>
 </div>
@@ -149,7 +148,7 @@ excel date value to php date value
 
                         <a href="{{ route('exportpelanggan', 'xlsx') }}" class="btn btn-sm  btn-primary"
                         target="_blank"><i class="feather icon-download"></i>EXPORT</a>
-                <a href="cetak/cetak_pelanggan" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
+                <a href="{{ route('pelanggan-cetakpdf') }}" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
             </div>
             <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                 <a href="#deleteall" class="btn btn-sm btn-danger"><i class="feather icon-x"></i> SEMUA</a>&nbsp;
@@ -235,7 +234,7 @@ $ambildatanikditagihan= DB::table('tagihan')
                     @endphp
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <b><label class="form-control-label" for="input-nominal" id="inputnominalinternetlabel">@currency(($data->paket_harga-$ambiltagihankurangberapa))</label></b>
+                        <b><label class="form-control-label" for="input-nominal" id="inputnominalinternetlabel{{ $data->id }}">@currency(($data->paket_harga-$ambiltagihankurangberapa))</label></b>
                         <input type="hidden" name="nik" value="{{ $data->nik }}">
                         <input type="hidden" name="paket_id" value="{{ $data->paket_id }}">
                         <input type="hidden" name="paket_nama" value="{{ $data->paket_nama }}">
@@ -243,7 +242,7 @@ $ambildatanikditagihan= DB::table('tagihan')
                         <input type="hidden" name="paket_harga" value="{{ $data->paket_harga }}">
                         <input type="hidden" name="paket_kecepatan" value="{{ $data->paket_kecepatan }}">
                         <input type="hidden" name="ambiltagihankurangberapa" value="{{ $ambiltagihankurangberapa }}">
-                        <input type="number" name="nominal" id="inputnominalinternet"
+                        <input type="number" name="nominal" id="inputnominalinternet{{ $data->id }}"
                             class="form-control form-control-alternative  @error('nominal') is-invalid @enderror"
                             placeholder="Contoh : 150000" value="{{ ($data->paket_harga-$ambiltagihankurangberapa) }}" max='{{ $data->paket_harga-$ambiltagihankurangberapa }}'required>
                         @error('nominal')<div class="invalid-feedback"> {{$message}}</div>
@@ -281,9 +280,9 @@ $ambildatanikditagihan= DB::table('tagihan')
         return("Rp" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ",-"));
     };
         $(document).ready(function() {
-        $("#inputnominalinternet").on('keyup', function() {
+        $("#inputnominalinternet{{ $data->id }}").on('keyup', function() {
             // alert("oops!");
-            $('#inputnominalinternetlabel:last').text(format($(this).val()));
+            $('#inputnominalinternetlabel{{ $data->id }}:last').text(format($(this).val()));
         });
 
     });
@@ -431,9 +430,17 @@ $ambildatanikditagihan= DB::table('tagihan')
                             </tr>
                         </tfoot>
                 </table>
+
+
+	<br/>
+	Halaman : {{ $datas->currentPage() }} <br/>
+	Jumlah Data : {{ $datas->total() }} <br/>
+	Data Per Halaman : {{ $datas->perPage() }} <br/>
+
                  {{-- Pagination --}}
         <div class="d-flex justify-content-center">
             {!! $datas->links() !!}
+            {{-- {{ dd($datas->links()) }} --}}
         </div>
             </div>
         </div>

@@ -61,6 +61,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu pelanggan
     Route::resource('admin/pelanggan','App\Http\Controllers\AdminPelangganController');
     Route::get('admin/pelangganbln', 'App\Http\Controllers\AdminPelangganController@pelangganbln');
+    Route::get('admin/pelanggan/{blnthn}/pelangganbln', 'App\Http\Controllers\AdminPelangganController@showpelangganbln');
+    Route::get('admin/pelanggan/{blnthn}/cari', 'App\Http\Controllers\AdminPelangganController@cari')->name('pelanggan-cari');
+    Route::get('admin/pelanggan/{blnthn}/{cari}/pelanggan-cari', 'App\Http\Controllers\AdminPelangganController@showcari')->name('pelanggan-cari');
 
 
     //menu tagihan
@@ -87,7 +90,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
     Route::get('admin/cetak/cetak_letakserver', 'App\Http\Controllers\CetakController@cetak_letakserver');
     Route::get('admin/cetak/cetak_inventaris', 'App\Http\Controllers\CetakController@cetak_inventaris');
-    Route::get('admin/cetak/cetak_pelanggan', 'App\Http\Controllers\CetakController@cetak_pelanggan');
+    Route::get('admin/cetak/cetak_pelanggan', 'App\Http\Controllers\CetakController@cetak_pelanggan')->name("pelanggan-cetakpdf");
     Route::get('admin/cetak/cetak_tagihan', 'App\Http\Controllers\CetakController@cetak_tagihan');
     Route::get('admin/cetak/cetak_pemasukan', 'App\Http\Controllers\CetakController@cetak_pemasukan');
     Route::get('admin/cetak/cetak_pengeluaran', 'App\Http\Controllers\CetakController@cetak_pengeluaran');
