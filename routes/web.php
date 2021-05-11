@@ -75,6 +75,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::delete('admin/tagihandetail-multidel', 'App\Http\Controllers\AdminTagihanController@deletechecked')->name('tagihandetail.deleteSelected');
     Route::get('admin/tagihanbln', 'App\Http\Controllers\AdminTagihanController@tagihanbln');
     Route::post('admin/tagihansync', 'App\Http\Controllers\AdminTagihanController@tagihansync')->name('tagihan.sync');
+    Route::get('admin/tagihan/{blnthn}/tagihanbln', 'App\Http\Controllers\AdminTagihanController@showtagihanbln');
+    Route::get('admin/tagihan/{blnthn}/cari', 'App\Http\Controllers\AdminTagihanController@cari')->name('tagihan-cari');
+    Route::get('admin/tagihan/{blnthn}/{cari}/tagihan-cari', 'App\Http\Controllers\AdminTagihanController@showcari')->name('tagihan-cari');
+
 
 
 

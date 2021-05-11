@@ -432,16 +432,15 @@ $ambildatanikditagihan= DB::table('tagihan')
                 </table>
 
 
-	<br/>
-	Halaman : {{ $datas->currentPage() }} <br/>
-	Jumlah Data : {{ $datas->total() }} <br/>
-	Data Per Halaman : {{ $datas->perPage() }} <br/>
+<br/>
+Halaman : {{ $datas->currentPage() }} <br/>
+Jumlah Data : {{ $datas->total() }} <br/>
+Data Per Halaman : {{ $datas->perPage() }} <br/>
 
-                 {{-- Pagination --}}
-        <div class="d-flex justify-content-center">
-            {!! $datas->links() !!}
-            {{-- {{ dd($datas->links()) }} --}}
-        </div>
+{{-- Pagination --}}
+<div class="d-flex justify-content-center">
+{!! $datas->links() !!}
+</div>
             </div>
         </div>
     </div>

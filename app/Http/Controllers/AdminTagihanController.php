@@ -15,29 +15,63 @@ class AdminTagihanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($cari='')
     {
         $blnthn=date("Y-m");
         $datas = DB::table('tagihan')
         ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
         ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
-        ->orderBy('updated_at', 'desc')->get();
+        ->orderBy('updated_at', 'desc')->paginate(10);
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.tagihan.index',compact('datas','blnthn'));
+        return view('admin.tagihan.index',compact('datas','blnthn','cari'));
     }
     public function tagihanbln(Request $request)
     {
         $blnthn=$request->blnthn;
+        return redirect('/admin/tagihan/'.$blnthn.'/tagihanbln');
+    }
+    public function showtagihanbln(Request $request,$blnthn)
+    {
+        $cari='';
+        // $blnthn=$request->blnthn;
         $datas = DB::table('tagihan')
         ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
         ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
-        ->orderBy('updated_at', 'desc')->get();
+        ->orderBy('updated_at', 'desc')->paginate(10);
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.tagihan.index',compact('datas','blnthn'));
+        return view('admin.tagihan.index',compact('datas','blnthn','cari'));
     }
 
+    public function cari(Request $request,$blnthn)
+    {
+        // dd($request);
+        $blnthn=$blnthn;
+        $cari=$request->cari;
+        return redirect('/admin/tagihan/'.$blnthn.'/'.$cari.'/tagihan-cari/');
+
+    }
+    public function showcari($blnthn,$cari)
+	{
+
+		// menangkap data pencarian
+		$cari = $cari;
+        $blnthn=$blnthn;
+
+    		// mengambil data dari table pegawai sesuai pencarian data
+		$datas = DB::table('tagihan')
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+		->where('nama','like',"%".$cari."%")
+		->orwhere('paket_nama','like',"%".$cari."%")
+		->paginate(10);
+
+        // dd($datas);
+    		// mengirim data pegawai ke view index
+        return view('admin.tagihan.index',compact('datas','blnthn','cari'));
+
+	}
     public function tagihansync(Request $request)
     {
         $blnthn=$request->blnthn;
