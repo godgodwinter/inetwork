@@ -18,7 +18,11 @@ class AdminPelangganController extends Controller
     public function index()
     {
         $blnthn=date("Y-m");
-        $datas=pelanggan::all();
+        $datas=pelanggan::paginate(8);
+        // $datas = DB::table('pelanggan')
+        //         ->offset(0)
+        //         ->limit(5)
+        //         ->get();
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
         return view('admin.pelanggan.index',compact('datas','blnthn'));

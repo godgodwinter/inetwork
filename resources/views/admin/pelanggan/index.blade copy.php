@@ -431,10 +431,6 @@ $ambildatanikditagihan= DB::table('tagihan')
                             </tr>
                         </tfoot>
                 </table>
-                 {{-- Pagination --}}
-        <div class="d-flex justify-content-center">
-            {!! $datas->links() !!}
-        </div>
             </div>
         </div>
     </div>
