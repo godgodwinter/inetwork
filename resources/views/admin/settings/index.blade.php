@@ -212,7 +212,7 @@
                     </div>
 
                   <div class="form-group">
-                    <button class="btn btn-success upload-image" type="submit">Kirim</button>
+                    <button class="btn btn-success upload-image" type="submit">SIMPAN</button>
                   </div>
                 </form>
 
