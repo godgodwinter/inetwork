@@ -67,27 +67,21 @@ excel date value to php date value
             <input type="hidden" name="cari" value="{{ $cari }}">
             <input type="hidden" name="tagihan" value="{{ $tagihan }}">
             <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
-
-
-                <select name="orderby" required>
-                    <option value='{{ $orderby }}'>{{ $orderby }}</option>
-                     <option value='nama'>Nama</option>
-                     <option value='panggilan'>Panggilan</option>
-                     <option value='paket_id'>Paket</option>
-                     <option value='tgl_gabung'>Tanggal Gabung</option>
-                     <option value='status_langganan'>Status Langganan</option>
-                </select>
-                <select name="ascdesc" required>
-                    <option value='{{ $ascdesc }}'>{{ $ascdesc }}</option>
-                     <option value='asc'>ASC</option>
-                     <option value='desc'>Desc</option>
-                </select>
-
-
-
-
-            <button type="Simpan" class="btn btn-success">PILIH</button>
-            </form>
+        <select name="orderby" required>
+            <option value='{{ $orderby }}'>{{ $orderby }}</option>
+                <option value='nama'>Nama</option>
+                <option value='panggilan'>Panggilan</option>
+                <option value='paket_id'>Paket</option>
+                <option value='tgl_gabung'>Tanggal Gabung</option>
+                <option value='status_langganan'>Status Langganan</option>
+        </select>
+        <select name="ascdesc" required>
+            <option value='{{ $ascdesc }}'>{{ $ascdesc }}</option>
+                <option value='asc'>ASC</option>
+                <option value='desc'>Desc</option>
+        </select>
+         <button type="Simpan" class="btn btn-success">PILIH</button>
+        </form>
                 </div>
             </div>
         </div>

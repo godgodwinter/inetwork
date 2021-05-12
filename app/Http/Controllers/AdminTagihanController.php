@@ -15,7 +15,7 @@ class AdminTagihanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($cari='')
+    public function index($cari='',$orderby='nama',$ascdesc='asc',$tagihan='campur')
     {
         $blnthn=date("Y-m");
         $datas = DB::table('tagihan')
@@ -24,52 +24,145 @@ class AdminTagihanController extends Controller
         ->orderBy('updated_at', 'desc')->paginate(10);
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.tagihan.index',compact('datas','blnthn','cari'));
+        return view('admin.tagihan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+    }
+    public function lunas($cari='',$orderby='nama',$ascdesc='asc',$tagihan='lunas')
+    {
+        $blnthn=date("Y-m");
+        return redirect('/admin/tagihan/'.$blnthn.'/'.$tagihan.'/'.$orderby.'/'.$ascdesc.'/tagihanbln');
+    }
+
+    public function belumlunas($cari='',$orderby='nama',$ascdesc='asc',$tagihan='belumlunas')
+    {
+        $blnthn=date("Y-m");
+        return redirect('/admin/tagihan/'.$blnthn.'/'.$tagihan.'/'.$orderby.'/'.$ascdesc.'/tagihanbln');
     }
     public function tagihanbln(Request $request)
     {
         $blnthn=$request->blnthn;
         return redirect('/admin/tagihan/'.$blnthn.'/tagihanbln');
     }
-    public function showtagihanbln(Request $request,$blnthn)
+    public function showtagihanbln($blnthn,$tagihan='campur',$orderby='nama',$ascdesc='asc',$cari='')
     {
-        $cari='';
+
+        $tagihan=$tagihan;
+        $blnthn=$blnthn;
+        $orderby=$orderby;
+        $ascdesc=$ascdesc;
+        if(($orderby==='nama')OR($orderby==='tgl_bayar')OR($orderby==='paket_id')){
+
+        }else{
+
+            $orderby='nama';
+        }
+
+
+        if($tagihan=='lunas'){
+            //     // dd('lunas');
+                $querytagihan='tagihan.paket_harga <= tagihan.total_bayar';
+            }elseif($tagihan=='belumlunas'){
+            //     // dd('belumlunas');
+                $querytagihan='tagihan.paket_harga > tagihan.total_bayar';
+
+            }else{
+                $querytagihan="tagihan.thbln='".$blnthn."'";
+
+            }
+
+
+    $datas = DB::table('tagihan')
+    // ->join('tagihan','tagihan.nik','=','pelanggan.nik')
+    ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+    ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+    ->whereraw($querytagihan)
+    ->whereraw("tagihan.thbln='".$blnthn."'")
+    ->orderBy('tagihan.'.$orderby,$ascdesc)
+    ->paginate(10);
+
         // $blnthn=$request->blnthn;
-        $datas = DB::table('tagihan')
-        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
-        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
-        ->orderBy('updated_at', 'desc')->paginate(10);
+        // $datas = DB::table('tagihan')
+        // ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        // ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+        // ->orderBy('updated_at', 'desc')->paginate(10);
 
         // $today = Carbon::now()->isoFormat('D MMMM Y');
-        return view('admin.tagihan.index',compact('datas','blnthn','cari'));
+        return view('admin.tagihan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
     }
 
-    public function cari(Request $request,$blnthn)
+    public function cari(Request $request,$blnthn,$orderby='nama',$ascdesc='asc',$cari='')
     {
-        // dd($request);
-        $blnthn=$blnthn;
         $cari=$request->cari;
-        return redirect('/admin/tagihan/'.$blnthn.'/'.$cari.'/tagihan-cari/');
+        $tagihan=$request->tagihan;
+         $blnthn=$request->blnthn;
+        $orderby=$request->orderby;
+        $ascdesc=$request->ascdesc;
+
+        if($cari===null){
+            return redirect('/admin/tagihan/'.$blnthn.'/'.$tagihan.'/'.$orderby.'/'.$ascdesc.'/tagihanbln');
+        }
+        return redirect('/admin/tagihan/'.$blnthn.'/'.$tagihan.'/'.$orderby.'/'.$ascdesc.'/'.$cari.'/tagihan-cari');
 
     }
-    public function showcari($blnthn,$cari)
+    public function showcari($blnthn,$tagihan,$orderby,$ascdesc,$cari)
 	{
 
-		// menangkap data pencarian
-		$cari = $cari;
         $blnthn=$blnthn;
+        $orderby=$orderby;
+        $ascdesc=$ascdesc;
 
-    		// mengambil data dari table pegawai sesuai pencarian data
-		$datas = DB::table('tagihan')
+        if(($orderby==='nama')OR($orderby==='tgl_bayar')OR($orderby==='paket_id')){
+
+        }else{
+
+            $orderby='nama';
+        }
+
+
+        if($tagihan=='lunas'){
+            //     // dd('lunas');
+                $querytagihan='tagihan.paket_harga <= tagihan.total_bayar';
+            }elseif($tagihan=='belumlunas'){
+            //     // dd('belumlunas');
+                $querytagihan='tagihan.paket_harga > tagihan.total_bayar';
+
+            }else{
+                $querytagihan="tagihan.thbln='".$blnthn."'";
+
+            }
+
+
+        $datas = DB::table('tagihan')
+        // ->join('tagihan','tagihan.nik','=','pelanggan.nik')
         ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
         ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
-		->where('nama','like',"%".$cari."%")
-		->orwhere('paket_nama','like',"%".$cari."%")
-		->paginate(10);
+        ->whereraw($querytagihan)
+        ->whereraw("tagihan.thbln='".$blnthn."'")
+		->where('tagihan.nama','like',"%".$cari."%")
+
+		->orwhere('tagihan.paket_harga','like',"%".$cari."%")
+        ->whereraw($querytagihan)
+		->whereraw("tagihan.thbln='".$blnthn."'")
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+
+		->orwhere('tagihan.tgl_bayar','like',"%".$cari."%")
+        ->whereraw($querytagihan)
+		->whereraw("tagihan.thbln='".$blnthn."'")
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+
+		->orwhere('tagihan.nik','like',"%".$cari."%")
+        ->whereraw($querytagihan)
+		->whereraw("tagihan.thbln='".$blnthn."'")
+        ->whereMonth('tgl_bayar', '=', date("m",strtotime($blnthn)))
+        ->whereYear('tgl_bayar', '=', date("Y",strtotime($blnthn)))
+
+        ->orderBy('tagihan.'.$orderby,$ascdesc)
+        ->paginate(10);
 
         // dd($datas);
     		// mengirim data pegawai ke view index
-        return view('admin.tagihan.index',compact('datas','blnthn','cari'));
+        return view('admin.tagihan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
 
 	}
     public function tagihansync(Request $request)

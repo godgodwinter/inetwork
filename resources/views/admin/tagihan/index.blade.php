@@ -64,9 +64,22 @@
             <div class="page-header-title">
                 <div class="d-inline">
 
-                    <form action="/admin/tagihanbln/" method="get" class="d-inline">
-                    <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
-                    <button type="Simpan" class="btn btn-success btn-sm">PILIH</button>
+                    <form action="{{ url('/')}}/admin/tagihan/{{ $blnthn }}/cari" method="GET">
+                        <input type="hidden" name="cari" value="{{ $cari }}">
+                        <input type="hidden" name="tagihan" value="{{ $tagihan }}">
+                        <input  type="month" name="blnthn" value="{{ $blnthn }}" required>
+                    <select name="orderby" required>
+                        <option value='{{ $orderby }}'>{{ $orderby }}</option>
+                            <option value='nama'>Nama</option>
+                            <option value='paket_id'>Paket</option>
+                            <option value='tgl_bayar'>Tanggal Bayar</option>
+                    </select>
+                    <select name="ascdesc" required>
+                        <option value='{{ $ascdesc }}'>{{ $ascdesc }}</option>
+                            <option value='asc'>ASC</option>
+                            <option value='desc'>Desc</option>
+                    </select>
+                     <button type="Simpan" class="btn btn-success">PILIH</button>
                     </form>
                 </div>
             </div>
@@ -74,6 +87,10 @@
         <div class="col-lg-4">
             <div class="page-header-breadcrumb">
                 <form action="{{ url('/')}}/admin/tagihan/{{ $blnthn }}/cari" method="GET">
+                    <input type="hidden" name="orderby" value="{{ $orderby }}">
+                    <input type="hidden" name="tagihan" value="{{ $tagihan }}">
+                    <input type="hidden" name="blnthn" value="{{ $blnthn }}">
+                    <input type="hidden" name="ascdesc" value="{{ $ascdesc }}">
                     <input type="text" name="cari" placeholder="Cari .." value="{{ $cari }}">
                     <input type="submit"  class="btn btn-success btn-sm" value="CARI">
                 </form>
@@ -238,22 +255,24 @@ if($cekdataambildatatagihanpaketharga!=0){
     <!-- DOM/Jquery table start -->
     <div class="card">
         <div class="row">
-            <div class="col-xl-6 col-md-6">
+            <div class="col-xl-12 col-md-12 mt-1 ml-1">
                 <a href="import" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-upload"></i>IMPORT</a>
                 <a href="export" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-download"></i>EXPORT</a>
                 <a href="{{ url('/')}}/admin/cetak/cetak_tagihan" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
                 <a href="{{ url('/')}}/admin/cetak/{{ $blnthn }}/tagihan-bulanini/" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-moon"></i>PDF BULAN INI</a>
 
+                <a href="{{ url('/')}}/admin/tagihan-lunas" class="btn btn-sm  btn-warning"><i class="feather icon-file-text"></i>LUNAS</a>
+                <a href="{{ url('/')}}/admin/tagihan-belumlunas" class="btn btn-sm  btn-warning"><i class="feather icon-file-text"></i>BELUM LUNAS</a>
+
             </div>
-            <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
+            <div class="col-xl-12 col-md-12 mt-1 ml-1">
+
                 <form action="{{ route('tagihan.sync') }}" method="post" class="d-inline">
                     @csrf
                     <input  type="hidden" name="blnthn" value="{{ $blnthn }}" required>
-                    <button type="Simpan" class="btn btn-primary btb-sm">SYNC</button>
+                    <button type="Simpan" class="btn btn-primary btb-sm"><i class="feather icon-refresh-cw"></i>SYNC</button>
                     </form>&nbsp;
-                <a href="{{url('/')}}/admin/pelanggan" class="btn btn-sm btn-secondary">PELANGGAN</a>&nbsp;
-
-
+                <a href="{{url('/')}}/admin/pelanggan" class="btn btn-sm btn-secondary"><i class="feather icon-briefcase"></i>PELANGGAN</a>&nbsp;
 
             </div>
         </div>
@@ -378,15 +397,18 @@ if($cekdataambildatatagihanpaketharga!=0){
                         </tfoot>
                 </table>
 
-<br/>
-Halaman : {{ $datas->currentPage() }} <br/>
-Jumlah Data : {{ $datas->total() }} <br/>
-Data Per Halaman : {{ $datas->perPage() }} <br/>
-
 {{-- Pagination --}}
 <div class="d-flex justify-content-center">
-{!! $datas->links() !!}
-</div>
+    {!! $datas->links() !!}
+    </div>
+
+    <br/>
+    Halaman : {{ $datas->currentPage() }} <br/>
+    Jumlah Data : {{ $datas->total() }} <br/>
+    Data Per Halaman : {{ $datas->perPage() }} <br/>
+    Urutan Berdasarkan : {{ $orderby }} - {{ $ascdesc }} <br/>
+    Status Pembayaran : {{ $tagihan }} <br/>
+    Halaman di muat dalam {{ number_format((microtime(true) - LARAVEL_START),2) }} detik.
             </div>
         </div>
     </div>
