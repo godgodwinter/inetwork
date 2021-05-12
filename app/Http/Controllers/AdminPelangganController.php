@@ -43,7 +43,9 @@ class AdminPelangganController extends Controller
         ->orderBy($orderby,)->orderBy('id','desc')
 		->paginate(10);
         // $datas=pelanggan::paginate(10);
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+
+            // dd('lunas');
+            return view('admin.pelanggan.index-lunas',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
     }
 
     public function belumlunas($cari='',$orderby='nama',$ascdesc='asc',$tagihan='belumlunas')
@@ -58,7 +60,8 @@ class AdminPelangganController extends Controller
         ->orderBy($orderby,)->orderBy('id','desc')
 		->paginate(10);
         // $datas=pelanggan::paginate(10);
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+            // dd('belumlunas');
+        return view('admin.pelanggan.index-belumlunas',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
     }
 
     public function pelangganbln(Request $request,$cari='')
@@ -94,7 +97,15 @@ class AdminPelangganController extends Controller
         ->orderBy($orderby,$ascdesc)
 		->paginate(10);
         // $datas=pelanggan::paginate(10);
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+        if($tagihan=='lunas'){
+            // dd('lunas');
+            return view('admin.pelanggan.index-lunas',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+        }elseif($tagihan=='belumlunas'){
+            // dd('belumlunas');
+            return view('admin.pelanggan.index-belumlunas',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+        }else{
+            return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+        }
     }
     public function cari(Request $request,$blnthn,$orderby='nama',$ascdesc='asc',$cari='')
     {
@@ -132,23 +143,20 @@ class AdminPelangganController extends Controller
 		->orwhere('paket_nama','like',"%".$cari."%")
 		->orwhere('hp','like',"%".$cari."%")
 		->orwhere('hp','like',"%".$cari."%")
-        ->orderBy($orderby,$ascdesc)
-		->paginate(10);
-
-        //ikiyus
-        //1.ambildata pelanggan
-        //2.cek apakah tagihan.paket_harga - tagihan.total_bayar
-        //3.$tagihan==lunas
-            //jika $hasilnya<=0 berarti lunas
-            //tampilkan siapa saja yang lunas
-        //4.$tagihan==belumlunas
-            //jika >0 berarti belum lunas
-            //tampilkan siapa saja yang belum lunas
-        //5.$tagihan==campur
-            //tampilkan semua
+        ->orderBy($orderby,$ascdesc)->paginate(10);
 
     		// mengirim data pelanggan ke view index
-        return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+
+        if($tagihan=='lunas'){
+            // dd('lunas');
+            return view('admin.pelanggan.index-lunas',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+        }elseif($tagihan=='belumlunas'){
+            // dd('belumlunas');
+            return view('admin.pelanggan.index-belumlunas',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+        }else{
+            return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
+        }
+        // return view('admin.pelanggan.index',compact('datas','blnthn','cari','orderby','ascdesc','tagihan'));
 
 	}
 
