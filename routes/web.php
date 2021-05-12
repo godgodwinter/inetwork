@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //menu developer
     Route::resource('admin/importspecial','App\Http\Controllers\AdminImportspecialController');
 
+    //menu settings
+    Route::resource('admin/settings','App\Http\Controllers\AdminSettingsController');
+
     //Print PDF
     Route::get('admin/cetak/cetak_paket', 'App\Http\Controllers\CetakController@cetak_paket');
     Route::get('admin/cetak/cetak_letakserver', 'App\Http\Controllers\CetakController@cetak_letakserver');

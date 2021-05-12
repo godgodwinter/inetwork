@@ -9,7 +9,7 @@
                 <i class="feather icon-menu"></i>
             </a>
             <a href="{{ url('/')}}/dashboard">
-                <img class="img-fluid" src="{{ asset("admin-style/") }}/files/assets/images/logo.png"
+                <img class="img-fluid" src="{{ asset("uploads/") }}/logo.png"
                     alt="Theme-Logo" />
             </a>
             <a class="mobile-options">
@@ -142,6 +142,12 @@
                 <span class="pcoded-mtext">Backup Data</span>
             </a>
 
+    </li>
+    <li class="">
+        <a href="{{url('/')}}/admin/settings">
+            <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+            <span class="pcoded-mtext">Settings</span>
+        </a>
     </li>
             <li class="">
                 <a href="{{ url('/')}}/task">

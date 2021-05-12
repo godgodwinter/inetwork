@@ -15,47 +15,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-         // insert data ke table products menggunakan Faker
          DB::table('settings')->insert([
-            'kunci' => 'menu_dashboard',
-            'nilai' => '1',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-         ]);
-
-
-         DB::table('settings')->insert([
-            'kunci' => 'menu_paket',
+            'kunci' => 'tourmenu',
             'nilai' => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
          ]);
 
          DB::table('settings')->insert([
-            'kunci' => 'menu_letakserver',
-            'nilai' => '1',
+            'kunci' => 'web_nama',
+            'nilai' => 'iNetwork',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
          ]);
 
          DB::table('settings')->insert([
-            'kunci' => 'menu_jenisalat',
-            'nilai' => '1',
+            'kunci' => 'web_motto',
+            'nilai' => 'Beast Aggresive Effective',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
          ]);
 
          DB::table('settings')->insert([
-            'kunci' => 'menu_jenispendapatan',
-            'nilai' => '1',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-         ]);
-
-         DB::table('settings')->insert([
-            'kunci' => 'menu_jenispengeluaran',
-            'nilai' => '1',
+            'kunci' => 'web_logo',
+            'nilai' => 'logo.png',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
          ]);
