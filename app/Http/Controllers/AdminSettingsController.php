@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class AdminSettingsController extends Controller
 {
@@ -14,7 +16,8 @@ class AdminSettingsController extends Controller
     public function index()
     {
         $blnthn=date("Y-m");
-        return view('admin.settings.index',compact('blnthn'));
+        $datas = DB::table('settings')->get();
+        return view('admin.settings.index',compact('blnthn','datas'));
 
     }
 

@@ -43,5 +43,12 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()
          ]);
 
+         DB::table('settings')->insert([
+            'kunci' => 'web_kordinat',
+            'nilai' => '-8.129902243245665, 112.4867915739301',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+         ]);
+
 }
 }
