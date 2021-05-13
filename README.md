@@ -145,6 +145,10 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    php artisan db:seed --class=paketseeder  //untuk meload data paket, jenis alat, jenis pendapatan , jenis pengeluaran dll
    ```
+
+   ```sh
+   php artisan db:seed  //untuk meload data pengaturan default, nama web, motto, logo dll
+   ```
    
 
 Buka browser dan tulis alamat berikut
