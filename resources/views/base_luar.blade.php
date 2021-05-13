@@ -1,3 +1,11 @@
+@php
+  $datas = DB::table('settings')
+  ->whereraw("kunci='web_nama'")->get();
+  foreach ($datas as $data) {
+      $web_nama=$data->nilai;
+  }
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +13,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>iNetwork - @yield('title')</title>
+  <title>{{ $web_nama }} - @yield('title')</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,7 +51,7 @@
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="{{ url('/')}}"><I>iNetwork</I></a></h1>
+      <h1 class="logo me-auto"><a href="{{ url('/')}}"><I>{{ $web_nama }}</I></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="{{ asset("Arsha/") }}/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 

@@ -93,6 +93,42 @@
             </div>
             <div class="card-block">
                 <div class="latest-update-box">
+
+                <form action="/admin/settings/update" method="post">
+                    @method('put')
+                    @csrf
+
+                    <div class="row p-b-30">
+                        <div class="col-auto text-right update-meta">
+                            <p class="text-muted m-b-0 d-inline">Website</p>
+                            <i class="feather icon-file-text bg-simple-c-blue update-icon"></i>
+                        </div>
+                        <div class="col">
+                            <label for="input-web_nama" >Nama Website</label>
+
+                                <div class="form-group">
+                                    <div class="tm_editable_container input-group theme1" id="text_demo" data-iplaceholder="Type Something..">
+                                        <input type="text" name="web_nama"  id="input-web_nama" value="{{ ($datas['1']->nilai) }}" class="w-inherit form-control  @error('nama') is-invalid @enderror" required/>
+                                        @error('web_nama')<div class="invalid-feedback"> {{$message}}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col">
+                            <label for="input-web_motto" ><span class="text-c-blue">Motto</span> Website</label>
+
+                                <div class="form-group">
+                                    <div class="tm_editable_container input-group theme1" id="text_demo" data-iplaceholder="Type Something..">
+                                        <input type="text" name="web_motto"  id="input-web_motto" value="{{ ($datas['2']->nilai) }}" class="w-inherit form-control  @error('nama') is-invalid @enderror" required/>
+                                        @error('web_motto')<div class="invalid-feedback"> {{$message}}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                        </div>
+
+
+                    </div>
+
                     <div class="row p-t-20 p-b-30">
                         <div class="col-auto text-right update-meta">
                             <p class="text-muted m-b-0 d-inline">Menu</p>
@@ -128,36 +164,7 @@
                                 </div>
                         </div>
                     </div>
-                    <div class="row p-b-30">
-                        <div class="col-auto text-right update-meta">
-                            <p class="text-muted m-b-0 d-inline">Website</p>
-                            <i class="feather icon-file-text bg-simple-c-blue update-icon"></i>
-                        </div>
-                        <div class="col">
-                            <label for="input-web_nama" >Nama Website</label>
 
-                                <div class="form-group">
-                                    <div class="tm_editable_container input-group theme1" id="text_demo" data-iplaceholder="Type Something..">
-                                        <input type="text" name="web_nama"  id="input-web_nama" value="{{ ($datas['1']->nilai) }}" class="w-inherit form-control  @error('nama') is-invalid @enderror" required/>
-                                        @error('web_nama')<div class="invalid-feedback"> {{$message}}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="col">
-                            <label for="input-web_motto" ><span class="text-c-blue">Motto</span> Website</label>
-
-                                <div class="form-group">
-                                    <div class="tm_editable_container input-group theme1" id="text_demo" data-iplaceholder="Type Something..">
-                                        <input type="text" name="web_motto"  id="input-web_motto" value="{{ ($datas['2']->nilai) }}" class="w-inherit form-control  @error('nama') is-invalid @enderror" required/>
-                                        @error('web_motto')<div class="invalid-feedback"> {{$message}}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                        </div>
-
-
-                    </div>
                     <div class="row p-b-30">
                         <div class="col-auto text-right update-meta">
                             <p class="text-muted m-b-0 d-inline">Lain-lain</p>
@@ -172,10 +179,15 @@
                             <p class="text-muted m-b-15">Happy Hour! Free drinks at <span class="text-c-blue">Cafe-Bar all </span>day long!</p>
                         </div>
                     </div>
+
+
                 </div>
+
+
                 <div class="text-right">
                     <div class="form-group">
                         <button type="Simpan" class="btn btn-success btn-grd-*">Simpan</button>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -207,7 +219,7 @@
 
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
-                        <label>Gambar:</label>
+                        <label>Gambar: 150 px x 30 px</label>
                         <input type="file" name="gambar" class="form-control">
                     </div>
 
