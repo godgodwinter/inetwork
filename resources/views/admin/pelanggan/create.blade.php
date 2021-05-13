@@ -250,8 +250,14 @@ excel date value to php date value
                               <div id="info"></div>
                              <b>Closest matching address:</b>
                               <div id="address"></div>
-                            </div><script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
+                            </div><script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+                            @php
+                            $datas2 = DB::table('settings')
+                            ->whereraw("kunci='web_kordinat'")->get();
+                            foreach ($datas2 as $data2) {
+                                $web_kordinat=$data2->nilai;
+                            }
+                          @endphp
                             <script>
 
                                 var geocoder = new google.maps.Geocoder();
@@ -288,7 +294,7 @@ excel date value to php date value
                                 }
 
                                 function initialize() {
-                                var latLng = new google.maps.LatLng(-8.129902243245665, 112.4867915739301);
+                                var latLng = new google.maps.LatLng({{$web_kordinat}});
                                 var map = new google.maps.Map(document.getElementById('mapCanvas'), {
                                     zoom: 15,
                                     center: latLng,

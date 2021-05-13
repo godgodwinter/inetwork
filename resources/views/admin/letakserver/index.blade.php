@@ -1,3 +1,10 @@
+@php
+  $datas2 = DB::table('settings')
+  ->whereraw("kunci='web_kordinat'")->get();
+  foreach ($datas2 as $data2) {
+      $web_kordinat=$data2->nilai;
+  }
+@endphp
 @extends('admin.layouts.nav1')
 
 @section('title','Letak Server')
@@ -327,7 +334,7 @@
                                 }
 
                                 function initialize() {
-                                    var latLng = new google.maps.LatLng(-8.129902243245665, 112.4867915739301);
+                                    var latLng = new google.maps.LatLng({{$web_kordinat}});
                                     var map = new google.maps.Map(document.getElementById('mapCanvas'), {
                                         zoom: 15,
                                         center: latLng,

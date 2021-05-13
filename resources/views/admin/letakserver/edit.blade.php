@@ -162,7 +162,7 @@ if(($data->koordinat)==''){
                               <div id="info"></div>
                               {{-- <b>Closest matching address:</b>
                               <div id="address"></div> --}}
-                            </div><script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+                            </div><script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 
                             <script>
 
