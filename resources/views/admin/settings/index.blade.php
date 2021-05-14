@@ -262,8 +262,12 @@
                             {{-- <script
                                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_1p87NSoGahFKRgZZBrNrPqtflNzAA4E&callback=initMap&libraries=&v=weekly"
                                 async></script> --}}
-                                <script async defer
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtNKJcbjGJYCXRrGBvnWr5WDz55XSWXug&callback=initMap">
+
+                            <script
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtNKJcbjGJYCXRrGBvnWr5WDz55XSWXug&callback=initMap&libraries=&v=weekly"
+                            async></script>
+                                {{-- <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb3AXXxF7JGRWmixh5FHJ7c6-6XnvAzwQ&callback=initMap"> --}}
                             </script>
 
                         </div>
