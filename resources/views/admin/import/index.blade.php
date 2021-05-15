@@ -96,7 +96,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-md-12"> <br>
                             <code>Download Template</code> <br>
-                            <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Paket Internet</a>
+                            <a href="{{ url('/') }}/files/inetwork_paket_import_template_fix.xlsx" class="btn btn-warning btn-skew"><i class="feather icon-download" target="_blank"></i>Paket Internet</a>
 
                             <a href="#" class="btn btn-warning btn-skew"><i class="feather icon-download"></i>Inventaris</a>
 

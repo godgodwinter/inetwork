@@ -29,7 +29,7 @@ class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithSt
 
     public function headings(): array
     {
-        return [ 
+        return [
             'ID',
             'Nama.',
             'Harga',
@@ -40,7 +40,6 @@ class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithSt
     }
     public function collection()
     {
-        // return paket::all();
         // return pelanggan::all();
         $datas=DB::table('paket')->select('id', 'nama' ,'harga', 'kecepatan', 'created_at', 'updated_at')->get();
         // dd($datas);

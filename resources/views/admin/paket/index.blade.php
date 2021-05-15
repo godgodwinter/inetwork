@@ -220,15 +220,15 @@
     </div>
     <!-- DOM/Jquery table end -->
     <!-- tambah -->
-    <div class="col-xl-12 col-md-12" id="add">
-        <div class="card  >
-            <div class="card-header">
-                <div class="row">
+                <div class="col-xl-12 col-md-12">
+    <div class="card" id="add">
+        <div class="card-header">
+            <div class="row">
 
-                    <div class="col-xl-6 col-md-6">
+                <div class="col-xl-6 col-md-6">
 
-                        <h5 class="label label-success">TAMBAH</h5>
-                    </div>
+                    <h5 class="label label-success">TAMBAH</h5>
+                </div>
 
                     <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
                         <a href="#datatable" class="btn btn-sm btn-secondary">DATATABLE</a>

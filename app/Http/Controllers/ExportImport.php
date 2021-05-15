@@ -28,7 +28,7 @@ class ExportImport extends Controller
     //export paket
     public function exportpaket($type)
     {
-        return Excel::download(new PaketExport, 'paketexport.'.$type);
+        return Excel::download(new PaketExport, 'paketexport_'.date("YmdHis").".".$type);
     }
     //export letak server
     public function exportletakserver($type)

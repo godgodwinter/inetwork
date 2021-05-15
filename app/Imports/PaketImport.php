@@ -17,14 +17,31 @@ class PaketImport implements ToModel,WithStartRow
     */
     public function model(array $row)
     {
-        return new paket([
-            'id'     => $row[0],
-            'nama'    => $row[1],
-            'harga'    => $row[2],
-            'kecepatan'    => $row[3],
-            'created_at'    => $row[4],
-            'updated_at'    => $row[5],
-        ]);
+        if($row[4]==null){
+            $created_at=date("Y-m-d H:i:s");
+        }else{
+            $created_at=$row[4];
+        }
+        if($row[5]==null){
+            $updated_at=date("Y-m-d H:i:s");
+        }else{
+            $updated_at=$row[5];
+        }
+
+        if(($row[1]!=null)AND($row[2]!=null)AND($row[3]!=null)){
+
+            return new paket([
+                'id'     => $row[0],
+                'nama'    => $row[1],
+                'harga'    => $row[2],
+                'kecepatan'    => $row[3],
+                'created_at'    => $created_at,
+                'updated_at'    => $updated_at,
+            ]);
+
+        }else{
+
+        }
     }
     public function startRow(): int
     {
