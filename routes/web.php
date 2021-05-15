@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     //paket
     Route::resource('admin/paket','App\Http\Controllers\AdminPaketController');
     Route::delete('admin/paket-multidel', 'App\Http\Controllers\AdminPaketController@deletechecked')->name('paket.deleteSelected');
+    Route::delete('admin/paket-empty', 'App\Http\Controllers\AdminPaketController@empty')->name('paket.empty');
     //menu inventaris
     Route::resource('admin/inventaris','App\Http\Controllers\AdminInventarisController');
     Route::resource('admin/jenisalat','App\Http\Controllers\AdminJenisalatController');

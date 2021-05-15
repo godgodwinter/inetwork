@@ -79,7 +79,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-xl-6 col-md-6">
+                    <div class="col-xl-12 col-md-12">
                         <a href="import" class="btn btn-sm  btn-primary" data-toggle="modal"
                             data-target="#import"><i class="feather icon-upload"></i>IMPORT</a>
 
@@ -119,9 +119,19 @@
                         <a href="cetak/cetak_paket" class="btn btn-sm  btn-primary" target="_blank"><i class="feather icon-file-text"></i>PDF</a>
 
                     </div>
-                    <div class="col-xl-6 col-md-6 d-flex flex-row-reverse">
-                        <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord"><i class="feather icon-x"></i>HAPUS TERPILIH</a>&nbsp;
-                        <a href="#add" class="btn btn-sm btn-secondary"><i class="feather icon-plus"></i>TAMBAH</a>
+                    <div class="col-xl-12 col-md-12 mt-1 d-flex">
+                        <a href="#" class="btn btn-sm  btn-danger" id="deleteAllSelectedRecord"
+                        onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><i class="feather icon-x"></i>HAPUS TERPILIH</a>&nbsp;
+
+                        <a href="#add" class="btn btn-sm btn-secondary"><i class="feather icon-plus"></i>TAMBAH</a>&nbsp;
+                        <form action="{{ route('paket.empty') }}" method="post" class="d-inline">
+                            @method('delete')
+                            @csrf
+                            <button  class="btn btn-sm  btn-danger"
+                                onclick="return  confirm('Anda yakin menghapus data ini? Y/N')"><i
+                                        class="feather icon-trash-2"></i> EMPTY / RESET ID</button>
+                        </form>
+                      &nbsp;
                     </div>
                 </div>
             </div>
@@ -162,7 +172,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="5%">
-                                    <input type="checkbox" id="chkCheckAll">
+                                    <input type="checkbox" id="chkCheckAll"> <label for="chkCheckAll">All</label>
                                 </th>
                                 <th class="text-center" width="5%">No</th>
                                 <th>Nama</th>

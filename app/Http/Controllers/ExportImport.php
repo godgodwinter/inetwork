@@ -18,6 +18,7 @@ use App\Imports\PengeluaranImport;
 use App\Imports\PelangganImport;
 use App\Imports\PelangganImportgetinet;
 use App\Imports\PembayaranImportwhereniknama;
+use Illuminate\Support\Facades\URL;
 use Excel;
 use Session;
 
@@ -70,7 +71,7 @@ class ExportImport extends Controller
 
         Session::put('success', 'Your file is imported successfully in database.');
 
-        return back();
+        return redirect(URL::to('/').'/admin/paket')->with('status','Data berhasil dimport!');
     }
     //import letakserver
     public function importletakserver(Request $request)

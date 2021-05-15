@@ -138,4 +138,15 @@ class AdminPaketController extends Controller
         return view('admin.paket.index',compact('datas'));
 
     }
+    public function empty()
+    {
+        //
+        // dd($request);
+        paket::truncate();
+
+        // load ulang
+        $datas=paket::all();
+        return view('admin.paket.index',compact('datas'));
+
+    }
 }
