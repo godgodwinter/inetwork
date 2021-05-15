@@ -4,6 +4,7 @@ namespace App\Exports;
 
 
 use App\Models\paket;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -28,8 +29,8 @@ class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithSt
 
     public function headings(): array
     {
-        return [
-            'No',
+        return [ 
+            'ID',
             'Nama.',
             'Harga',
             'Kecepatan',
@@ -39,7 +40,11 @@ class PaketExport implements FromCollection, WithHeadings, ShouldAutoSize,WithSt
     }
     public function collection()
     {
-        return paket::all();
+        // return paket::all();
+        // return pelanggan::all();
+        $datas=DB::table('paket')->select('id', 'nama' ,'harga', 'kecepatan', 'created_at', 'updated_at')->get();
+        // dd($datas);
+        return  $datas;
     }
 }
 
